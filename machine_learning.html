@@ -1,0 +1,3761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Mastery | CloudMars Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+             /* Primary Blues */
+             --primary: #071d4e;       /* Vibrant primary blue */
+             --primary-light: #071d4e; /* Lighter blue for highlights */
+             --primary-dark: #063c57;  /* Deep navy */
+             --primary-darker: #042a3d; /* Even darker for accents */
+             
+             /* Secondary & Accents */
+             --secondary: #dde1ed;     /* Rich royal blue */
+             --accent: #a00136;       /* Elegant purple (complements blue nicely) */
+             --accent-light: #ddb65c;  /* Lighter purple */
+             --accent-dark: #9a2504;   /* Darker purple */
+             
+             /* Status Colors */
+             --success: #16a34a;      /* Fresh green */
+             --success-light: #86efac; /* Light success */
+             --danger: #dc2626;       /* Bold red */
+             --warning: #d97706;      /* Warm amber */
+             --info: #071d4e;         /* Sky blue */
+             
+             /* Neutrals */
+             --dark: #1e293b;         /* Dark slate for text */
+             --darker: #0f172a;       /* Very dark */
+             --light: #f8fafc;        /* Light background */
+             --lighter: #ffffff;      /* Pure white */
+             --gray: #64748b;         /* Medium gray */
+             --light-gray: #e2e8f0;   /* Light gray */
+             --dark-gray: #475569;    /* Dark gray */
+             
+             /* Gradients */
+             --gradient-primary: linear-gradient(135deg, #213561 0%, #1e40af 100%);
+             --gradient-accent: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+             --gradient-success: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+             --gradient-dark: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+             
+             /* Special Colors */
+             --bronze: #b45309;       /* Warmer bronze */
+             --silver: #b45309;       /* Cool silver */
+             --gold: #b45309;         /* Vibrant gold */
+             
+             /* Effects */
+             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+         }
+                 * {
+                     margin: 0;
+                     padding: 0;
+                     box-sizing: border-box;
+                 }
+         
+                 body {
+                     font-family: 'Poppins', sans-serif;
+                     line-height: 1.7;
+                     color: var(--dark);
+                     background-color: #f8f9fa;
+                     overflow-x: hidden;
+                     scroll-behavior: smooth;
+                 }
+         
+                 h1, h2, h3, h4 {
+                     font-weight: 700;
+                     line-height: 1.2;
+                 }
+         
+                 h1, h2 {
+                     font-family: 'Montserrat', sans-serif;
+                 }
+         
+                 .section-title {
+                     font-family: 'Playfair Display', serif;
+                     position: relative;
+                     display: inline-block;
+                     margin-bottom: 1.5rem;
+                 }
+         
+                 .section-title::after {
+                     content: '';
+                     position: absolute;
+                     bottom: -10px;
+                     left: 0;
+                     width: 60px;
+                     height: 4px;
+                     background: var(--accent);
+                     border-radius: 2px;
+                 }
+         
+                 /* .container {
+                     max-width: 1400px;
+                     margin: 0 auto;
+                     padding: 0 20px;
+                 } */
+         
+                 section {
+                     padding: 100px 0;
+                     position: relative;
+                 }
+         
+                 /* ===== Buttons ===== */
+                 .btn {
+                 display: inline-flex;
+                 align-items: center;
+                 justify-content: center;
+                 padding: 14px 32px;
+                 border-radius: 50px;
+                 font-weight: 600;
+                 cursor: pointer;
+                 transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                 text-align: center;
+                 border: none;
+                 font-size: 1rem;
+                 position: relative;
+                 overflow: hidden;
+                     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);}
+         
+                 .btn i {
+                     margin-right: 8px;
+                 }
+         
+                 .btn-primary {
+                     background: var(--gradient-primary);
+                     color: white;
+                     
+                 }
+         
+                 .btn-primary:hover {
+                     transform: translateY(-3px);
+                     box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+                 }
+         
+                 .btn-primary::before {
+                 content: '';
+                 position: absolute;
+                 top: 0;
+                 left: -100%;
+                 width: 100%;
+                 height: 100%;
+                 background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                 transition: 0.5s;
+             }
+         
+                 .btn-primary:hover::before {
+                     left: 100%;
+                 }
+         
+                 .btn-accent {
+                     background: var(--gradient-accent);
+                     color: rgb(255, 255, 255);
+                 }
+         
+                 .btn-accent:hover {
+                     transform: translateY(-3px);
+                     box-shadow: 0 10px 25px rgba(247, 37, 133, 0.3);
+                 }
+         
+                 .btn-outline {
+                     background: transparent;
+                     color: var(--primary);
+                     border: 2px solid var(--primary);
+                 }
+         
+                 .btn-outline:hover {
+                     background: var(--primary);
+                     color: white;
+                 }
+         
+                 /* ===== Header ===== */
+                 .container {
+                     max-width: 1400px;
+                     margin: 0 auto;
+                     padding: 0 20px;
+                 }
+                 
+                 /* Header Styles */
+         header {
+           background-color: rgba(7, 5, 32, 0.9);
+           padding: 1rem 0;
+           color: white;
+           position: fixed;
+           width: 100%;
+           z-index: 1000;
+           box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+           backdrop-filter: blur(10px);
+           transition: all 0.3s ease;
+         }
+         
+         .header-container {
+           display: flex;
+           justify-content: space-between;
+           align-items: center;
+         }
+         
+         .logo {
+           font-size: 1.8rem;
+           font-weight: 700;
+           display: flex;
+           align-items: center;
+           color: white;
+         }
+         
+         .logo i {
+           margin-right: 10px;
+           color: white;
+         }
+         
+         .nav-links {
+           display: flex;
+           list-style: none;
+           gap: 2rem;
+           align-items: center;
+         }
+         
+         .nav-links a {
+           color: white;
+           text-decoration: none;
+           font-weight: 500;
+           transition: all 0.3s ease;
+           position: relative;
+         }
+         
+         .nav-links a:hover {
+           color: #c7d2fe;
+         }
+         
+         .nav-links a::after {
+           content: '';
+           position: absolute;
+           width: 0;
+           height: 2px;
+           bottom: -5px;
+           left: 0;
+           background: var(--gradient);
+           transition: all 0.3s ease;
+         }
+         
+         .nav-links a:hover::after {
+           width: 100%;
+         }
+         
+         .cta-button {
+           background: var(--gradient);
+           color: white;
+           padding: 0.75rem 1.5rem;
+           border-radius: 50px;
+           font-weight: 600;
+           transition: all 0.3s ease;
+           display: inline-flex;
+           align-items: center;
+           gap: 0.5rem;
+           box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+         }
+         
+         .cta-button:hover {
+           transform: translateY(-3px);
+           box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+           background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+         }
+         
+        
+         .user-profile {
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                 }
+         
+                
+          .points-container {
+                 display: flex;
+                 align-items: center;
+                 gap: 10px;
+             }
+     
+          .points-badge {
+                 background: var(--gradient-accent);
+                 color: white;
+                 padding: 6px 12px;
+                 border-radius: 50px;
+                 font-weight: 600;
+                 display: flex;
+                 align-items: center;
+                 gap: 5px;
+                 font-size: 0.85rem;
+                 box-shadow: 0 4px 15px rgba(247, 37, 133, 0.2);
+             }
+     
+            
+                 /* ===== Hero Section ===== */
+                 .course-hero {
+                     background: var(--gradient-primary);
+                     color: 2563eb(41, 32, 135);
+                     padding: 200px 0 120px;
+                     position: relative;
+                     overflow: hidden;
+                     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+                 }
+         
+                 .course-hero::before {
+                     content: '';
+                     position: absolute;
+                     top: 0;
+                     right: 0;
+                     width: 45%;
+                     height: 100%;
+                     background: url('th.jpeg') no-repeat center/cover;
+                     opacity: 0.15;
+                     clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+                 }
+         
+                 .hero-content {
+                     max-width: 800px;
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .course-hero h1 {
+                     font-size: 3.5rem;
+                     margin-bottom: 25px;
+                     animation: fadeInUp 1s ease;
+                     line-height: 1.1;
+                     color: #f8fafc;
+                     text-shadow: 0 2px 10px rgba(93, 86, 86, 0.897);
+                 }
+         
+                 .course-hero p {
+                     font-size: 1.25rem;
+                     margin-bottom: 35px;
+                     opacity: 0.9;
+                     animation: fadeInUp 1s ease 0.2s forwards;
+                     opacity: 0;
+                     color: #f8fafc;
+         
+                 }
+         
+                 .level-badges {
+                     display: flex;
+                     gap: 15px;
+                     margin-bottom: 40px;
+                     animation: fadeInUp 1s ease 0.4s forwards;
+                     opacity: 0;
+                 }
+         
+                 .level-badge {
+                     background: rgba(255, 255, 255, 0.15);
+                     padding: 10px 24px;
+                     border-radius: 50px;
+                     font-weight: 600;
+                     transition: all 0.3s;
+                     cursor: pointer;
+                     backdrop-filter: blur(5px);
+                     border: 1px solid rgba(255, 255, 255, 0.1);
+                 }
+         
+                 .level-badge:hover {
+                     background: rgba(255, 255, 255, 0.25);
+                 }
+         
+                 .level-badge.active {
+                     background: white;
+                     color: var(--primary);
+                     font-weight: 700;
+                     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+                 }
+         
+                 .hero-buttons {
+                     display: flex;
+                     gap: 20px;
+                     animation: fadeInUp 1s ease 0.6s forwards;
+                     opacity: 0;
+                 }
+         
+                 /* ===== Course Tracks ===== */
+                 .course-tracks {
+                     background: white;
+                     position: relative;
+                 }
+         
+                 .course-tracks::before {
+                     content: '';
+                     position: absolute;
+                     top: -100px;
+                     left: 0;
+                     width: 100%;
+                     height: 150px;
+                     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%234361ee"></path></svg>') no-repeat center top;
+                     background-size: 100% 100%;
+                 }
+         
+                 .section-header {
+                     text-align: center;
+                     margin-bottom: 70px;
+                 }
+         
+                 .section-header h2 {
+                     font-size: 2.8rem;
+                     color: var(--darker);
+                     margin-bottom: 20px;
+                     position: relative;
+                 }
+         
+                 .section-header p {
+                     color: var(--gray);
+                     max-width: 700px;
+                     margin: 0 auto;
+                     font-size: 1.1rem;
+                 }
+         
+                 .track-container {
+                     display: flex;
+                     gap: 40px;
+                 }
+         
+                 .track-nav {
+                     flex: 1;
+                     position: sticky;
+                     top: 120px;
+                     align-self: flex-start;
+                 }
+         
+                 .track-buttons {
+                     display: flex;
+                     flex-direction: column;
+                     gap: 12px;
+                 }
+         
+                 .track-btn {
+                     padding: 18px 24px;
+                     border-radius: 12px;
+                     background: var(--secondary);
+                     border: none;
+                     text-align: left;
+                     font-weight: 600;
+                     cursor: pointer;
+                     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                     border-left: 4px solid transparent;
+                 }
+         
+                 .track-btn:hover {
+                     transform: translateX(10px);
+                     background: var(--primary-light);
+                     color: white;
+                     box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+                 }
+         
+                 .track-btn.active {
+                     background: var(--primary);
+                     color: white;
+                     border-left: 4px solid var(--accent);
+                     transform: translateX(10px);
+                 }
+         
+                 .track-btn .badge {
+                     background: rgba(255, 255, 255, 0.3);
+                     padding: 5px 12px;
+                     border-radius: 50px;
+                     font-size: 0.8rem;
+                     font-weight: 700;
+                 }
+         
+                 .track-btn.active .badge {
+                     background: white;
+                     color: var(--primary);
+                 }
+         
+                 .track-content {
+                     flex: 3;
+                     background: white;
+                     border-radius: 16px;
+                     padding: 40px;
+                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                     border: 1px solid var(--light-gray);
+                 }
+         
+                 .track-panel {
+                     display: none;
+                     animation: fadeIn 0.5s ease;
+                 }
+         
+                 .track-panel.active {
+                     display: block;
+                 }
+         
+                 .track-header {
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     margin-bottom: 35px;
+                     padding-bottom: 20px;
+                     border-bottom: 1px solid var(--light-gray);
+                 }
+         
+                 .track-header h3 {
+                     font-size: 2rem;
+                     color: var(--primary);
+                     display: flex;
+                     align-items: center;
+                     gap: 15px;
+                 }
+         
+                 .track-header h3 i {
+                     color: var(--accent);
+                 }
+         
+                 .completion-badge {
+                     background: var(--gradient-success);
+                     color: white;
+                     padding: 8px 20px;
+                     border-radius: 50px;
+                     font-weight: 600;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                     box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+                 }
+         
+                 .track-description {
+                     margin-bottom: 35px;
+                     line-height: 1.8;
+                     font-size: 1.05rem;
+                     color: var(--gray);
+                 }
+         
+                 .tools-list {
+                     display: flex;
+                     flex-wrap: wrap;
+                     gap: 15px;
+                     margin-bottom: 40px;
+                 }
+         
+                 .tool-badge {
+                     background: var(--secondary);
+                     padding: 10px 18px;
+                     border-radius: 50px;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                     font-weight: 500;
+                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                     transition: all 0.3s ease;
+                 }
+         
+                 .tool-badge:hover {
+                     transform: translateY(-3px);
+                     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                 }
+         
+                 .tool-badge i {
+                     color: var(--primary);
+                     font-size: 1.1rem;
+                 }
+         
+                 /* Curriculum */
+                 .curriculum-section h4 {
+                     margin-bottom: 25px;
+                     font-size: 1.5rem;
+                     display: flex;
+                     align-items: center;
+                     gap: 12px;
+                     color: var(--darker);
+                 }
+         
+                 .curriculum-section h4 i {
+                     color: var(--accent);
+                 }
+         
+                 .module {
+                     margin-bottom: 30px;
+                     border: 1px solid var(--light-gray);
+                     border-radius: 12px;
+                     overflow: hidden;
+                     transition: all 0.3s ease;
+                     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                 }
+         
+                 .module:hover {
+                     transform: translateY(-3px);
+                     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                 }
+         
+                 .module-header {
+                     background: white;
+                     padding: 18px 25px;
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     cursor: pointer;
+                     transition: all 0.3s;
+                 }
+         
+                 .module-header:hover {
+                     background: #f8f9fa;
+                 }
+         
+                 .module-header h5 {
+                     display: flex;
+                     align-items: center;
+                     gap: 15px;
+                     font-size: 1.2rem;
+                     color: var(--darker);
+                 }
+         
+                 .module-header i {
+                     color: var(--primary);
+                     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                 }
+         
+                 .module-header.active i {
+                     transform: rotate(90deg);
+                     color: var(--accent);
+                 }
+         
+                 .lessons-list {
+                     list-style: none;
+                     background: white;
+                     max-height: 0;
+                     overflow: hidden;
+                     transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                 }
+         
+                 .module-header.active + .lessons-list {
+                     max-height: 1000px;
+                 }
+         
+                 .lesson-item {
+                     padding: 18px 25px 18px 60px;
+                     border-top: 1px solid var(--light-gray);
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     transition: all 0.3s;
+                     position: relative;
+                 }
+         
+                 .lesson-item:hover {
+                     background: #f8f9fa;
+                 }
+         
+                 .lesson-item.completed {
+                     background: rgba(76, 201, 240, 0.05);
+                 }
+         
+                 .lesson-item.completed::before {
+                     content: '\f058';
+                     font-family: 'Font Awesome 6 Free';
+                     font-weight: 900;
+                     position: absolute;
+                     left: 25px;
+                     color: var(--success);
+                     font-size: 1.2rem;
+                 }
+         
+                 .lesson-info {
+                     display: flex;
+                     align-items: center;
+                     gap: 20px;
+                 }
+         
+                 .lesson-play {
+                     color: var(--primary);
+                     cursor: pointer;
+                     font-size: 1.2rem;
+                     transition: all 0.3s;
+                 }
+         
+                 .lesson-play:hover {
+                     color: var(--accent);
+                     transform: scale(1.1);
+                 }
+         
+                 .lesson-duration {
+                     color: var(--gray);
+                     font-size: 0.9rem;
+                     font-weight: 500;
+                 }
+         
+                 /* Test Section */
+                 .test-section {
+                     background: var(--secondary);
+                     padding: 35px;
+                     border-radius: 16px;
+                     margin: 50px 0;
+                     border: 1px solid var(--light-gray);
+                     position: relative;
+                     overflow: hidden;
+                 }
+         
+                 .test-section::before {
+                     content: '\f19d';
+                     font-family: 'Font Awesome 6 Free';
+                     font-weight: 900;
+                     position: absolute;
+                     right: 30px;
+                     top: 30px;
+                     font-size: 5rem;
+                     opacity: 0.05;
+                     color: var(--primary);
+                     z-index: 0;
+                 }
+         
+                 .test-header {
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     margin-bottom: 25px;
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .test-header h4 {
+                     font-size: 1.5rem;
+                     color: var(--primary);
+                     display: flex;
+                     align-items: center;
+                     gap: 12px;
+                 }
+         
+                 .test-header h4 i {
+                     color: var(--accent);
+                 }
+         
+                 .test-passed {
+                     background: var(--gradient-success);
+                     color: white;
+                     padding: 8px 20px;
+                     border-radius: 50px;
+                     font-weight: 600;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                     box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+                 }
+         
+                 .test-description {
+                     margin-bottom: 25px;
+                     position: relative;
+                     z-index: 1;
+                     color: var(--gray);
+                     line-height: 1.8;
+                 }
+         
+                 /* Project Section */
+                 .project-section {
+                     background: white;
+                     padding: 35px;
+                     border-radius: 16px;
+                     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+                     margin-top: 50px;
+                     border: 1px solid var(--light-gray);
+                     position: relative;
+                     overflow: hidden;
+                 }
+         
+                 .project-section::before {
+                     content: '\f15c';
+                     font-family: 'Font Awesome 6 Free';
+                     font-weight: 900;
+                     position: absolute;
+                     right: 30px;
+                     top: 30px;
+                     font-size: 5rem;
+                     opacity: 0.05;
+                     color: var(--primary);
+                     z-index: 0;
+                 }
+         
+                 .project-header {
+                     margin-bottom: 25px;
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .project-header h4 {
+                     font-size: 1.5rem;
+                     color: var(--primary);
+                     display: flex;
+                     align-items: center;
+                     gap: 12px;
+                 }
+         
+                 .project-header h4 i {
+                     color: var(--accent);
+                 }
+         
+                 .project-points {
+                     background: var(--gradient-accent);
+                     color: white;
+                     padding: 8px 20px;
+                     border-radius: 50px;
+                     font-weight: 600;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                     box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+                 }
+         
+                 .project-description {
+                     margin-bottom: 25px;
+                     line-height: 1.8;
+                     color: var(--gray);
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .project-requirements {
+                     margin-bottom: 35px;
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .project-requirements h5 {
+                     margin-bottom: 18px;
+                     font-size: 1.2rem;
+                     color: var(--darker);
+                 }
+         
+                 .requirements-list {
+                     list-style: none;
+                     margin-left: 5px;
+                 }
+         
+                 .requirements-list li {
+                     margin-bottom: 12px;
+                     padding-left: 30px;
+                     position: relative;
+                     color: var(--gray);
+                 }
+         
+                 .requirements-list li::before {
+                     content: '\f054';
+                     font-family: 'Font Awesome 6 Free';
+                     font-weight: 900;
+                     position: absolute;
+                     left: 0;
+                     color: var(--accent);
+                 }
+         
+         /* ===== Notebook Section ===== */
+         .notebook-section {
+                 background: var(--darker);
+                 color: white;
+                 padding: 80px 0;
+                 border-radius: 16px;
+                 margin: 60px 0;
+             }
+     
+             .notebook-header {
+                 text-align: center;
+                 margin-bottom: 40px;
+             }
+     
+             .notebook-header h3 {
+                 font-size: 2.2rem;
+                 margin-bottom: 15px;
+             }
+     
+             .notebook-header p {
+                 color: #adb5bd;
+                 max-width: 700px;
+                 margin: 0 auto;
+             }
+     
+             .notebook-container {
+                 display: flex;
+                 flex-direction: column;
+                 gap: 20px;
+             }
+     
+             .notebook-toolbar {
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+                 background: rgba(0, 0, 0, 0.3);
+                 padding: 12px 20px;
+                 border-radius: 8px 8px 0 0;
+             }
+     
+             .notebook-tabs {
+                 display: flex;
+                 gap: 10px;
+             }
+     
+             .notebook-tab {
+                 padding: 8px 16px;
+                 background: rgba(255, 255, 255, 0.1);
+                 border: none;
+                 color: white;
+                 border-radius: 4px;
+                 cursor: pointer;
+                 font-weight: 500;
+                 transition: all 0.3s;
+             }
+     
+             .notebook-tab.active {
+                 background: var(--data-science);
+             }
+     
+             .notebook-run-btn {
+                 background: var(--gradient-success);
+                 color: white;
+                 padding: 8px 20px;
+                 border-radius: 4px;
+                 border: none;
+                 cursor: pointer;
+                 font-weight: 600;
+                 display: flex;
+                 align-items: center;
+                 gap: 8px;
+                 transition: all 0.3s;
+             }
+     
+             .notebook-run-btn:hover {
+                 transform: translateY(-2px);
+             }
+     
+             .notebook-editor {
+                 height: 400px;
+                 background: #1e1e1e;
+                 border-radius: 0 0 8px 8px;
+                 overflow: hidden;
+             }
+     
+             #notebook-editor {
+                 width: 100%;
+                 height: 100%;
+                 border: none;
+                 font-family: 'Courier New', monospace;
+                 font-size: 14px;
+                 line-height: 1.5;
+                 padding: 15px;
+                 color: #d4d4d4;
+                 background: #1e1e1e;
+                 resize: none;
+             }
+     
+             .notebook-output {
+                 background: #1e1e1e;
+                 padding: 15px;
+                 border-radius: 8px;
+                 min-height: 100px;
+                 font-family: 'Courier New', monospace;
+                 color: #d4d4d4;
+                 overflow-y: auto;
+                 max-height: 300px;
+             }
+     
+             .notebook-output pre {
+                 margin: 0;
+                 white-space: pre-wrap;
+                 word-wrap: break-word;
+             }
+     
+     
+                 /* ===== Reward System ===== */
+                 .reward-system {
+                     background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                     color: white;
+                     padding: 100px 0;
+                     margin: 100px 0;
+                     border-radius: 16px;
+                     position: relative;
+                     overflow: hidden;
+                     clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+                 }
+         
+                 .reward-system::before {
+                     content: '';
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     background: rgba(33, 37, 41, 0.85);
+                 }
+         
+                 .reward-container {
+                     max-width: 1100px;
+                     margin: 0 auto;
+                     text-align: center;
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .reward-container h2 {
+                     font-size: 3rem;
+                     margin-bottom: 25px;
+                     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                 }
+         
+                 .reward-container p {
+                     max-width: 700px;
+                     margin: 0 auto 50px;
+                     font-size: 1.2rem;
+                     opacity: 0.9;
+                 }
+         
+                 .reward-cards {
+                     display: flex;
+                     justify-content: center;
+                     gap: 30px;
+                     flex-wrap: wrap;
+                 }
+         
+                 .reward-card {
+                     background: rgba(255, 255, 255, 0.1);
+                     backdrop-filter: blur(10px);
+                     color: white;
+                     border-radius: 16px;
+                     padding: 40px 30px;
+                     width: 320px;
+                     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                     border: 1px solid rgba(255, 255, 255, 0.1);
+                 }
+         
+                 .reward-card:hover {
+                     transform: translateY(-15px) scale(1.03);
+                     background: rgba(255, 255, 255, 0.15);
+                     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+                 }
+         
+                 .reward-card h3 {
+                     color: white;
+                     margin-bottom: 20px;
+                     font-size: 1.8rem;
+                     position: relative;
+                     display: inline-block;
+                 }
+         
+                 .reward-card h3::after {
+                     content: '';
+                     position: absolute;
+                     bottom: -10px;
+                     left: 50%;
+                     transform: translateX(-50%);
+                     width: 50px;
+                     height: 3px;
+                     background: var(--accent);
+                 }
+         
+                 .reward-card .points {
+                     font-size: 2.5rem;
+                     font-weight: 800;
+                     margin-bottom: 15px;
+                     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                 }
+         
+                 .bronze .points {
+                     color: var(--bronze);
+                 }
+                 
+                 .silver .points {
+                     color: var(--silver);
+                 }
+                 
+                 .gold .points {
+                     color: var(--gold);
+                 }
+         
+                 .reward-card .discount {
+                     font-weight: 600;
+                     margin-bottom: 30px;
+                     font-size: 1.1rem;
+                 }
+         
+                 .reward-card .btn {
+                     width: 100%;
+                 }
+         
+                 /* ===== CTA Section ===== */
+                 .cta-section {
+                     background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                     color: white;
+                     text-align: center;
+                     padding: 120px 0;
+                     border-radius: 16px;
+                     position: relative;
+                     overflow: hidden;
+                     clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+                 }
+         
+                 .cta-section::before {
+                     content: '';
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     background: rgba(41, 40, 41, 0.85);
+         
+                 }
+         
+                 .cta-section .container {
+                     position: relative;
+                     z-index: 1;
+                 }
+         
+                 .cta-section h2 {
+                     font-size: 3rem;
+                     margin-bottom: 25px;
+                     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                 }
+         
+                 .cta-section p {
+                     max-width: 700px;
+                     margin: 0 auto 50px;
+                     font-size: 1.2rem;
+                     opacity: 0.9;
+                 }
+         
+                 .cta-section .btn {
+                     padding: 18px 50px;
+                     font-size: 1.2rem;
+                     box-shadow: 0 10px 30px rgba(247, 37, 133, 0.4);
+                 }
+         
+                 /* ===== Code Compiler Section ===== */
+                 .compiler-section {
+                     background: var(--darker);
+                     color: white;
+                     padding: 80px 0;
+                     border-radius: 16px;
+                     margin: 60px 0;
+                 }
+         
+                 .compiler-header {
+                     text-align: center;
+                     margin-bottom: 40px;
+                 }
+         
+                 .compiler-header h3 {
+                     font-size: 2.2rem;
+                     margin-bottom: 15px;
+                 }
+         
+                 .compiler-header p {
+                     color: #adb5bd;
+                     max-width: 700px;
+                     margin: 0 auto;
+                 }
+         
+                 .compiler-container {
+                     display: flex;
+                     flex-direction: column;
+                     gap: 20px;
+                 }
+         
+                 .compiler-toolbar {
+                     display: flex;
+                     justify-content: space-between;
+                     align-items: center;
+                     background: rgba(0, 0, 0, 0.3);
+                     padding: 12px 20px;
+                     border-radius: 8px 8px 0 0;
+                 }
+         
+                 .compiler-tabs {
+                     display: flex;
+                     gap: 10px;
+                 }
+         
+                 .compiler-tab {
+                     padding: 8px 16px;
+                     background: rgba(255, 255, 255, 0.1);
+                     border: none;
+                     color: white;
+                     border-radius: 4px;
+                     cursor: pointer;
+                     font-weight: 500;
+                     transition: all 0.3s;
+                 }
+         
+                 .compiler-tab.active {
+                     background: var(--primary);
+                 }
+         
+                 .compiler-run-btn {
+                     background: var(--gradient-success);
+                     color: white;
+                     padding: 8px 20px;
+                     border-radius: 4px;
+                     border: none;
+                     cursor: pointer;
+                     font-weight: 600;
+                     display: flex;
+                     align-items: center;
+                     gap: 8px;
+                     transition: all 0.3s;
+                 }
+         
+                 .compiler-run-btn:hover {
+                     transform: translateY(-2px);
+                 }
+         
+                 .compiler-editor {
+                     height: 400px;
+                     background: #1e1e1e;
+                     border-radius: 0 0 8px 8px;
+                     overflow: hidden;
+                 }
+         
+                 #editor {
+                     width: 100%;
+                     height: 100%;
+                     border: none;
+                     font-family: 'Courier New', monospace;
+                     font-size: 14px;
+                     line-height: 1.5;
+                     padding: 15px;
+                     color: #d4d4d4;
+                     background: #1e1e1e;
+                     resize: none;
+                 }
+         
+                 .compiler-output {
+                     background: #1e1e1e;
+                     padding: 15px;
+                     border-radius: 8px;
+                     min-height: 100px;
+                     font-family: 'Courier New', monospace;
+                     color: #d4d4d4;
+                     overflow-y: auto;
+                     max-height: 300px;
+                 }
+         
+                 .compiler-output pre {
+                     margin: 0;
+                     white-space: pre-wrap;
+                     word-wrap: break-word;
+                 }
+         
+                 /* ===== Footer ===== */
+                 footer {
+                     background: var(--darker);
+                     color: white;
+                     padding: 100px 0 30px;
+                     margin-top: 100px;
+                     position: relative;
+                     clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+                 }
+         
+                 footer::before {
+                     content: '';
+                     position: absolute;
+                     top: -100px;
+                     left: 0;
+                     width: 100%;
+                     height: 150px;
+                     background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%2314213d"></path></svg>') no-repeat center top;
+                     background-size: 100% 100%;
+                 }
+         
+                 .footer-content {
+                     display: grid;
+                     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                     gap: 50px;
+                     margin-bottom: 60px;
+                 }
+         
+                 .footer-column h3 {
+                     font-size: 1.5rem;
+                     margin-bottom: 25px;
+                     position: relative;
+                     padding-bottom: 15px;
+                     font-family: 'Montserrat', sans-serif;
+                 }
+         
+                 .footer-column h3::after {
+                     content: '';
+                     position: absolute;
+                     bottom: 0;
+                     left: 0;
+                     width: 50px;
+                     height: 3px;
+                     background: var(--accent);
+                 }
+         
+                 .footer-links {
+                     list-style: none;
+                 }
+         
+                 .footer-links li {
+                     margin-bottom: 15px;
+                 }
+         
+                 .footer-links a {
+                     color: #adb5bd;
+                     text-decoration: none;
+                     transition: all 0.3s;
+                     display: flex;
+                     align-items: center;
+                     gap: 10px;
+                 }
+         
+                 .footer-links a:hover {
+                     color: white;
+                     transform: translateX(5px);
+                 }
+         
+                 .footer-links a i {
+                     width: 20px;
+                     text-align: center;
+                     color: var(--accent);
+                 }
+         
+                 .footer-about p {
+                     color: #adb5bd;
+                     margin-bottom: 25px;
+                     line-height: 1.8;
+                 }
+         
+                 .social-links {
+                     display: flex;
+                     gap: 15px;
+                     margin-top: 25px;
+                 }
+         
+                 .social-links a {
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     width: 45px;
+                     height: 45px;
+                     border-radius: 50%;
+                     background: rgba(255, 255, 255, 0.1);
+                     color: white;
+                     transition: all 0.3s;
+                     font-size: 1.1rem;
+                 }
+         
+                 .social-links a:hover {
+                     background: var(--accent);
+                     transform: translateY(-5px);
+                     box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+                 }
+         
+                 .footer-bottom {
+                     text-align: center;
+                     padding-top: 30px;
+                     border-top: 1px solid rgba(255, 255, 255, 0.1);
+                     color: #adb5bd;
+                     font-size: 0.9rem;
+                 }
+         
+                 .footer-bottom a {
+                     color: var(--accent);
+                     text-decoration: none;
+                     transition: all 0.3s;
+                 }
+         
+                 .footer-bottom a:hover {
+                     color: white;
+                     text-decoration: underline;
+                 }
+         
+                 /* ===== Animations ===== */
+                 @keyframes fadeInUp {
+                     from {
+                         opacity: 0;
+                         transform: translateY(30px);
+                     }
+                     to {
+                         opacity: 1;
+                         transform: translateY(0);
+                     }
+                 }
+         
+                 @keyframes fadeIn {
+                     from {
+                         opacity: 0;
+                     }
+                     to {
+                         opacity: 1;
+                     }
+                 }
+         
+                 @keyframes pulse {
+                     0% {
+                         transform: scale(1);
+                     }
+                     50% {
+                         transform: scale(1.05);
+                     }
+                     100% {
+                         transform: scale(1);
+                     }
+                 }
+         
+                 /* ===== Floating Elements ===== */
+                 .floating {
+                     animation: floating 6s ease-in-out infinite;
+                 }
+         
+                 @keyframes floating {
+                     0% {
+                         transform: translateY(0px);
+                     }
+                     50% {
+                         transform: translateY(-15px);
+                     }
+                     100% {
+                         transform: translateY(0px);
+                     }
+                 }
+         
+                 /* Lesson Modal Styles */
+                 .modal {
+                     display: none;
+                     position: fixed;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     background: rgba(0,0,0,0.8);
+                     z-index: 2000;
+                     justify-content: center;
+                     align-items: center;
+                 }
+         
+                 .modal-content {
+                     background: white;
+                     padding: 30px;
+                     border-radius: 10px;
+                     max-width: 800px;
+                     width: 90%;
+                     max-height: 90vh;
+                     overflow-y: auto;
+                     position: relative;
+                 }
+         
+                 .close-modal {
+                     position: absolute;
+                     top: 15px;
+                     right: 15px;
+                     font-size: 1.5rem;
+                     cursor: pointer;
+                     color: var(--gray);
+                 }
+         
+                 .close-modal:hover {
+                     color: var(--accent);
+                 }
+         
+                 /* Lesson Tabs */
+                 .lesson-tabs {
+                     display: flex;
+                     border-bottom: 1px solid var(--light-gray);
+                     margin: 20px 0;
+                 }
+                 
+                 .lesson-tab {
+                     padding: 10px 20px;
+                     background: none;
+                     border: none;
+                     cursor: pointer;
+                     font-weight: 600;
+                     color: var(--gray);
+                     position: relative;
+                     margin-right: 5px;
+                 }
+                 
+                 .lesson-tab.active {
+                     color: var(--primary);
+                 }
+                 
+                 .lesson-tab.active::after {
+                     content: '';
+                     position: absolute;
+                     bottom: -1px;
+                     left: 0;
+                     width: 100%;
+                     height: 3px;
+                     background: var(--accent);
+                 }
+                 
+                 .lesson-tab-content {
+                     display: none;
+                 }
+                 
+                 .lesson-tab-content.active {
+                     display: block;
+                 }
+                 
+                 .challenge-question {
+                     margin-bottom: 15px;
+                     padding: 15px;
+                     background: var(--secondary);
+                     border-radius: 8px;
+                 }
+                 
+                 .challenge-question label {
+                     display: block;
+                     margin: 8px 0;
+                     cursor: pointer;
+                 }
+                 
+                 .challenge-question input[type="radio"] {
+                     margin-right: 10px;
+                 }
+                 
+                 .video-container {
+                     position: relative;
+                     padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                     height: 0;
+                     overflow: hidden;
+                     margin: 15px 0;
+                     border-radius: 8px;
+                     background: var(--darker);
+                 }
+                 
+                 .video-container iframe {
+                     position: absolute;
+                     top: 0;
+                     left: 0;
+                     width: 100%;
+                     height: 100%;
+                     border: none;
+                 }
+         
+                 /* ===== Responsive Design ===== */
+                 @media (max-width: 1200px) {
+                     .course-hero h1 {
+                         font-size: 3rem;
+                     }
+                     
+                     .section-header h2 {
+                         font-size: 2.5rem;
+                     }
+                 }
+         
+                 @media (max-width: 992px) {
+                     .track-container {
+                         flex-direction: column;
+                     }
+                     
+                     .track-nav {
+                         position: static;
+                         margin-bottom: 30px;
+                     }
+                     
+                     .track-buttons {
+                         flex-direction: row;
+                         overflow-x: auto;
+                         padding-bottom: 15px;
+                         scrollbar-width: thin;
+                     }
+                     
+                     .track-btn {
+                         white-space: nowrap;
+                         min-width: 220px;
+                     }
+         
+                     .course-hero h1 {
+                         font-size: 2.5rem;
+                     }
+         
+                     .section-header h2 {
+                         font-size: 2.2rem;
+                     }
+         
+                     .reward-card {
+                         width: 280px;
+                     }
+                     
+                     .reward-cards {
+                         flex-direction: column;
+                         align-items: center;
+                     }
+                 }
+         
+                 @media (max-width: 768px) {
+                     .course-hero h1 {
+                         font-size: 2.2rem;
+                     }
+                     
+                     .hero-buttons {
+                         flex-direction: column;
+                     }
+                     
+                     .level-badges {
+                         flex-wrap: wrap;
+                     }
+                     
+                     .course-hero::before {
+                         width: 100%;
+                         opacity: 0.1;
+                         clip-path: none;
+                     }
+         
+                     .section-header h2 {
+                         font-size: 2rem;
+                     }
+         
+                     .cta-section h2, .reward-container h2 {
+                         font-size: 2.5rem;
+                     }
+         
+                     .cta-section p, .reward-container p {
+                         font-size: 1rem;
+                     }
+                 }
+         
+                 @media (max-width: 576px) {
+                     .course-hero {
+                         padding: 160px 0 80px;
+                     }
+                     
+                     .course-hero h1 {
+                         font-size: 2rem;
+                     }
+                     
+                     .course-hero p {
+                         font-size: 1.1rem;
+                     }
+         
+                     .section-header h2 {
+                         font-size: 1.8rem;
+                     }
+         
+                     .track-content {
+                         padding: 25px;
+                     }
+         
+                     .test-section, .project-section {
+                         padding: 25px;
+                     }
+         
+                     .cta-section h2, .reward-container h2 {
+                         font-size: 2rem;
+                     }
+         
+                     .cta-section p, .reward-container p {
+                         font-size: 1rem;
+                     }
+         
+                     .footer-content {
+                         grid-template-columns: 1fr;
+                         gap: 30px;
+                     }
+         
+                     .compiler-header h3 {
+                         font-size: 1.8rem;
+                     }
+         
+                     .compiler-tabs {
+                         flex-wrap: wrap;
+                     }
+                 }
+             </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="main-header">
+        <div class="container header-container">
+            <div class="logo">
+              <i class="fas fa-cloud"></i>
+              <span>CloudMars</span>
+            </div>
+            <ul class="nav-links">
+              <li><a href="#">Home</a></li>
+              <li><a href="#courses">Courses</a></li>
+              <li><a href="projects.html">projects</a></li>
+              <li><a href="profile.html">Profile</a></li>
+             
+             <div class="points-badge">
+                      <i class="fas fa-coins"></i>
+                       <span id="total-points">0</span> XP
+                  </div>
+                  </li>
+              </ul>
+          </nav>
+      </div>
+  </header>
+
+    <!-- Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Machine Learning From Fundamentals to Advanced</h1>
+                <p>Join our comprehensive program to learn machine learning from the ground up. Master algorithms, model building, and deployment to become a professional ML engineer.</p>
+                
+                <div class="level-badges">
+                    <div class="level-badge active"><i class="fas fa-star"></i> Beginner</div>
+                    <div class="level-badge"><i class="fas fa-chart-line"></i> Intermediate</div>
+                    <div class="level-badge"><i class="fas fa-trophy"></i> Advanced</div>
+                </div>
+                
+                <!-- <div class="hero-buttons">
+                    <button class="btn btn-accent"><i class="fas fa-bolt"></i> Enroll Now</button>
+                    <button class="btn btn-outline"><i class="fas fa-play"></i> Preview Course</button>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Tracks -->
+    <section class="course-tracks">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Learning Journey</h2>
+                <p>Our structured curriculum takes you step-by-step through all the skills needed to become a professional machine learning engineer</p>
+            </div>
+            
+            <div class="track-container">
+                <div class="track-nav">
+                    <div class="track-buttons">
+                        <button class="track-btn active" onclick="showTrack('foundations')">
+                            <span><i class="fas fa-map-marker-alt"></i> ML Foundations</span>
+                            <span class="badge">5 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('supervised')">
+                            <span><i class="fas fa-compass"></i> Supervised Learning</span>
+                            <span class="badge">4 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('advanced')">
+                            <span><i class="fas fa-flag-checkered"></i> Advanced ML</span>
+                            <span class="badge">4 Modules</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="track-content">
+                    <!-- Foundations Track -->
+                    <div id="foundations-track" class="track-panel active">
+                        <div class="track-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> ML Foundations Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-check-circle"></i>
+                                <span>40% Completed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Build a strong foundation in machine learning with Python programming, mathematics, and data preprocessing. Learn essential ML concepts and tools like NumPy, Pandas, and Scikit-learn to prepare for advanced topics.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-calculator"></i>
+                                <span>NumPy</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-table"></i>
+                                <span>Pandas</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-robot"></i>
+                                <span>Scikit-learn</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Mathematics</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Data Prep</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Python for ML
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Python Basics for ML</span>
+                                        </div>
+                                        <span class="lesson-duration">28:30</span>
+                                    </li>
+                                    <li class="lesson-item completed">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>NumPy for Numerical Computing</span>
+                                        </div>
+                                        <span class="lesson-duration">32:45</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Pandas for Data Manipulation</span>
+                                        </div>
+                                        <span class="lesson-duration">36:10</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Data Visualization</span>
+                                        </div>
+                                        <span class="lesson-duration">42:20</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Math for ML
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Linear Algebra Basics</span>
+                                        </div>
+                                        <span class="lesson-duration">35:15</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Probability & Statistics</span>
+                                        </div>
+                                        <span class="lesson-duration">38:50</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Calculus for ML</span>
+                                        </div>
+                                        <span class="lesson-duration">45:25</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Foundations Assessment
+                                </h4>
+                                <div class="test-passed">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Passed</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>This test evaluates your understanding of Python programming and mathematical fundamentals for ML. You'll need to demonstrate proficiency in data manipulation, visualization, and basic ML concepts. Score at least 80% to pass and earn 250 XP points.</p>
+                            </div>
+                            <button class="btn btn-ml" onclick="startTest()"><i class="fas fa-pencil-alt"></i> Take Test</button>
+                        </div>
+                        
+                        <div class="project-section">
+                            <div class="project-header">
+                                <h4>
+                                    <i class="fas fa-project-diagram"></i>
+                                    Foundations Project: Data Analysis
+                                </h4>
+                                <div class="project-points">
+                                    <i class="fas fa-coins"></i>
+                                    <span>600 XP</span>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Analyze a real-world dataset using Python and ML techniques. Your project should include data cleaning, exploration, visualization, and insights generation. This project will demonstrate your ability to work with data and extract meaningful information.</p>
+                            </div>
+                            <div class="project-requirements">
+                                <h5>Project Requirements:</h5>
+                                <ul class="requirements-list">
+                                    <li>Load and clean a dataset with at least 1000 records</li>
+                                    <li>Perform exploratory data analysis with visualizations</li>
+                                    <li>Calculate descriptive statistics and correlations</li>
+                                    <li>Identify patterns and insights in the data</li>
+                                    <li>Create a Jupyter notebook with clear documentation</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-ml" onclick="submitProject()"><i class="fas fa-upload"></i> Submit Project</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Supervised Learning Track -->
+                    <div id="supervised-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-compass"></i> Supervised Learning Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Master supervised learning algorithms including regression, classification, and ensemble methods. Learn to build, evaluate, and optimize models for real-world problems using Scikit-learn and other powerful libraries.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Regression</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-sitemap"></i>
+                                <span>Decision Trees</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>SVMs</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-tree"></i>
+                                <span>Random Forests</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Hyperparameter Tuning</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-check-double"></i>
+                                <span>Model Evaluation</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Regression Models
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Linear Regression</span>
+                                        </div>
+                                        <span class="lesson-duration">52:30</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Polynomial Regression</span>
+                                        </div>
+                                        <span class="lesson-duration">48:15</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Regularization Techniques</span>
+                                        </div>
+                                        <span class="lesson-duration">58:20</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Classification
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Logistic Regression</span>
+                                        </div>
+                                        <span class="lesson-duration">50:10</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Decision Trees</span>
+                                        </div>
+                                        <span class="lesson-duration">55:25</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Support Vector Machines</span>
+                                        </div>
+                                        <span class="lesson-duration">60:50</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Supervised Learning Assessment
+                                </h4>
+                                <div style="background: var(--gray); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600;">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Locked</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>Complete the Foundations Track to unlock this assessment. The test will evaluate your understanding of supervised learning concepts, model building, and evaluation techniques for both regression and classification problems.</p>
+                            </div>
+                            <button class="btn btn-secondary" disabled><i class="fas fa-lock"></i> Complete Foundations First</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Track -->
+                    <div id="advanced-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-flag-checkered"></i> Advanced ML Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Master advanced topics like deep learning, neural networks, and model deployment. Learn to work with TensorFlow, Keras, and cloud platforms to build end-to-end machine learning solutions.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-network-wired"></i>
+                                <span>Neural Networks</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-brain"></i>
+                                <span>Deep Learning</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-cloud"></i>
+                                <span>Cloud ML</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-server"></i>
+                                <span>Model Deployment</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-language"></i>
+                                <span>NLP</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-eye"></i>
+                                <span>Computer Vision</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Neural Networks
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Introduction to Neural Networks</span>
+                                        </div>
+                                        <span class="lesson-duration">58:15</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Training Deep Networks</span>
+                                        </div>
+                                        <span class="lesson-duration">65:20</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Convolutional Neural Networks</span>
+                                        </div>
+                                        <span class="lesson-duration">70:30</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Model Deployment
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Saving & Loading Models</span>
+                                        </div>
+                                        <span class="lesson-duration">48:10</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Building ML APIs</span>
+                                        </div>
+                                        <span class="lesson-duration">55:25</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Cloud Deployment</span>
+                                        </div>
+                                        <span class="lesson-duration">68:50</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notebook Section -->
+    <section class="notebook-section">
+        <div class="container">
+            <div class="notebook-header">
+                <h3>Interactive ML Notebook</h3>
+                <p>Practice your machine learning skills directly in the browser with our built-in Python notebook. Write, run, and test your ML models in real-time.</p>
+            </div>
+            
+            <div class="notebook-container">
+                <div class="notebook-toolbar">
+                    <div class="notebook-tabs">
+                        <button class="notebook-tab active" onclick="changeNotebookTab('python')">Python</button>
+                        <button class="notebook-tab" onclick="changeNotebookTab('tensorflow')">TensorFlow</button>
+                        <button class="notebook-tab" onclick="changeNotebookTab('sklearn')">Scikit-learn</button>
+                    </div>
+                    <button class="notebook-run-btn" onclick="runCode()">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                </div>
+                
+                <div class="notebook-editor">
+                    <textarea id="notebook-editor" spellcheck="false"># Welcome to the ML Notebook
+# Try running this basic machine learning example
+
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train model
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Make predictions
+predictions = model.predict(X_test)
+
+# Evaluate model
+accuracy = accuracy_score(y_test, predictions)
+print(f"Model Accuracy: {accuracy:.2%}")
+
+# Feature importances
+print("\nFeature Importances:")
+for name, importance in zip(iris.feature_names, model.feature_importances_):
+    print(f"{name}: {importance:.2f}")</textarea>
+                </div>
+                
+                <h4 style="margin: 20px 0 10px; color: white;">Output:</h4>
+                <div class="notebook-output" id="output">
+                    <p style="color: #aaa;">Click "Run Code" to see the output here...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reward System -->
+    <section class="reward-system">
+        <div class="reward-container">
+            <h2>Earn Rewards As You Learn</h2>
+            <p>Complete courses, pass tests, and submit projects to earn XP points and unlock exclusive rewards and discounts</p>
+            
+            <div class="reward-cards">
+                <div class="reward-card bronze">
+                    <h3>Bronze</h3>
+                    <div class="points">500 XP</div>
+                    <div class="discount">5% Discount on Next Course</div>
+                    <button class="btn btn-primary">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card silver">
+                    <h3>Silver</h3>
+                    <div class="points">1,500 XP</div>
+                    <div class="discount">10% Discount + Certificate</div>
+                    <button class="btn btn-primary">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card gold">
+                    <h3>Gold</h3>
+                    <div class="points">3,000 XP</div>
+                    <div class="discount">20% Discount + Mentorship</div>
+                    <button class="btn btn-primary">Claim Reward</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Machine Learning Journey?</h2>
+            <p>Join thousands of students who have transformed their careers with our comprehensive ML program. No prior experience required.</p>
+            <button class="btn btn-accent"><i class="fas fa-rocket"></i> Enroll Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CloudMars</h3>
+                    <div class="footer-about">
+                        <p>CloudMars Academy is a leading online education platform specializing in machine learning and AI technologies.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Machine Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Deep Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI Engineering</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Computer Vision</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Webinars</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CloudMars Academy. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="#">CloudMars Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Test Modal -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('test-modal')">&times;</span>
+            <h3>Foundations Track Assessment</h3>
+            <div id="test-questions">
+                <!-- Questions will be added here by JavaScript -->
+            </div>
+            <button class="btn btn-ml" onclick="submitTest()" style="margin-top: 20px;"><i class="fas fa-paper-plane"></i> Submit Test</button>
+        </div>
+    </div>
+
+    <!-- Lesson Modal -->
+    <div id="lesson-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('lesson-modal')">&times;</span>
+            <h3 id="lesson-title">Lesson Title</h3>
+            <div class="video-container">
+                <iframe id="lesson-video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <div class="lesson-tabs">
+                <button class="lesson-tab active" onclick="openLessonTab('notes')">Notes</button>
+                <button class="lesson-tab" onclick="openLessonTab('challenge')">Challenge</button>
+                <button class="lesson-tab" onclick="openLessonTab('resources')">Resources</button>
+            </div>
+            
+            <div id="lesson-notes" class="lesson-tab-content active">
+                <div id="lesson-content">
+                    <!-- Lesson notes content will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="lesson-challenge" class="lesson-tab-content">
+                <div id="challenge-content">
+                    <!-- Challenge content will be loaded here -->
+                </div>
+                <button class="btn btn-ml" onclick="submitChallenge()" style="margin-top: 20px;">
+                    <i class="fas fa-paper-plane"></i> Submit Challenge
+                </button>
+            </div>
+            
+            <div id="lesson-resources" class="lesson-tab-content">
+                <div id="resources-content">
+                    <!-- Resources content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Submission Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
+            <h3>Submit Project</h3>
+            <form id="project-form" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Project Name</label>
+                    <input type="text" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" value="Foundations Project: Data Analysis" readonly>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">GitHub Repository</label>
+                    <input type="url" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" placeholder="https://github.com/yourusername/project" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notebook File</label>
+                    <input type="file" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" accept=".ipynb" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notes (Optional)</label>
+                    <textarea style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px; min-height: 100px;" placeholder="Any additional information about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-ml"><i class="fas fa-paper-plane"></i> Submit Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Data Modal
+    <div id="data-modal" class="data-modal">
+        <div class="data-modal-content">
+            <div class="data-modal-header">
+                <h3><i class="fas fa-database"></i> Dataset Details</h3>
+                <button class="close-data-modal" onclick="closeDataModal()">&times;</button>
+            </div>
+            
+            <div class="data-modal-body">
+                <div class="data-tabs">
+                    <button class="data-tab active" onclick="openDataTab('overview')">Overview</button>
+                    <button class="data-tab" onclick="openDataTab('preview')">Data Preview</button>
+                    <button class="data-tab" onclick="openDataTab('stats')">Statistics</button>
+                    <button class="data-tab" onclick="openDataTab('edit')">Edit</button>
+                </div>
+                
+                <div id="overview-tab" class="data-tab-content active">
+                    <h4>Dataset Information</h4>
+                    <div class="data-preview">
+                        <p><strong>Name:</strong> Iris Flower Dataset</p>
+                        <p><strong>Source:</strong> UCI Machine Learning Repository</p>
+                        <p><strong>Size:</strong> 150 records</p>
+                        <p><strong>Features:</strong> 4 numerical features</p>
+                        <p><strong>Target:</strong> 3 classes (Iris species)</p>
+                        <p><strong>Description:</strong> This is a famous dataset that contains measurements of iris flowers. It's often used for classification tasks in machine learning.</p>
+                    </div>
+                    
+                    <h4>Usage Instructions</h4>
+                    <p>This dataset is loaded automatically when you start working in the notebook. You can access it using:</p>
+                    <pre style="background: #f5f5f5; padding: 15px; border-radius: 6px; overflow-x: auto;">
+from sklearn.datasets import load_iris
+iris = load_iris()
+X, y = iris.data, iris.target</pre>
+                </div>
+                
+                <div id="preview-tab" class="data-tab-content">
+                    <h4>First 10 Rows</h4>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Sepal Length</th>
+                                    <th>Sepal Width</th>
+                                    <th>Petal Length</th>
+                                    <th>Petal Width</th>
+                                    <th>Species</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>5.1</td>
+                                    <td>3.5</td>
+                                    <td>1.4</td>
+                                    <td>0.2</td>
+                                    <td>setosa</td>
+                                </tr>
+                                <tr>
+                                    <td>4.9</td>
+                                    <td>3.0</td>
+                                    <td>1.4</td>
+                                    <td>0.2</td>
+                                    <td>setosa</td>
+                                </tr>
+                                <tr>
+                                    <td>4.7</td>
+                                    <td>3.2</td>
+                                    <td>1.3</td>
+                                    <td>0.2</td>
+                                    <td>setosa</td>
+                                </tr>
+                                <tr>
+                                    <td>4.6</td>
+                                    <td>3.1</td>
+                                    <td>1.5</td>
+                                    <td>0.2</td>
+                                    <td>setosa</td>
+                                </tr>
+                                <tr>
+                                    <td>5.0</td>
+                                    <td>3.6</td>
+                                    <td>1.4</td>
+                                    <td>0.2</td>
+                                    <td>setosa</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="data-actions">
+                        <button class="btn btn-outline">
+                            <i class="fas fa-download"></i> Download CSV
+                        </button>
+                        <button class="btn btn-ml">
+                            <i class="fas fa-code"></i> Load in Notebook
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="stats-tab" class="data-tab-content">
+                    <h4>Statistical Summary</h4>
+                    <div style="overflow-x: auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Mean</th>
+                                    <th>Std Dev</th>
+                                    <th>Min</th>
+                                    <th>25%</th>
+                                    <th>50%</th>
+                                    <th>75%</th>
+                                    <th>Max</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sepal Length</td>
+                                    <td>5.84</td>
+                                    <td>0.83</td>
+                                    <td>4.30</td>
+                                    <td>5.10</td>
+                                    <td>5.80</td>
+                                    <td>6.40</td>
+                                    <td>7.90</td>
+                                </tr>
+                                <tr>
+                                    <td>Sepal Width</td>
+                                    <td>3.05</td>
+                                    <td>0.43</td>
+                                    <td>2.00</td>
+                                    <td>2.80</td>
+                                    <td>3.00</td>
+                                    <td>3.30</td>
+                                    <td>4.40</td>
+                                </tr>
+                                <tr>
+                                    <td>Petal Length</td>
+                                    <td>3.76</td>
+                                    <td>1.76</td>
+                                    <td>1.00</td>
+                                    <td>1.60</td>
+                                    <td>4.35</td>
+                                    <td>5.10</td>
+                                    <td>6.90</td>
+                                </tr>
+                                <tr>
+                                    <td>Petal Width</td>
+                                    <td>1.20</td>
+                                    <td>0.76</td>
+                                    <td>0.10</td>
+                                    <td>0.30</td>
+                                    <td>1.30</td>
+                                    <td>1.80</td>
+                                    <td>2.50</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h4 style="margin-top: 30px;">Class Distribution</h4>
+                    <div style="display: flex; gap: 20px; margin-top: 15px;">
+                        <div style="flex: 1; background: var(--secondary); padding: 15px; border-radius: 8px;">
+                            <h5 style="margin-bottom: 10px;">setosa</h5>
+                            <p>50 samples (33.3%)</p>
+                        </div>
+                        <div style="flex: 1; background: var(--secondary); padding: 15px; border-radius: 8px;">
+                            <h5 style="margin-bottom: 10px;">versicolor</h5>
+                            <p>50 samples (33.3%)</p>
+                        </div>
+                        <div style="flex: 1; background: var(--secondary); padding: 15px; border-radius: 8px;">
+                            <h5 style="margin-bottom: 10px;">virginica</h5>
+                            <p>50 samples (33.3%)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="edit-tab" class="data-tab-content">
+                    <h4>Edit Dataset Properties</h4>
+                    
+                    <div class="data-form-group">
+                        <label>Dataset Name</label>
+                        <input type="text" value="Iris Flower Dataset">
+                    </div>
+                    
+                    <div class="data-form-group">
+                        <label>Description</label>
+                        <textarea>This is a famous dataset that contains measurements of iris flowers. It's often used for classification tasks in machine learning.</textarea>
+                    </div>
+                    
+                    <div class="data-form-group">
+                        <label>Visibility</label>
+                        <select>
+                            <option>Public</option>
+                            <option selected>Private</option>
+                            <option>Shared</option>
+                        </select>
+                    </div>
+                    
+                    <div class="data-form-group">
+                        <label>Tags</label>
+                        <input type="text" value="classification, flowers, beginner">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="data-footer">
+                <button class="btn btn-outline" onclick="closeDataModal()">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button class="btn btn-ml">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </div>
+        </div>
+    </div> -->
+
+    <script>
+     let hasSubmitted = false;
+
+function showTrack(trackId) {
+    try {
+        document.querySelectorAll('.track-panel').forEach(panel => panel.classList.remove('active'));
+        const trackPanel = document.getElementById(`${trackId}-track`);
+        if (trackPanel) trackPanel.classList.add('active');
+        document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    } catch (error) {
+        console.error('Error in showTrack:', error);
+    }
+}
+
+function toggleModule(header) {
+    try {
+        header.classList.toggle('active');
+        const lessonsList = header.nextElementSibling;
+        if (header.classList.contains('active')) {
+            lessonsList.style.maxHeight = lessonsList.scrollHeight + 'px';
+        } else {
+            lessonsList.style.maxHeight = '0';
+        }
+    } catch (error) {
+        console.error('Error in toggleModule:', error);
+    }
+}
+
+function playLesson(playButton) {
+    try {
+        const lessonItem = playButton.closest('.lesson-item');
+        const lessonTitle = lessonItem.querySelector('span').textContent;
+        const titleElement = document.getElementById('lesson-title');
+        if (!titleElement) throw new Error('lesson-title element not found');
+        titleElement.textContent = lessonTitle;
+
+        const videoData = getVideoDataByLesson(lessonTitle);
+        const videoUrl = `https://www.youtube.com/embed/${videoData.id}?autoplay=1&start=${videoData.startTime}&modestbranding=1&rel=0`;
+        const videoContainer = document.querySelector('.video-container');
+        if (!videoContainer) throw new Error('video-container element not found');
+        videoContainer.innerHTML = '';
+
+        const iframe = document.createElement('iframe');
+        iframe.id = 'lesson-video';
+        iframe.src = videoUrl;
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        videoContainer.appendChild(iframe);
+
+        const lessonContent = document.getElementById('lesson-content');
+        const challengeContent = document.getElementById('challenge-content');
+        const resourcesContent = document.getElementById('resources-content');
+        if (!lessonContent || !challengeContent || !resourcesContent) {
+            throw new Error('One or more content elements not found');
+        }
+
+        lessonContent.innerHTML = getLessonNotes(lessonTitle);
+        challengeContent.innerHTML = getLessonChallenge(lessonTitle);
+        resourcesContent.innerHTML = getLessonResources(lessonTitle);
+
+        document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+        const firstTab = document.querySelector('.lesson-tab');
+        const notesContent = document.getElementById('lesson-notes');
+        if (firstTab && notesContent) {
+            firstTab.classList.add('active');
+            notesContent.classList.add('active');
+        }
+
+        const lessonModal = document.getElementById('lesson-modal');
+        if (lessonModal) lessonModal.style.display = 'flex';
+
+        hasSubmitted = false;
+        console.log(`Lesson opened: ${lessonTitle}`);
+    } catch (error) {
+        console.error('Error in playLesson:', error);
+        alert('خطأ في تحميل الدرس. تحقق من وحدة التحكم.');
+    }
+}
+
+function getVideoDataByLesson(lessonTitle) {
+    const videoMap = {
+        "Python Basics for ML": { id: "YYXdXT2l-Gg", startTime: 0, duration: "28:30" },
+        "NumPy for Numerical Computing": { id: "YYXdXT2l-Gg", startTime: 300, duration: "32:45" },
+        "Pandas for Data Manipulation": { id: "YYXdXT2l-Gg", startTime: 600, duration: "36:10" },
+        "Data Visualization": { id: "YYXdXT2l-Gg", startTime: 900, duration: "42:20" },
+        "Linear Algebra Basics": { id: "JcI5Vnw0b2c", startTime: 0, duration: "35:15" },
+        "Probability & Statistics": { id: "JcI5Vnw0b2c", startTime: 300, duration: "38:50" },
+        "Calculus for ML": { id: "JcI5Vnw0b2c", startTime: 600, duration: "45:25" },
+        "Linear Regression": { id: "EItlUEPCIzM", startTime: 0, duration: "52:30" },
+        "Polynomial Regression": { id: "EItlUEPCIzM", startTime: 300, duration: "48:15" },
+        "Regularization Techniques": { id: "EItlUEPCIzM", startTime: 600, duration: "58:20" },
+        "Logistic Regression": { id: "aircAruvnKk", startTime: 0, duration: "50:10" },
+        "Decision Trees": { id: "aircAruvnKk", startTime: 300, duration: "55:25" },
+        "Support Vector Machines": { id: "aircAruvnKk", startTime: 600, duration: "60:50" },
+        "Introduction to Neural Networks": { id: "w8QHoVam1-I", startTime: 0, duration: "58:15" },
+        "Training Deep Networks": { id: "w8QHoVam1-I", startTime: 300, duration: "65:20" },
+        "Convolutional Neural Networks": { id: "w8QHoVam1-I", startTime: 600, duration: "70:30" },
+        "Saving & Loading Models": { id: "dcqPhpY8t4k", startTime: 0, duration: "48:10" },
+        "Building ML APIs": { id: "dcqPhpY8t4k", startTime: 300, duration: "55:25" },
+        "Cloud Deployment": { id: "dcqPhpY8t4k", startTime: 600, duration: "68:50" }
+    };
+    return videoMap[lessonTitle] || { id: "YYXdXT2l-Gg", startTime: 0, duration: "28:30" };
+}
+
+function getLessonNotes(lessonTitle) {
+    const notesMap = {
+        "Python Basics for ML": `
+            <h4>Python for Machine Learning</h4>
+            <p>Python is the most popular programming language for machine learning due to its simplicity and rich ecosystem.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Variables and data types</li>
+                <li>Control structures (loops, conditionals)</li>
+                <li>Functions and modules</li>
+                <li>Object-oriented programming basics</li>
+                <li>Working with libraries</li>
+            </ul>
+            <div class="code-example">
+                <h5>Example:</h5>
+                <pre># Basic Python for ML
+import numpy as np
+squares = [x**2 for x in range(10)]
+def normalize(data):
+    return (data - np.mean(data)) / np.std(data)</pre>
+            </div>
+        `,
+        "NumPy for Numerical Computing": `
+            <h4>NumPy Fundamentals</h4>
+            <p>NumPy is the foundation for numerical computing in Python's ML ecosystem.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>NumPy arrays vs Python lists</li>
+                <li>Array operations and broadcasting</li>
+                <li>Matrix operations</li>
+                <li>Random number generation</li>
+                <li>Performance considerations</li>
+            </ul>
+        `,
+        "Pandas for Data Manipulation": `
+            <h4>Pandas Basics</h4>
+            <p>Pandas provides powerful data structures for data manipulation and analysis.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Series and DataFrames</li>
+                <li>Indexing and selection</li>
+                <li>Handling missing data</li>
+                <li>Grouping and aggregation</li>
+                <li>Merging and joining</li>
+            </ul>
+        `,
+        "Data Visualization": `
+            <h4>Data Visualization</h4>
+            <p>Data visualization is key to understanding data patterns and communicating results.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Matplotlib and Seaborn</li>
+                <li>Plot types (line, scatter, bar)</li>
+                <li>Customizing plots</li>
+                <li>Interactive visualizations</li>
+            </ul>
+        `,
+        "Linear Algebra Basics": `
+            <h4>Linear Algebra for ML</h4>
+            <p>Linear algebra is fundamental to understanding machine learning algorithms.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Vectors and matrices</li>
+                <li>Matrix operations</li>
+                <li>Eigenvalues and eigenvectors</li>
+                <li>Matrix decompositions</li>
+                <li>Applications in ML</li>
+            </ul>
+        `,
+        "Probability & Statistics": `
+            <h4>Statistics for ML</h4>
+            <p>Probability and statistics form the theoretical foundation of machine learning.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Descriptive statistics</li>
+                <li>Probability distributions</li>
+                <li>Hypothesis testing</li>
+                <li>Bayesian thinking</li>
+                <li>Correlation vs causation</li>
+            </ul>
+        `,
+        "Calculus for ML": `
+            <h4>Calculus for ML</h4>
+            <p>Calculus is essential for understanding optimization in ML.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Derivatives and gradients</li>
+                <li>Integration</li>
+                <li>Gradient descent</li>
+                <li>Partial derivatives</li>
+            </ul>
+        `,
+        "Linear Regression": `
+            <h4>Linear Regression</h4>
+            <p>Linear regression is a fundamental algorithm for predicting continuous values.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Simple and multiple linear regression</li>
+                <li>Least squares method</li>
+                <li>Assumptions of linear regression</li>
+                <li>Interpreting coefficients</li>
+                <li>Evaluating regression models</li>
+            </ul>
+        `,
+        "Polynomial Regression": `
+            <h4>Polynomial Regression</h4>
+            <p>Polynomial regression extends linear regression to model nonlinear relationships.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Polynomial features</li>
+                <li>Overfitting and underfitting</li>
+                <li>Bias-variance tradeoff</li>
+                <li>Cross-validation</li>
+                <li>Model complexity</li>
+            </ul>
+        `,
+        "Regularization Techniques": `
+            <h4>Regularization Techniques</h4>
+            <p>Regularization prevents overfitting in ML models.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>L1 and L2 regularization</li>
+                <li>Ridge and Lasso regression</li>
+                <li>Dropout in neural networks</li>
+                <li>Early stopping</li>
+            </ul>
+        `,
+        "Logistic Regression": `
+            <h4>Logistic Regression</h4>
+            <p>Despite its name, logistic regression is used for classification problems.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Sigmoid function</li>
+                <li>Decision boundaries</li>
+                <li>Maximum likelihood estimation</li>
+                <li>Multiclass classification</li>
+                <li>Evaluation metrics</li>
+            </ul>
+        `,
+        "Decision Trees": `
+            <h4>Decision Trees</h4>
+            <p>Decision trees are intuitive models that can handle both regression and classification.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Recursive partitioning</li>
+                <li>Information gain and Gini impurity</li>
+                <li>Pruning strategies</li>
+                <li>Advantages and limitations</li>
+                <li>Visualizing trees</li>
+            </ul>
+        `,
+        "Support Vector Machines": `
+            <h4>Support Vector Machines</h4>
+            <p>SVMs are powerful for classification and regression tasks.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Hyperplanes and margins</li>
+                <li>Kernel trick</li>
+                <li>Soft margins</li>
+                <li>Applications in ML</li>
+            </ul>
+        `,
+        "Introduction to Neural Networks": `
+            <h4>Neural Networks</h4>
+            <p>Neural networks are powerful models inspired by biological neurons.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Perceptrons and activation functions</li>
+                <li>Feedforward networks</li>
+                <li>Backpropagation algorithm</li>
+                <li>Loss functions</li>
+                <li>Optimization techniques</li>
+            </ul>
+        `,
+        "Training Deep Networks": `
+            <h4>Deep Learning</h4>
+            <p>Deep learning involves training neural networks with multiple hidden layers.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Vanishing gradients</li>
+                <li>Activation functions</li>
+                <li>Weight initialization</li>
+                <li>Batch normalization</li>
+                <li>Regularization techniques</li>
+            </ul>
+        `,
+        "Convolutional Neural Networks": `
+            <h4>CNNs</h4>
+            <p>CNNs are specialized for processing grid-like data such as images.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Convolutional layers</li>
+                <li>Pooling layers</li>
+                <li>Feature maps</li>
+                <li>Transfer learning</li>
+                <li>Popular architectures</li>
+            </ul>
+        `,
+        "Saving & Loading Models": `
+            <h4>Saving & Loading Models</h4>
+            <p>Saving models allows reusing trained models.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Model serialization</li>
+                <li>HDF5 and SavedModel formats</li>
+                <li>Checkpointing</li>
+                <li>Model versioning</li>
+            </ul>
+        `,
+        "Building ML APIs": `
+            <h4>ML APIs</h4>
+            <p>Deploying ML models as APIs allows integration with other applications.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>RESTful APIs</li>
+                <li>Flask/FastAPI frameworks</li>
+                <li>Model serialization</li>
+                <li>Input validation</li>
+                <li>Performance considerations</li>
+            </ul>
+        `,
+        "Cloud Deployment": `
+            <h4>Cloud Deployment</h4>
+            <p>Deploying models to the cloud enables scalability.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Cloud platforms (AWS, GCP, Azure)</li>
+                <li>Containerization with Docker</li>
+                <li>Serverless deployment</li>
+                <li>Monitoring and scaling</li>
+            </ul>
+        `
+    };
+    return notesMap[lessonTitle] || `<p>Detailed notes for ${lessonTitle} will appear here.</p>`;
+}
+
+function getLessonChallenge(lessonTitle) {
+    const challengesMap = {
+        "Python Basics for ML": `
+            <h4>Python Challenge</h4>
+            <p>Test your understanding of Python fundamentals for ML:</p>
+            <div class="challenge-question">
+                <p>1. Which Python library is most commonly used for numerical computing in ML?</p>
+                <label><input type="radio" name="q1" value="a"> Pandas</label>
+                <label><input type="radio" name="q1" value="b"> NumPy</label>
+                <label><input type="radio" name="q1" value="c"> Matplotlib</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is the output of: [x**2 for x in range(5)]</p>
+                <label><input type="radio" name="q2" value="a"> [0, 1, 4, 9, 16]</label>
+                <label><input type="radio" name="q2" value="b"> [1, 4, 9, 16, 25]</label>
+                <label><input type="radio" name="q2" value="c"> [0, 1, 4, 9, 16, 25]</label>
+            </div>
+        `,
+        "NumPy for Numerical Computing": `
+            <h4>NumPy Challenge</h4>
+            <p>Test your NumPy knowledge:</p>
+            <div class="challenge-question">
+                <p>1. What is the correct way to create a 3x3 identity matrix in NumPy?</p>
+                <label><input type="radio" name="q1" value="a"> np.array([[1,0,0],[0,1,0],[0,0,1]])</label>
+                <label><input type="radio" name="q1" value="b"> np.identity(3)</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does broadcasting in NumPy refer to?</p>
+                <label><input type="radio" name="q2" value="a"> How arrays of different shapes can be used in arithmetic operations</label>
+                <label><input type="radio" name="q2" value="b"> Streaming data to multiple processors</label>
+                <label><input type="radio" name="q2" value="c"> Converting arrays to different data types</label>
+            </div>
+        `,
+        "Pandas for Data Manipulation": `
+            <h4>Pandas Challenge</h4>
+            <p>Test your Pandas knowledge:</p>
+            <div class="challenge-question">
+                <p>1. What is the primary data structure in Pandas for tabular data?</p>
+                <label><input type="radio" name="q1" value="a"> Series</label>
+                <label><input type="radio" name="q1" value="b"> DataFrame</label>
+                <label><input type="radio" name="q1" value="c"> Array</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does the .describe() method in Pandas provide?</p>
+                <label><input type="radio" name="q2" value="a"> Descriptive statistics</label>
+                <label><input type="radio" name="q2" value="b"> Data visualization</label>
+                <label><input type="radio" name="q2" value="c"> Data cleaning</label>
+            </div>
+        `,
+        "Data Visualization": `
+            <h4>Data Visualization Challenge</h4>
+            <p>Test your knowledge of data visualization:</p>
+            <div class="challenge-question">
+                <p>1. Which library is commonly used for plotting in Python?</p>
+                <label><input type="radio" name="q1" value="a"> NumPy</label>
+                <label><input type="radio" name="q1" value="b"> Matplotlib</label>
+                <label><input type="radio" name="q1" value="c"> Pandas</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What type of plot is best for showing relationships between two continuous variables?</p>
+                <label><input type="radio" name="q2" value="a"> Bar plot</label>
+                <label><input type="radio" name="q2" value="b"> Scatter plot</label>
+                <label><input type="radio" name="q2" value="c"> Pie chart</label>
+            </div>
+        `,
+        "Linear Algebra Basics": `
+            <h4>Linear Algebra Challenge</h4>
+            <p>Test your linear algebra knowledge:</p>
+            <div class="challenge-question">
+                <p>1. What is a vector?</p>
+                <label><input type="radio" name="q1" value="a"> A single number</label>
+                <label><input type="radio" name="q1" value="b"> An ordered list of numbers</label>
+                <label><input type="radio" name="q1" value="c"> A matrix</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does matrix multiplication represent?</p>
+                <label><input type="radio" name="q2" value="a"> Element-wise multiplication</label>
+                <label><input type="radio" name="q2" value="b"> Linear transformation</label>
+                <label><input type="radio" name="q2" value="c"> Scalar addition</label>
+            </div>
+        `,
+        "Probability & Statistics": `
+            <h4>Statistics Challenge</h4>
+            <p>Test your statistics knowledge:</p>
+            <div class="challenge-question">
+                <p>1. What does the mean represent in a dataset?</p>
+                <label><input type="radio" name="q1" value="a"> The middle value</label>
+                <label><input type="radio" name="q1" value="b"> The average value</label>
+                <label><input type="radio" name="q1" value="c"> The most frequent value</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is a p-value used for?</p>
+                <label><input type="radio" name="q2" value="a"> Measuring effect size</label>
+                <label><input type="radio" name="q2" value="b"> Hypothesis testing</label>
+                <label><input type="radio" name="q2" value="c"> Data visualization</label>
+            </div>
+        `,
+        "Calculus for ML": `
+            <h4>Calculus Challenge</h4>
+            <p>Test your calculus knowledge:</p>
+            <div class="challenge-question">
+                <p>1. What is the derivative of a function?</p>
+                <label><input type="radio" name="q1" value="a"> The area under the curve</label>
+                <label><input type="radio" name="q1" value="b"> The rate of change</label>
+                <label><input type="radio" name="q1" value="c"> The total sum</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is gradient descent used for?</p>
+                <label><input type="radio" name="q2" value="a"> Data cleaning</label>
+                <label><input type="radio" name="q2" value="b"> Optimization</label>
+                <label><input type="radio" name="q2" value="c"> Visualization</label>
+            </div>
+        `,
+        "Linear Regression": `
+            <h4>Regression Challenge</h4>
+            <p>Test your understanding of linear regression:</p>
+            <div class="challenge-question">
+                <p>1. What is the main objective of linear regression?</p>
+                <label><input type="radio" name="q1" value="a"> To predict a continuous output</label>
+                <label><input type="radio" name="q1" value="b"> To classify data into categories</label>
+                <label><input type="radio" name="q1" value="c"> To cluster similar data points</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does the coefficient in linear regression represent?</p>
+                <label><input type="radio" name="q2" value="a"> The change in the output for a one-unit change in the input</label>
+                <label><input type="radio" name="q2" value="b"> The probability of the output being 1</label>
+                <label><input type="radio" name="q2" value="c"> The importance of the feature</label>
+            </div>
+        `,
+        "Polynomial Regression": `
+            <h4>Polynomial Regression Challenge</h4>
+            <p>Test your understanding of polynomial regression:</p>
+            <div class="challenge-question">
+                <p>1. What does polynomial regression model?</p>
+                <label><input type="radio" name="q1" value="a"> Linear relationships</label>
+                <label><input type="radio" name="q1" value="b"> Nonlinear relationships</label>
+                <label><input type="radio" name="q1" value="c"> Categorical data</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is a risk of high-degree polynomials?</p>
+                <label><input type="radio" name="q2" value="a"> Underfitting</label>
+                <label><input type="radio" name="q2" value="b"> Overfitting</label>
+                <label><input type="radio" name="q2" value="c"> No risk</label>
+            </div>
+        `,
+        "Regularization Techniques": `
+            <h4>Regularization Challenge</h4>
+            <p>Test your understanding of regularization:</p>
+            <div class="challenge-question">
+                <p>1. What is the purpose of regularization?</p>
+                <label><input type="radio" name="q1" value="a"> Increase model complexity</label>
+                <label><input type="radio" name="q1" value="b"> Prevent overfitting</label>
+                <label><input type="radio" name="q1" value="c"> Speed up training</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. Which technique adds a penalty based on the sum of squared weights?</p>
+                <label><input type="radio" name="q2" value="a"> L1 regularization</label>
+                <label><input type="radio" name="q2" value="b"> L2 regularization</label>
+                <label><input type="radio" name="q2" value="c"> Dropout</label>
+            </div>
+        `,
+        "Logistic Regression": `
+            <h4>Classification Challenge</h4>
+            <p>Test your understanding of logistic regression:</p>
+            <div class="challenge-question">
+                <p>1. What is logistic regression typically used for?</p>
+                <label><input type="radio" name="q1" value="a"> Regression tasks</label>
+                <label><input type="radio" name="q1" value="b"> Binary classification</label>
+                <label><input type="radio" name="q1" value="c"> Dimensionality reduction</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What function does logistic regression use to map predictions to probabilities?</p>
+                <label><input type="radio" name="q2" value="a"> Sigmoid function</label>
+                <label><input type="radio" name="q2" value="b"> ReLU function</label>
+                <label><input type="radio" name="q2" value="c"> Tanh function</label>
+            </div>
+        `,
+        "Decision Trees": `
+            <h4>Decision Trees Challenge</h4>
+            <p>Test your understanding of decision trees:</p>
+            <div class="challenge-question">
+                <p>1. What is the primary splitting criterion in decision trees?</p>
+                <label><input type="radio" name="q1" value="a"> Mean squared error</label>
+                <label><input type="radio" name="q1" value="b"> Gini impurity</label>
+                <label><input type="radio" name="q1" value="c"> Cross-entropy</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is a benefit of pruning a decision tree?</p>
+                <label><input type="radio" name="q2" value="a"> Increased complexity</label>
+                <label><input type="radio" name="q2" value="b"> Reduced overfitting</label>
+                <label><input type="radio" name="q2" value="c"> Faster training</label>
+            </div>
+        `,
+        "Support Vector Machines": `
+            <h4>SVM Challenge</h4>
+            <p>Test your understanding of SVMs:</p>
+            <div class="challenge-question">
+                <p>1. What does the kernel trick do in SVMs?</p>
+                <label><input type="radio" name="q1" value="a"> Reduces training time</label>
+                <label><input type="radio" name="q1" value="b"> Maps data to higher dimensions</label>
+                <label><input type="radio" name="q1" value="c"> Normalizes data</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is the goal of the margin in SVMs?</p>
+                <label><input type="radio" name="q2" value="a"> Minimize the margin</label>
+                <label><input type="radio" name="q2" value="b"> Maximize the margin</label>
+                <label><input type="radio" name="q2" value="c"> Ignore the margin</label>
+            </div>
+        `,
+        "Introduction to Neural Networks": `
+            <h4>Neural Network Challenge</h4>
+            <p>Test your knowledge of neural networks:</p>
+            <div class="challenge-question">
+                <p>1. What is the purpose of the activation function in a neural network?</p>
+                <label><input type="radio" name="q1" value="a"> To introduce non-linearity</label>
+                <label><input type="radio" name="q1" value="b"> To normalize the inputs</label>
+                <label><input type="radio" name="q1" value="c"> To reduce computational cost</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does backpropagation calculate?</p>
+                <label><input type="radio" name="q2" value="a"> The gradient of the loss function</label>
+                <label><input type="radio" name="q2" value="b"> The optimal learning rate</label>
+                <label><input type="radio" name="q2" value="c"> The number of hidden layers needed</label>
+            </div>
+        `,
+        "Training Deep Networks": `
+            <h4>Deep Learning Challenge</h4>
+            <p>Test your knowledge of deep learning:</p>
+            <div class="challenge-question">
+                <p>1. What problem does batch normalization address?</p>
+                <label><input type="radio" name="q1" value="a"> Overfitting</label>
+                <label><input type="radio" name="q1" value="b"> Internal covariate shift</label>
+                <label><input type="radio" name="q1" value="c"> Underfitting</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is the purpose of dropout?</p>
+                <label><input type="radio" name="q2" value="a"> Speed up training</label>
+                <label><input type="radio" name="q2" value="b"> Prevent overfitting</label>
+                <label><input type="radio" name="q2" value="c"> Increase model capacity</label>
+            </div>
+        `,
+        "Convolutional Neural Networks": `
+            <h4>CNN Challenge</h4>
+            <p>Test your knowledge of CNNs:</p>
+            <div class="challenge-question">
+                <p>1. What is the purpose of the pooling layer in a CNN?</p>
+                <label><input type="radio" name="q1" value="a"> To reduce spatial dimensions</label>
+                <label><input type="radio" name="q1" value="b"> To increase model capacity</label>
+                <label><input type="radio" name="q1" value="c"> To normalize feature maps</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What operation does a convolutional layer perform?</p>
+                <label><input type="radio" name="q2" value="a"> Matrix multiplication</label>
+                <label><input type="radio" name="q2" value="b"> Cross-correlation</label>
+                <label><input type="radio" name="q2" value="c"> Dot product</label>
+            </div>
+        `,
+        "Saving & Loading Models": `
+            <h4>Model Saving Challenge</h4>
+            <p>Test your knowledge of saving models:</p>
+            <div class="challenge-question">
+                <p>1. What is the purpose of saving a model?</p>
+                <label><input type="radio" name="q1" value="a"> To retrain the model</label>
+                <label><input type="radio" name="q1" value="b"> To reuse the trained model</label>
+                <label><input type="radio" name="q1" value="c"> To visualize the model</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. Which format is commonly used for saving TensorFlow models?</p>
+                <label><input type="radio" name="q2" value="a"> CSV</label>
+                <label><input type="radio" name="q2" value="b"> HDF5</label>
+                <label><input type="radio" name="q2" value="c"> JSON</label>
+            </div>
+        `,
+        "Building ML APIs": `
+            <h4>API Challenge</h4>
+            <p>Test your knowledge of ML APIs:</p>
+            <div class="challenge-question">
+                <p>1. Which Python framework is commonly used for building ML APIs?</p>
+                <label><input type="radio" name="q1" value="a"> Flask</label>
+                <label><input type="radio" name="q1" value="b"> Django</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What is the purpose of model serialization?</p>
+                <label><input type="radio" name="q2" value="a"> To save and load trained models</label>
+                <label><input type="radio" name="q2" value="b"> To convert models to JSON format</label>
+                <label><input type="radio" name="q2" value="c"> To optimize model performance</label>
+            </div>
+        `,
+        "Cloud Deployment": `
+            <h4>Cloud Deployment Challenge</h4>
+            <p>Test your knowledge of cloud deployment:</p>
+            <div class="challenge-question">
+                <p>1. What is a benefit of using Docker for deployment?</p>
+                <label><input type="radio" name="q1" value="a"> Faster training</label>
+                <label><input type="radio" name="q1" value="b"> Consistent environments</label>
+                <label><input type="radio" name="q1" value="c"> Data visualization</label>
+            </div>
+            <div class="challenge-question">
+                <p>2. What does serverless deployment eliminate?</p>
+                <label><input type="radio" name="q2" value="a"> Model training</label>
+                <label><input type="radio" name="q2" value="b"> Server management</label>
+                <label><input type="radio" name="q2" value="c"> Data storage</label>
+            </div>
+        `
+    };
+    return challengesMap[lessonTitle] || `<p>No challenge available for ${lessonTitle} yet.</p>`;
+}
+
+const correctAnswersMap = {
+    "Python Basics for ML": { q1: "b", q2: "a" },
+    "NumPy for Numerical Computing": { q1: "c", q2: "a" },
+    "Pandas for Data Manipulation": { q1: "b", q2: "a" },
+    "Data Visualization": { q1: "b", q2: "b" },
+    "Linear Algebra Basics": { q1: "b", q2: "b" },
+    "Probability & Statistics": { q1: "b", q2: "b" },
+    "Calculus for ML": { q1: "b", q2: "b" },
+    "Linear Regression": { q1: "a", q2: "a" },
+    "Polynomial Regression": { q1: "b", q2: "b" },
+    "Regularization Techniques": { q1: "b", q2: "b" },
+    "Logistic Regression": { q1: "b", q2: "a" },
+    "Decision Trees": { q1: "b", q2: "b" },
+    "Support Vector Machines": { q1: "b", q2: "b" },
+    "Introduction to Neural Networks": { q1: "a", q2: "a" },
+    "Training Deep Networks": { q1: "b", q2: "b" },
+    "Convolutional Neural Networks": { q1: "a", q2: "b" },
+    "Saving & Loading Models": { q1: "b", q2: "b" },
+    "Building ML APIs": { q1: "c", q2: "a" },
+    "Cloud Deployment": { q1: "b", q2: "b" }
+};
+
+function submitChallenge() {
+    try {
+        if (hasSubmitted) {
+            alert('لقد قمت بإرسال هذا التحدي بالفعل!');
+            console.log('Challenge already submitted');
+            return;
+        }
+
+        const lessonTitleElement = document.getElementById('lesson-title');
+        if (!lessonTitleElement) throw new Error('lesson-title element not found');
+        const lessonTitle = lessonTitleElement.textContent.trim();
+        if (!lessonTitle) throw new Error('No lesson title found');
+
+        const challengeContent = document.getElementById('challenge-content');
+        if (!challengeContent) throw new Error('challenge-content element not found');
+
+        const answers = {};
+        const questions = challengeContent.querySelectorAll('.challenge-question');
+        questions.forEach((question, index) => {
+            const selected = question.querySelector('input[type="radio"]:checked');
+            if (selected) {
+                answers[`q${index + 1}`] = selected.value;
+            }
+        });
+
+        const correctAnswers = correctAnswersMap[lessonTitle];
+        if (!correctAnswers) {
+            alert('لا يوجد تحدي متاح لهذا الدرس.');
+            console.log('No correct answers defined for:', lessonTitle);
+            return;
+        }
+
+        const expectedQuestions = Object.keys(correctAnswers).length;
+        if (Object.keys(answers).length !== expectedQuestions) {
+            alert('يرجى الإجابة على جميع الأسئلة قبل الإرسال.');
+            console.log('Incomplete answers:', answers);
+            return;
+        }
+
+        let allCorrect = true;
+        const incorrectQuestions = [];
+        for (const [question, correctAnswer] of Object.entries(correctAnswers)) {
+            if (answers[question] !== correctAnswer) {
+                allCorrect = false;
+                incorrectQuestions.push(question);
+            }
+        }
+
+        if (allCorrect) {
+            hasSubmitted = true;
+            alert('تم إرسال التحدي بنجاح! جميع الإجابات صحيحة!');
+            addPoints(50);
+            console.log('Challenge submitted successfully:', lessonTitle, answers);
+        } else {
+            alert(`بعض الإجابات غير صحيحة: ${incorrectQuestions.join(', ')}. حاول مرة أخرى.`);
+            console.log('Incorrect answers:', answers, 'Incorrect questions:', incorrectQuestions);
+        }
+    } catch (error) {
+        console.error('Error in submitChallenge:', error);
+        alert('خطأ أثناء إرسال التحدي. تحقق من وحدة التحكم.');
+    }
+}
+
+function getLessonResources(lessonTitle) {
+    const resourcesMap = {
+        "Python Basics for ML": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Python Official Tutorial</a></li>
+                <li><a href="https://www.w3schools.com/python/" target="_blank">W3Schools Python Tutorial</a></li>
+                <li><a href="https://realpython.com/" target="_blank">Real Python</a></li>
+            </ul>
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Python Cheat Sheet
+            </button>
+        `,
+        "NumPy for Numerical Computing": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank">NumPy Beginner Guide</a></li>
+                <li><a href="https://www.w3schools.com/python/numpy/default.asp" target="_blank">W3Schools NumPy</a></li>
+            </ul>
+        `,
+        "Pandas for Data Manipulation": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://pandas.pydata.org/docs/user_guide/index.html" target="_blank">Pandas Documentation</a></li>
+                <li><a href="https://www.w3schools.com/python/pandas/default.asp" target="_blank">W3Schools Pandas</a></li>
+            </ul>
+        `,
+        "Data Visualization": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://matplotlib.org/stable/users/index.html" target="_blank">Matplotlib Documentation</a></li>
+                <li><a href="https://seaborn.pydata.org/tutorial.html" target="_blank">Seaborn Tutorial</a></li>
+            </ul>
+        `,
+        "Linear Algebra Basics": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.khanacademy.org/math/linear-algebra" target="_blank">Khan Academy Linear Algebra</a></li>
+                <li><a href="https://numpy.org/doc/stable/reference/routines.linalg.html" target="_blank">NumPy Linear Algebra</a></li>
+            </ul>
+        `,
+        "Probability & Statistics": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.khanacademy.org/math/statistics-probability" target="_blank">Khan Academy Statistics</a></li>
+                <li><a href="https://scipy.github.io/devdocs/reference/stats.html" target="_blank">SciPy Statistics</a></li>
+            </ul>
+        `,
+        "Calculus for ML": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.khanacademy.org/math/calculus-1" target="_blank">Khan Academy Calculus</a></li>
+                <li><a href="https://ml-cheatsheet.readthedocs.io/en/latest/calculus.html" target="_blank">ML Calculus Cheatsheet</a></li>
+            </ul>
+        `,
+        "Linear Regression": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/linear_model.html" target="_blank">Scikit-learn Linear Models</a></li>
+                <li><a href="https://towardsdatascience.com/linear-regression-the-easier-way-6f941aa471ea" target="_blank">Linear Regression Guide</a></li>
+            </ul>
+        `,
+        "Polynomial Regression": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.PolynomialFeatures.html" target="_blank">Scikit-learn Polynomial Features</a></li>
+                <li><a href="https://towardsdatascience.com/polynomial-regression-bbe8b9d97491" target="_blank">Polynomial Regression Guide</a></li>
+            </ul>
+        `,
+        "Regularization Techniques": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/linear_model.html#ridge-regression" target="_blank">Scikit-learn Ridge Regression</a></li>
+                <li><a href="https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a" target="_blank">Regularization Guide</a></li>
+            </ul>
+        `,
+        "Logistic Regression": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression" target="_blank">Scikit-learn Logistic Regression</a></li>
+                <li><a href="https://towardsdatascience.com/logistic-regression-detailed-overview-46c4da4303bc" target="_blank">Logistic Regression Guide</a></li>
+            </ul>
+        `,
+        "Decision Trees": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/tree.html" target="_blank">Scikit-learn Decision Trees</a></li>
+                <li><a href="https://towardsdatascience.com/decision-trees-in-machine-learning-641b9c4e8052" target="_blank">Decision Tree Guide</a></li>
+            </ul>
+        `,
+        "Support Vector Machines": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/svm.html" target="_blank">Scikit-learn SVM</a></li>
+                <li><a href="https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47" target="_blank">SVM Guide</a></li>
+            </ul>
+        `,
+        "Introduction to Neural Networks": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.tensorflow.org/learn" target="_blank">TensorFlow Tutorials</a></li>
+                <li><a href="https://keras.io/getting_started/" target="_blank">Keras Documentation</a></li>
+            </ul>
+        `,
+        "Training Deep Networks": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.tensorflow.org/guide/keras/training_with_built_in_methods" target="_blank">TensorFlow Keras Training</a></li>
+                <li><a href="https://towardsdatascience.com/deep-learning-best-practices-14e84c24e9e1" target="_blank">Deep Learning Best Practices</a></li>
+            </ul>
+        `,
+        "Convolutional Neural Networks": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.tensorflow.org/tutorials/images/cnn" target="_blank">TensorFlow CNN Guide</a></li>
+                <li><a href="https://cs231n.github.io/convolutional-networks/" target="_blank">Stanford CNN Guide</a></li>
+            </ul>
+        `,
+        "Saving & Loading Models": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.tensorflow.org/guide/keras/save_and_serialize" target="_blank">TensorFlow Save and Load</a></li>
+                <li><a href="https://scikit-learn.org/stable/modules/model_persistence.html" target="_blank">Scikit-learn Model Persistence</a></li>
+            </ul>
+        `,
+        "Building ML APIs": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://flask.palletsprojects.com/en/2.0.x/" target="_blank">Flask Documentation</a></li>
+                <li><a href="https://fastapi.tiangolo.com/" target="_blank">FastAPI Documentation</a></li>
+            </ul>
+        `,
+        "Cloud Deployment": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://aws.amazon.com/machine-learning/" target="_blank">AWS Machine Learning</a></li>
+                <li><a href="https://cloud.google.com/ai-platform" target="_blank">Google Cloud AI</a></li>
+            </ul>
+        `
+    };
+    return resourcesMap[lessonTitle] || `<p>No additional resources for ${lessonTitle} yet.</p>`;
+}
+
+function startTest() {
+    try {
+        const testModal = document.getElementById('test-modal');
+        const questionsContainer = document.getElementById('test-questions');
+        if (!testModal || !questionsContainer) throw new Error('Test modal or questions container not found');
+        questionsContainer.innerHTML = `
+            <div class="test-question">
+                <p>1. Which Python library is primarily used for numerical computing in ML?</p>
+                <label><input type="radio" name="q1" value="a"> Pandas</label>
+                <label><input type="radio" name="q1" value="b"> NumPy</label>
+                <label><input type="radio" name="q1" value="c"> Matplotlib</label>
+            </div>
+            <div class="test-question">
+                <p>2. What does the .describe() method in Pandas provide?</p>
+                <label><input type="radio" name="q2" value="a"> Descriptive statistics</label>
+                <label><input type="radio" name="q2" value="b"> Data visualization</label>
+                <label><input type="radio" name="q2" value="c"> Data cleaning</label>
+            </div>
+            <div class="test-question">
+                <p>3. What is the main purpose of linear regression?</p>
+                <label><input type="radio" name="q3" value="a"> To predict continuous values</label>
+                <label><input type="radio" name="q3" value="b"> To classify data into categories</label>
+                <label><input type="radio" name="q3" value="c"> To cluster similar data points</label>
+            </div>
+            <div class="test-question">
+                <p>4. What is the correct way to create a 3x3 identity matrix in NumPy?</p>
+                <label><input type="radio" name="q4" value="a"> np.array([[1,0,0],[0,1,0],[0,0,1]])</label>
+                <label><input type="radio" name="q4" value="b"> np.identity(3)</label>
+                <label><input type="radio" name="q4" value="c"> Both a and b</label>
+            </div>
+        `;
+        testModal.style.display = 'flex';
+        console.log('Test modal opened');
+    } catch (error) {
+        console.error('Error in startTest:', error);
+        alert('خطأ في فتح نافذة الاختبار. تحقق من وحدة التحكم.');
+    }
+}
+
+function submitTest() {
+    try {
+        alert('تم إرسال الاختبار بنجاح! درجتك 85%.');
+        closeModal('test-modal');
+        console.log('Test submitted');
+    } catch (error) {
+        console.error('Error in submitTest:', error);
+        alert('خطأ في إرسال الاختبار. تحقق من وحدة التحكم.');
+    }
+}
+
+function submitProject() {
+    try {
+        const projectModal = document.getElementById('project-modal');
+        if (!projectModal) throw new Error('project-modal not found');
+        projectModal.style.display = 'flex';
+        console.log('Project modal opened');
+    } catch (error) {
+        console.error('Error in submitProject:', error);
+        alert('خطأ في فتح نافذة المشروع. تحقق من وحدة التحكم.');
+    }
+}
+
+function closeModal(modalId) {
+    try {
+        const modal = document.getElementById(modalId);
+        if (!modal) throw new Error(`${modalId} not found`);
+        modal.style.display = 'none';
+        if (modalId === 'lesson-modal') {
+            const videoContainer = document.querySelector('.video-container');
+            if (videoContainer) videoContainer.innerHTML = '';
+        }
+        console.log(`Modal closed: ${modalId}`);
+    } catch (error) {
+        console.error('Error in closeModal:', error);
+        alert('خطأ في إغلاق النافذة. تحقق من وحدة التحكم.');
+    }
+}
+
+function openLessonTab(tabName) {
+    try {
+        document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+        const tab = document.querySelector(`.lesson-tab[onclick="openLessonTab('${tabName}')"]`);
+        const content = document.getElementById(`lesson-${tabName}`);
+        if (tab && content) {
+            tab.classList.add('active');
+            content.classList.add('active');
+            console.log(`Lesson tab opened: ${tabName}`);
+        } else {
+            throw new Error(`Tab or content not found for ${tabName}`);
+        }
+    } catch (error) {
+        console.error('Error in openLessonTab:', error);
+        alert('خطأ في فتح تبويب الدرس. تحقق من وحدة التحكم.');
+    }
+}
+
+function changeNotebookTab(tabName) {
+    try {
+        document.querySelectorAll('.notebook-tab').forEach(tab => tab.classList.remove('active'));
+        const tab = document.querySelector(`.notebook-tab[onclick="changeNotebookTab('${tabName}')"]`);
+        if (tab) {
+            tab.classList.add('active');
+            console.log(`Notebook tab changed: ${tabName}`);
+        } else {
+            throw new Error(`Notebook tab not found: ${tabName}`);
+        }
+    } catch (error) {
+        console.error('Error in changeNotebookTab:', error);
+        alert('خطأ في تغيير تبويب المفكرة. تحقق من وحدة التحكم.');
+    }
+}
+
+function runCode() {
+    try {
+        const editor = document.getElementById('notebook-editor');
+        const output = document.getElementById('output');
+        if (!editor || !output) throw new Error('Editor or output element not found');
+        output.innerHTML = `
+            <h4 style="color: var(--success);">تم تنفيذ الكود بنجاح!</h4>
+            <p>معاينة المخرجات ستظهر هنا في تطبيق حقيقي.</p>
+            <p>الآن، إليك الكود الخاص بك:</p>
+            <pre style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 5px; overflow-x: auto;">${escapeHtml(editor.value)}</pre>
+        `;
+        addPoints(10);
+        console.log('Code executed successfully');
+    } catch (error) {
+        console.error('Error in runCode:', error);
+        output.innerHTML = `
+            <h4 style="color: var(--danger);">خطأ في التنفيذ</h4>
+            <pre style="color: var(--danger);">${error.message}</pre>
+        `;
+        alert('خطأ في تنفيذ الكود. تحقق من وحدة التحكم.');
+    }
+}
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&")
+        .replace(/</g, "<")
+        .replace(/>/g, ">")
+        
+        .replace(/'/g, "'")
+}
+
+function addPoints(points) {
+    try {
+        const pointsBadge = document.querySelector('.points-badge span');
+        if (!pointsBadge) throw new Error('points-badge span not found');
+        let currentPoints = parseInt(pointsBadge.textContent.replace(/,/g, '')) || 0;
+        currentPoints += points;
+        pointsBadge.textContent = currentPoints.toLocaleString();
+        const notification = document.createElement('div');
+        notification.style.position = 'fixed';
+        notification.style.bottom = '20px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'var(--success)';
+        notification.style.color = 'white';
+        notification.style.padding = '15px 25px';
+        notification.style.borderRadius = '5px';
+        notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        notification.style.zIndex = '1000';
+        notification.style.display = 'flex';
+        notification.style.alignItems = 'center';
+        notification.style.gap = '10px';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i>
+            <span>+${points} XP! الإجمالي: ${currentPoints.toLocaleString()} XP</span>
+        `;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transition = 'opacity 0.5s';
+            setTimeout(() => notification.remove(), 500);
+        }, 3000);
+        console.log(`Points added: ${points}, Total: ${currentPoints}`);
+    } catch (error) {
+        console.error('Error in addPoints:', error);
+        alert('خطأ في إضافة النقاط. تحقق من وحدة التحكم.');
+    }
+}
+
+function openDataModal() {
+    try {
+        const modal = document.getElementById('data-modal');
+        if (!modal) throw new Error('data-modal not found');
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+        openDataTab('overview');
+        console.log('Data modal opened');
+    } catch (error) {
+        console.error('Error in openDataModal:', error);
+        alert('خطأ في فتح نافذة البيانات. تحقق من وحدة التحكم.');
+    }
+}
+
+function closeDataModal() {
+    try {
+        const modal = document.getElementById('data-modal');
+        if (!modal) throw new Error('data-modal not found');
+        modal.classList.remove('active');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+        console.log('Data modal closed');
+    } catch (error) {
+        console.error('Error in closeDataModal:', error);
+        alert('خطأ في إغلاق نافذة البيانات. تحقق من وحدة التحكم.');
+    }
+}
+
+function openDataTab(tabName) {
+    try {
+        document.querySelectorAll('.data-tab-content').forEach(content => content.classList.remove('active'));
+        const content = document.getElementById(`${tabName}-tab`);
+        if (!content) throw new Error(`Data tab content not found: ${tabName}`);
+        content.classList.add('active');
+        document.querySelectorAll('.data-tab').forEach(tab => tab.classList.remove('active'));
+        const activeTab = document.querySelector(`.data-tab[onclick="openDataTab('${tabName}')"]`);
+        if (activeTab) {
+            activeTab.classList.add('active');
+            console.log(`Data tab opened: ${tabName}`);
+        }
+    } catch (error) {
+        console.error('Error in openDataTab:', error);
+        alert('خطأ في فتح تبويب البيانات. تحقق من وحدة التحكم.');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    try {
+        document.querySelectorAll('.lesson-play').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                playLesson(this);
+            });
+        });
+
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('main-header');
+            if (header) {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            }
+        });
+
+        const projectForm = document.getElementById('project-form');
+        if (projectForm) {
+            projectForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('تم إرسال المشروع بنجاح! سيتم مراجعته من قبل فريقنا.');
+                closeModal('project-modal');
+                console.log('Project submitted');
+            });
+        }
+
+        document.querySelectorAll('.lesson-item.completed').forEach(item => {
+            item.style.background = 'rgba(76, 201, 240, 0.05)';
+            item.insertAdjacentHTML('afterbegin', '<i class="fas fa-check-circle" style="position: absolute; left: 25px; color: var(--success);"></i>');
+        });
+
+        console.log('DOM fully loaded and event listeners attached');
+    } catch (error) {
+        console.error('Error in DOMContentLoaded:', error);
+        alert('خطأ في تهيئة الصفحة. تحقق من وحدة التحكم.');
+    }
+});
+    </script>
+</body>
+</html>

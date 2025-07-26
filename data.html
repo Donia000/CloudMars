@@ -1,0 +1,3998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Mastery | CloudMars Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+    <style>
+   :root {
+        /* Primary Blues */
+        --primary: #071d4e;       /* Vibrant primary blue */
+        --primary-light: #071d4e; /* Lighter blue for highlights */
+        --primary-dark: #063c57;  /* Deep navy */
+        --primary-darker: #042a3d; /* Even darker for accents */
+        
+        /* Secondary & Accents */
+        --secondary: #dde1ed;     /* Rich royal blue */
+        --accent: #a00136;       /* Elegant purple (complements blue nicely) */
+        --accent-light: #ddb65c;  /* Lighter purple */
+        --accent-dark: #9a2504;   /* Darker purple */
+        
+        /* Status Colors */
+        --success: #16a34a;      /* Fresh green */
+        --success-light: #86efac; /* Light success */
+        --danger: #dc2626;       /* Bold red */
+        --warning: #d97706;      /* Warm amber */
+        --info: #071d4e;         /* Sky blue */
+        
+        /* Neutrals */
+        --dark: #1e293b;         /* Dark slate for text */
+        --darker: #0f172a;       /* Very dark */
+        --light: #f8fafc;        /* Light background */
+        --lighter: #ffffff;      /* Pure white */
+        --gray: #64748b;         /* Medium gray */
+        --light-gray: #e2e8f0;   /* Light gray */
+        --dark-gray: #475569;    /* Dark gray */
+        
+        /* Gradients */
+        --gradient-primary: linear-gradient(135deg, #213561 0%, #1e40af 100%);
+        --gradient-accent: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+        --gradient-success: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        --gradient-dark: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+        
+        /* Special Colors */
+        --bronze: #b45309;       /* Warmer bronze */
+        --silver: #b45309;       /* Cool silver */
+        --gold: #b45309;         /* Vibrant gold */
+        
+        /* Effects */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            body {
+                font-family: 'Poppins', sans-serif;
+                line-height: 1.7;
+                color: var(--dark);
+                background-color: #f8f9fa;
+                overflow-x: hidden;
+                scroll-behavior: smooth;
+            }
+    
+            h1, h2, h3, h4 {
+                font-weight: 700;
+                line-height: 1.2;
+            }
+    
+            h1, h2 {
+                font-family: 'Montserrat', sans-serif;
+            }
+    
+            .section-title {
+                font-family: 'Playfair Display', serif;
+                position: relative;
+                display: inline-block;
+                margin-bottom: 1.5rem;
+            }
+    
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: var(--accent);
+                border-radius: 2px;
+            }
+    
+            /* .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            } */
+    
+            section {
+                padding: 100px 0;
+                position: relative;
+            }
+    
+            /* ===== Buttons ===== */
+            .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);}
+    
+            .btn i {
+                margin-right: 8px;
+            }
+    
+            .btn-primary {
+                background: var(--gradient-primary);
+                color: white;
+                
+            }
+    
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+            }
+    
+            .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+    
+            .btn-primary:hover::before {
+                left: 100%;
+            }
+    
+            .btn-accent {
+                background: var(--gradient-accent);
+                color: rgb(255, 255, 255);
+            }
+    
+            .btn-accent:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(247, 37, 133, 0.3);
+            }
+    
+            .btn-outline {
+                background: transparent;
+                color: var(--primary);
+                border: 2px solid var(--primary);
+            }
+    
+            .btn-outline:hover {
+                background: var(--primary);
+                color: white;
+            }
+    
+            /* ===== Header ===== */
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            /* Header Styles */
+    header {
+      background-color: rgba(7, 5, 32, 0.9);
+      padding: 1rem 0;
+      color: white;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: white;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: #c7d2fe;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--gradient);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .cta-button {
+      background: var(--gradient);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+    }
+    
+   
+    .user-profile {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+    
+           
+     .points-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+     .points-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.2);
+        }
+
+       
+            /* ===== Hero Section ===== */
+            .course-hero {
+                background: var(--gradient-primary);
+                color: 2563eb(41, 32, 135);
+                padding: 200px 0 120px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+    
+            .course-hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 45%;
+                height: 100%;
+                background: url('th.jpeg') no-repeat center/cover;
+                opacity: 0.15;
+                clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+            }
+    
+            .hero-content {
+                max-width: 800px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .course-hero h1 {
+                font-size: 3.5rem;
+                margin-bottom: 25px;
+                animation: fadeInUp 1s ease;
+                line-height: 1.1;
+                color: #f8fafc;
+                text-shadow: 0 2px 10px rgba(93, 86, 86, 0.897);
+            }
+    
+            .course-hero p {
+                font-size: 1.25rem;
+                margin-bottom: 35px;
+                opacity: 0.9;
+                animation: fadeInUp 1s ease 0.2s forwards;
+                opacity: 0;
+                color: #f8fafc;
+    
+            }
+    
+            .level-badges {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 40px;
+                animation: fadeInUp 1s ease 0.4s forwards;
+                opacity: 0;
+            }
+    
+            .level-badge {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 10px 24px;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s;
+                cursor: pointer;
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+    
+            .level-badge:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+    
+            .level-badge.active {
+                background: white;
+                color: var(--primary);
+                font-weight: 700;
+                box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            }
+    
+            .hero-buttons {
+                display: flex;
+                gap: 20px;
+                animation: fadeInUp 1s ease 0.6s forwards;
+                opacity: 0;
+            }
+    
+            /* ===== Course Tracks ===== */
+            .course-tracks {
+                background: white;
+                position: relative;
+            }
+    
+            .course-tracks::before {
+                content: '';
+                position: absolute;
+                top: -100px;
+                left: 0;
+                width: 100%;
+                height: 150px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%234361ee"></path></svg>') no-repeat center top;
+                background-size: 100% 100%;
+            }
+    
+            .section-header {
+                text-align: center;
+                margin-bottom: 70px;
+            }
+    
+            .section-header h2 {
+                font-size: 2.8rem;
+                color: var(--darker);
+                margin-bottom: 20px;
+                position: relative;
+            }
+    
+            .section-header p {
+                color: var(--gray);
+                max-width: 700px;
+                margin: 0 auto;
+                font-size: 1.1rem;
+            }
+    
+            .track-container {
+                display: flex;
+                gap: 40px;
+            }
+    
+            .track-nav {
+                flex: 1;
+                position: sticky;
+                top: 120px;
+                align-self: flex-start;
+            }
+    
+            .track-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+    
+            .track-btn {
+                padding: 18px 24px;
+                border-radius: 12px;
+                background: var(--secondary);
+                border: none;
+                text-align: left;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                border-left: 4px solid transparent;
+            }
+    
+            .track-btn:hover {
+                transform: translateX(10px);
+                background: var(--primary-light);
+                color: white;
+                box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+            }
+    
+            .track-btn.active {
+                background: var(--primary);
+                color: white;
+                border-left: 4px solid var(--accent);
+                transform: translateX(10px);
+            }
+    
+            .track-btn .badge {
+                background: rgba(255, 255, 255, 0.3);
+                padding: 5px 12px;
+                border-radius: 50px;
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+    
+            .track-btn.active .badge {
+                background: white;
+                color: var(--primary);
+            }
+    
+            .track-content {
+                flex: 3;
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                border: 1px solid var(--light-gray);
+            }
+    
+            .track-panel {
+                display: none;
+                animation: fadeIn 0.5s ease;
+            }
+    
+            .track-panel.active {
+                display: block;
+            }
+    
+            .track-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 35px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--light-gray);
+            }
+    
+            .track-header h3 {
+                font-size: 2rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+    
+            .track-header h3 i {
+                color: var(--accent);
+            }
+    
+            .completion-badge {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+            }
+    
+            .track-description {
+                margin-bottom: 35px;
+                line-height: 1.8;
+                font-size: 1.05rem;
+                color: var(--gray);
+            }
+    
+            .tools-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+    
+            .tool-badge {
+                background: var(--secondary);
+                padding: 10px 18px;
+                border-radius: 50px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+            }
+    
+            .tool-badge:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+    
+            .tool-badge i {
+                color: var(--primary);
+                font-size: 1.1rem;
+            }
+    
+            /* Curriculum */
+            .curriculum-section h4 {
+                margin-bottom: 25px;
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: var(--darker);
+            }
+    
+            .curriculum-section h4 i {
+                color: var(--accent);
+            }
+    
+            .module {
+                margin-bottom: 30px;
+                border: 1px solid var(--light-gray);
+                border-radius: 12px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+    
+            .module:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+    
+            .module-header {
+                background: white;
+                padding: 18px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+    
+            .module-header:hover {
+                background: #f8f9fa;
+            }
+    
+            .module-header h5 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                font-size: 1.2rem;
+                color: var(--darker);
+            }
+    
+            .module-header i {
+                color: var(--primary);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+    
+            .module-header.active i {
+                transform: rotate(90deg);
+                color: var(--accent);
+            }
+    
+            .lessons-list {
+                list-style: none;
+                background: white;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+    
+            .module-header.active + .lessons-list {
+                max-height: 1000px;
+            }
+    
+            .lesson-item {
+                padding: 18px 25px 18px 60px;
+                border-top: 1px solid var(--light-gray);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.3s;
+                position: relative;
+            }
+    
+            .lesson-item:hover {
+                background: #f8f9fa;
+            }
+    
+            .lesson-item.completed {
+                background: rgba(76, 201, 240, 0.05);
+            }
+    
+            .lesson-item.completed::before {
+                content: '\f058';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                left: 25px;
+                color: var(--success);
+                font-size: 1.2rem;
+            }
+    
+            .lesson-info {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+    
+            .lesson-play {
+                color: var(--primary);
+                cursor: pointer;
+                font-size: 1.2rem;
+                transition: all 0.3s;
+            }
+    
+            .lesson-play:hover {
+                color: var(--accent);
+                transform: scale(1.1);
+            }
+    
+            .lesson-duration {
+                color: var(--gray);
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+    
+            /* Test Section */
+            .test-section {
+                background: var(--secondary);
+                padding: 35px;
+                border-radius: 16px;
+                margin: 50px 0;
+                border: 1px solid var(--light-gray);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .test-section::before {
+                content: '\f19d';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                right: 30px;
+                top: 30px;
+                font-size: 5rem;
+                opacity: 0.05;
+                color: var(--primary);
+                z-index: 0;
+            }
+    
+            .test-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .test-header h4 {
+                font-size: 1.5rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+    
+            .test-header h4 i {
+                color: var(--accent);
+            }
+    
+            .test-passed {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+            }
+    
+            .test-description {
+                margin-bottom: 25px;
+                position: relative;
+                z-index: 1;
+                color: var(--gray);
+                line-height: 1.8;
+            }
+    
+            /* Project Section */
+            .project-section {
+                background: white;
+                padding: 35px;
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+                margin-top: 50px;
+                border: 1px solid var(--light-gray);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .project-section::before {
+                content: '\f15c';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                right: 30px;
+                top: 30px;
+                font-size: 5rem;
+                opacity: 0.05;
+                color: var(--primary);
+                z-index: 0;
+            }
+    
+            .project-header {
+                margin-bottom: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-header h4 {
+                font-size: 1.5rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+    
+            .project-header h4 i {
+                color: var(--accent);
+            }
+    
+            .project-points {
+                background: var(--gradient-accent);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+            }
+    
+            .project-description {
+                margin-bottom: 25px;
+                line-height: 1.8;
+                color: var(--gray);
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-requirements {
+                margin-bottom: 35px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-requirements h5 {
+                margin-bottom: 18px;
+                font-size: 1.2rem;
+                color: var(--darker);
+            }
+    
+            .requirements-list {
+                list-style: none;
+                margin-left: 5px;
+            }
+    
+            .requirements-list li {
+                margin-bottom: 12px;
+                padding-left: 30px;
+                position: relative;
+                color: var(--gray);
+            }
+    
+            .requirements-list li::before {
+                content: '\f054';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                left: 0;
+                color: var(--accent);
+            }
+    
+    /* ===== Notebook Section ===== */
+    .notebook-section {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0;
+            border-radius: 16px;
+            margin: 60px 0;
+        }
+
+        .notebook-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .notebook-header h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .notebook-header p {
+            color: #adb5bd;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .notebook-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .notebook-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .notebook-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notebook-tab {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .notebook-tab.active {
+            background: var(--data-science);
+        }
+
+        .notebook-run-btn {
+            background: var(--gradient-success);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .notebook-run-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .notebook-editor {
+            height: 400px;
+            background: #1e1e1e;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        #notebook-editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            resize: none;
+        }
+
+        .notebook-output {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .notebook-output pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+
+            /* ===== Reward System ===== */
+            .reward-system {
+                background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                color: white;
+                padding: 100px 0;
+                margin: 100px 0;
+                border-radius: 16px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            }
+    
+            .reward-system::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(33, 37, 41, 0.85);
+            }
+    
+            .reward-container {
+                max-width: 1100px;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .reward-container h2 {
+                font-size: 3rem;
+                margin-bottom: 25px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .reward-container p {
+                max-width: 700px;
+                margin: 0 auto 50px;
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+    
+            .reward-cards {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+    
+            .reward-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                color: white;
+                border-radius: 16px;
+                padding: 40px 30px;
+                width: 320px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+    
+            .reward-card:hover {
+                transform: translateY(-15px) scale(1.03);
+                background: rgba(255, 255, 255, 0.15);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            }
+    
+            .reward-card h3 {
+                color: white;
+                margin-bottom: 20px;
+                font-size: 1.8rem;
+                position: relative;
+                display: inline-block;
+            }
+    
+            .reward-card h3::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 3px;
+                background: var(--accent);
+            }
+    
+            .reward-card .points {
+                font-size: 2.5rem;
+                font-weight: 800;
+                margin-bottom: 15px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .bronze .points {
+                color: var(--bronze);
+            }
+            
+            .silver .points {
+                color: var(--silver);
+            }
+            
+            .gold .points {
+                color: var(--gold);
+            }
+    
+            .reward-card .discount {
+                font-weight: 600;
+                margin-bottom: 30px;
+                font-size: 1.1rem;
+            }
+    
+            .reward-card .btn {
+                width: 100%;
+            }
+    
+            /* ===== CTA Section ===== */
+            .cta-section {
+                background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                color: white;
+                text-align: center;
+                padding: 120px 0;
+                border-radius: 16px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+            }
+    
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(41, 40, 41, 0.85);
+    
+            }
+    
+            .cta-section .container {
+                position: relative;
+                z-index: 1;
+            }
+    
+            .cta-section h2 {
+                font-size: 3rem;
+                margin-bottom: 25px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .cta-section p {
+                max-width: 700px;
+                margin: 0 auto 50px;
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+    
+            .cta-section .btn {
+                padding: 18px 50px;
+                font-size: 1.2rem;
+                box-shadow: 0 10px 30px rgba(247, 37, 133, 0.4);
+            }
+    
+            /* ===== Code Compiler Section ===== */
+            .compiler-section {
+                background: var(--darker);
+                color: white;
+                padding: 80px 0;
+                border-radius: 16px;
+                margin: 60px 0;
+            }
+    
+            .compiler-header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+    
+            .compiler-header h3 {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+    
+            .compiler-header p {
+                color: #adb5bd;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+    
+            .compiler-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+    
+            .compiler-toolbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.3);
+                padding: 12px 20px;
+                border-radius: 8px 8px 0 0;
+            }
+    
+            .compiler-tabs {
+                display: flex;
+                gap: 10px;
+            }
+    
+            .compiler-tab {
+                padding: 8px 16px;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s;
+            }
+    
+            .compiler-tab.active {
+                background: var(--primary);
+            }
+    
+            .compiler-run-btn {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 4px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s;
+            }
+    
+            .compiler-run-btn:hover {
+                transform: translateY(-2px);
+            }
+    
+            .compiler-editor {
+                height: 400px;
+                background: #1e1e1e;
+                border-radius: 0 0 8px 8px;
+                overflow: hidden;
+            }
+    
+            #editor {
+                width: 100%;
+                height: 100%;
+                border: none;
+                font-family: 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                padding: 15px;
+                color: #d4d4d4;
+                background: #1e1e1e;
+                resize: none;
+            }
+    
+            .compiler-output {
+                background: #1e1e1e;
+                padding: 15px;
+                border-radius: 8px;
+                min-height: 100px;
+                font-family: 'Courier New', monospace;
+                color: #d4d4d4;
+                overflow-y: auto;
+                max-height: 300px;
+            }
+    
+            .compiler-output pre {
+                margin: 0;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+    
+            /* ===== Footer ===== */
+            footer {
+                background: var(--darker);
+                color: white;
+                padding: 100px 0 30px;
+                margin-top: 100px;
+                position: relative;
+                clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+            }
+    
+            footer::before {
+                content: '';
+                position: absolute;
+                top: -100px;
+                left: 0;
+                width: 100%;
+                height: 150px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%2314213d"></path></svg>') no-repeat center top;
+                background-size: 100% 100%;
+            }
+    
+            .footer-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 50px;
+                margin-bottom: 60px;
+            }
+    
+            .footer-column h3 {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+                position: relative;
+                padding-bottom: 15px;
+                font-family: 'Montserrat', sans-serif;
+            }
+    
+            .footer-column h3::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background: var(--accent);
+            }
+    
+            .footer-links {
+                list-style: none;
+            }
+    
+            .footer-links li {
+                margin-bottom: 15px;
+            }
+    
+            .footer-links a {
+                color: #adb5bd;
+                text-decoration: none;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+    
+            .footer-links a:hover {
+                color: white;
+                transform: translateX(5px);
+            }
+    
+            .footer-links a i {
+                width: 20px;
+                text-align: center;
+                color: var(--accent);
+            }
+    
+            .footer-about p {
+                color: #adb5bd;
+                margin-bottom: 25px;
+                line-height: 1.8;
+            }
+    
+            .social-links {
+                display: flex;
+                gap: 15px;
+                margin-top: 25px;
+            }
+    
+            .social-links a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s;
+                font-size: 1.1rem;
+            }
+    
+            .social-links a:hover {
+                background: var(--accent);
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+            }
+    
+            .footer-bottom {
+                text-align: center;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: #adb5bd;
+                font-size: 0.9rem;
+            }
+    
+            .footer-bottom a {
+                color: var(--accent);
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+    
+            .footer-bottom a:hover {
+                color: white;
+                text-decoration: underline;
+            }
+    
+            /* ===== Animations ===== */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+    
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+    
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+    
+            /* ===== Floating Elements ===== */
+            .floating {
+                animation: floating 6s ease-in-out infinite;
+            }
+    
+            @keyframes floating {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-15px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+    
+            /* Lesson Modal Styles */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 2000;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .modal-content {
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                max-width: 800px;
+                width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+            }
+    
+            .close-modal {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--gray);
+            }
+    
+            .close-modal:hover {
+                color: var(--accent);
+            }
+    
+            /* Lesson Tabs */
+            .lesson-tabs {
+                display: flex;
+                border-bottom: 1px solid var(--light-gray);
+                margin: 20px 0;
+            }
+            
+            .lesson-tab {
+                padding: 10px 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                color: var(--gray);
+                position: relative;
+                margin-right: 5px;
+            }
+            
+            .lesson-tab.active {
+                color: var(--primary);
+            }
+            
+            .lesson-tab.active::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: var(--accent);
+            }
+            
+            .lesson-tab-content {
+                display: none;
+            }
+            
+            .lesson-tab-content.active {
+                display: block;
+            }
+            
+            .challenge-question {
+                margin-bottom: 15px;
+                padding: 15px;
+                background: var(--secondary);
+                border-radius: 8px;
+            }
+            
+            .challenge-question label {
+                display: block;
+                margin: 8px 0;
+                cursor: pointer;
+            }
+            
+            .challenge-question input[type="radio"] {
+                margin-right: 10px;
+            }
+            
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                height: 0;
+                overflow: hidden;
+                margin: 15px 0;
+                border-radius: 8px;
+                background: var(--darker);
+            }
+            
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+    
+            /* ===== Responsive Design ===== */
+            @media (max-width: 1200px) {
+                .course-hero h1 {
+                    font-size: 3rem;
+                }
+                
+                .section-header h2 {
+                    font-size: 2.5rem;
+                }
+            }
+    
+            @media (max-width: 992px) {
+                .track-container {
+                    flex-direction: column;
+                }
+                
+                .track-nav {
+                    position: static;
+                    margin-bottom: 30px;
+                }
+                
+                .track-buttons {
+                    flex-direction: row;
+                    overflow-x: auto;
+                    padding-bottom: 15px;
+                    scrollbar-width: thin;
+                }
+                
+                .track-btn {
+                    white-space: nowrap;
+                    min-width: 220px;
+                }
+    
+                .course-hero h1 {
+                    font-size: 2.5rem;
+                }
+    
+                .section-header h2 {
+                    font-size: 2.2rem;
+                }
+    
+                .reward-card {
+                    width: 280px;
+                }
+                
+                .reward-cards {
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+    
+            @media (max-width: 768px) {
+                .course-hero h1 {
+                    font-size: 2.2rem;
+                }
+                
+                .hero-buttons {
+                    flex-direction: column;
+                }
+                
+                .level-badges {
+                    flex-wrap: wrap;
+                }
+                
+                .course-hero::before {
+                    width: 100%;
+                    opacity: 0.1;
+                    clip-path: none;
+                }
+    
+                .section-header h2 {
+                    font-size: 2rem;
+                }
+    
+                .cta-section h2, .reward-container h2 {
+                    font-size: 2.5rem;
+                }
+    
+                .cta-section p, .reward-container p {
+                    font-size: 1rem;
+                }
+            }
+    
+            @media (max-width: 576px) {
+                .course-hero {
+                    padding: 160px 0 80px;
+                }
+                
+                .course-hero h1 {
+                    font-size: 2rem;
+                }
+                
+                .course-hero p {
+                    font-size: 1.1rem;
+                }
+    
+                .section-header h2 {
+                    font-size: 1.8rem;
+                }
+    
+                .track-content {
+                    padding: 25px;
+                }
+    
+                .test-section, .project-section {
+                    padding: 25px;
+                }
+    
+                .cta-section h2, .reward-container h2 {
+                    font-size: 2rem;
+                }
+    
+                .cta-section p, .reward-container p {
+                    font-size: 1rem;
+                }
+    
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+    
+                .compiler-header h3 {
+                    font-size: 1.8rem;
+                }
+    
+                .compiler-tabs {
+                    flex-wrap: wrap;
+                }
+            }
+        </style>
+</head>
+<body>
+    <header id="main-header">
+          <div class="container header-container">
+              <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <span>CloudMars</span>
+              </div>
+              <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="projects.html">projects</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <!-- <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li> -->
+               <div class="points-badge">
+                        <i class="fas fa-coins"></i>
+                         <span id="total-points">0</span> XP
+                    </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Data Science From Zero to Hero</h1>
+                <p>Join our comprehensive program to learn data science from the ground up. Master Python, statistics, machine learning, and data visualization to become a professional data scientist.</p>
+                
+                <div class="level-badges">
+                    <div class="level-badge active"><i class="fas fa-star"></i> Beginner</div>
+                    <div class="level-badge"><i class="fas fa-chart-line"></i> Intermediate</div>
+                    <div class="level-badge"><i class="fas fa-trophy"></i> Advanced</div>
+                </div>
+    
+                <!-- <div class="hero-buttons">
+                    <a href="payment.html" class="btn btn-accent">Enroll Now</a>
+                    <button class="btn btn-outline"><i class="fas fa-play"></i> Preview Course</button>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Tracks -->
+    <section class="course-tracks">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Learning Journey</h2>
+                <p>Our structured curriculum takes you step-by-step through all the skills needed to become a professional data scientist</p>
+            </div>
+            
+            <!-- <div class="progress-tracker">
+                <h4>Your Progress</h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 35%;"></div>
+                </div>
+                <div class="progress-stats">
+                    <div>
+                        <span class="stat-value">35%</span>
+                        <span class="stat-label">Course Completed</span>
+                    </div>
+                    <div>
+                        <span class="stat-value" id="xp-earned">0</span>
+                        <span class="stat-label">XP Earned</span>
+                    </div>
+                    <div>
+                        <span class="stat-value" id="lessons-completed">0</span>
+                        <span class="stat-label">Lessons Completed</span>
+                    </div>
+                </div>
+            </div> -->
+            
+            <div class="track-container">
+                <div class="track-nav">
+                    <div class="track-buttons">
+                        <button class="track-btn active" onclick="showTrack('beginner')">
+                            <span><i class="fas fa-map-marker-alt"></i> Foundations Track</span>
+                            <span class="badge">6 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('intermediate')">
+                            <span><i class="fas fa-compass"></i> Machine Learning Track</span>
+                            <span class="badge">5 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('advanced')">
+                            <span><i class="fas fa-flag-checkered"></i> Advanced Applications</span>
+                            <span class="badge">4 Modules</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="track-content">
+                    <!-- Beginner Track -->
+                    <div id="beginner-track" class="track-panel active">
+                        <div class="track-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> Foundations Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-check-circle"></i>
+                                <span>35% Completed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Build a strong foundation in data science with Python programming, statistics, and data analysis. Learn to work with essential tools like Pandas, NumPy, and Matplotlib to manipulate and visualize data effectively.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-table"></i>
+                                <span>Pandas</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-calculator"></i>
+                                <span>NumPy</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Matplotlib</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-pie"></i>
+                                <span>Seaborn</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-database"></i>
+                                <span>SQL</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Python for Data Science
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed" data-id="python-basics">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Python Basics and Data Types</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">25:30</span>
+                                            <span class="lesson-points">50 XP</span>
+                                            <span class="lesson-status">
+                                                <i class="fas fa-check-circle"></i> Completed
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item completed" data-id="functions-flow">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Functions and Control Flow</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">30:45</span>
+                                            <span class="lesson-points">60 XP</span>
+                                            <span class="lesson-status">
+                                                <i class="fas fa-check-circle"></i> Completed
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="files-apis">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Working with Files and APIs</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">35:10</span>
+                                            <span class="lesson-points">70 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="oop">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Object-Oriented Programming</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:20</span>
+                                            <span class="lesson-points">80 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Data Analysis with Pandas
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed" data-id="pandas-intro">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Introduction to Pandas</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">30:15</span>
+                                            <span class="lesson-points">50 XP</span>
+                                            <span class="lesson-status">
+                                                <i class="fas fa-check-circle"></i> Completed
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="data-cleaning">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Data Cleaning Techniques</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">35:50</span>
+                                            <span class="lesson-points">60 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="grouping">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Grouping and Aggregation</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:25</span>
+                                            <span class="lesson-points">70 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="time-series">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Time Series Analysis</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:10</span>
+                                            <span class="lesson-points">80 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Foundations Assessment
+                                </h4>
+                                <div class="test-passed">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Passed</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>This test evaluates your understanding of Python programming and data analysis fundamentals. You'll need to demonstrate proficiency in data manipulation, cleaning, and basic visualization. Score at least 80% to pass and earn 250 XP points.</p>
+                            </div>
+                            <button class="btn btn-primary" onclick="startTest()"><i class="fas fa-pencil-alt"></i> Take Test</button>
+                        </div>
+                        
+                        <div class="project-section">
+                            <div class="project-header">
+                                <h4>
+                                    <i class="fas fa-project-diagram"></i>
+                                    Foundations Project: Data Analysis
+                                </h4>
+                                <div class="project-points">
+                                    <i class="fas fa-coins"></i>
+                                    <span>600 XP</span>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Analyze a real-world dataset using Python and Pandas. Your project should include data cleaning, exploration, visualization, and insights generation. This project will demonstrate your ability to work with data and extract meaningful information.</p>
+                            </div>
+                            <div class="project-requirements">
+                                <h5>Project Requirements:</h5>
+                                <ul class="requirements-list">
+                                    <li>Load and clean a dataset with at least 1000 records</li>
+                                    <li>Perform exploratory data analysis with visualizations</li>
+                                    <li>Identify and handle missing data and outliers</li>
+                                    <li>Calculate descriptive statistics</li>
+                                    <li>Generate at least 3 key insights from the data</li>
+                                    <li>Create a Jupyter notebook with clear documentation</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary" onclick="submitProject()"><i class="fas fa-upload"></i> Submit Project</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Intermediate Track -->
+                    <div id="intermediate-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-compass"></i> Machine Learning Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Dive into machine learning algorithms and techniques. Learn to build, evaluate, and optimize models for classification, regression, and clustering problems using Scikit-learn and other powerful libraries.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-robot"></i>
+                                <span>Scikit-learn</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>TensorFlow</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-brain"></i>
+                                <span>Keras</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Feature Engineering</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Model Tuning</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-check-double"></i>
+                                <span>Evaluation Metrics</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Supervised Learning
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="linear-regression">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Linear and Logistic Regression</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:30</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="decision-trees">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Decision Trees and Random Forests</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:15</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="svm">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Support Vector Machines</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">55:20</span>
+                                            <span class="lesson-points">110 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="model-evaluation">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Model Evaluation Techniques</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:45</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Unsupervised Learning
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="clustering">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Clustering Algorithms</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:10</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="dimensionality">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Dimensionality Reduction</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:25</span>
+                                            <span class="lesson-points">80 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="association">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Association Rule Learning</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:50</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    ML Track Assessment
+                                </h4>
+                                <div style="background: var(--gray); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600;">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Locked</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>Complete the Foundations Track to unlock this assessment. The test will evaluate your understanding of machine learning concepts, model building, and evaluation techniques for both supervised and unsupervised learning problems.</p>
+                            </div>
+                            <button class="btn btn-secondary" disabled><i class="fas fa-lock"></i> Complete Foundations First</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Track -->
+                    <div id="advanced-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-flag-checkered"></i> Advanced Applications</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Master advanced topics like deep learning, natural language processing, and big data technologies. Learn to deploy models and work with cloud platforms to build end-to-end data science solutions.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-network-wired"></i>
+                                <span>Neural Networks</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-language"></i>
+                                <span>NLP</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-cloud"></i>
+                                <span>Cloud Platforms</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-server"></i>
+                                <span>Big Data</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-rocket"></i>
+                                <span>Model Deployment</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-network"></i>
+                                <span>Ensemble Methods</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Deep Learning
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="neural-networks">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Neural Network Fundamentals</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">55:15</span>
+                                            <span class="lesson-points">110 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="cnn">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Convolutional Neural Networks</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:20</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="rnn">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Recurrent Neural Networks</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">60:30</span>
+                                            <span class="lesson-points">120 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Natural Language Processing
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="text-preprocessing">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Text Preprocessing</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:10</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="word-embeddings">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Word Embeddings</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:25</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="transformers">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Transformer Models</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">65:50</span>
+                                            <span class="lesson-points">130 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Notebook Section -->
+      <section class="notebook-section">
+        <div class="container">
+            <div class="notebook-header">
+                <h3>Interactive Data Science Notebook</h3>
+                <p>Practice your data science skills directly in the browser with our built-in Python notebook. Write, run, and test your code in real-time.</p>
+            </div>
+            
+            <div class="notebook-container">
+                <div class="notebook-toolbar">
+                    <div class="notebook-tabs">
+                        <button class="notebook-tab active" onclick="changeNotebookTab('python')">Python</button>
+                        <!-- <button class="notebook-tab" onclick="changeNotebookTab('sql')">SQL</button>
+                        <button class="notebook-tab" onclick="changeNotebookTab('r')">R</button> -->
+                    </div>
+                    <button class="notebook-run-btn" onclick="runCode()">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                </div>
+                
+                <div class="notebook-editor">
+                    <textarea id="notebook-editor" spellcheck="false"># Welcome to the Data Science Notebook
+# Try running this basic Python code
+import numpy as np
+import pandas as pd
+
+# Create a simple DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Score': [85, 92, 78]
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:")
+print(df)
+
+# Calculate average score
+avg_score = df['Score'].mean()
+print(f"\nAverage Score: {avg_score:.2f}")
+
+# Add a new column
+df['Grade'] = np.where(df['Score'] >= 90, 'A',
+                      np.where(df['Score'] >= 80, 'B', 'C'))
+print("\nDataFrame with Grades:")
+print(df)</textarea>
+                </div>
+                
+                <h4 style="margin: 20px 0 10px; color: white;">Output:</h4>
+                <div class="notebook-output" id="output">
+                    <p style="color: #aaa;">Click "Run Code" to see the output here...</p>
+                </div>
+                <div id="progress" class="progress-bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reward System -->
+    <section class="reward-system">
+        <div class="reward-container">
+            <h2>Earn Rewards As You Learn</h2>
+            <p>Complete courses, pass tests, and submit projects to earn XP points and unlock exclusive rewards and discounts</p>
+            
+            <div class="reward-cards">
+                <div class="reward-card bronze">
+                    <h3>Bronze</h3>
+                    <div class="points">500 XP</div>
+                    <div class="discount">5% Discount on Next Course</div>
+                    <button class="btn btn-primary" onclick="claimReward('bronze', 500)">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card silver">
+                    <h3>Silver</h3>
+                    <div class="points">1,500 XP</div>
+                    <div class="discount">10% Discount + Certificate</div>
+                    <button class="btn btn-primary" onclick="claimReward('silver', 1500)">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card gold">
+                    <h3>Gold</h3>
+                    <div class="points">3,000 XP</div>
+                    <div class="discount">20% Discount + Mentorship</div>
+                    <button class="btn btn-primary" onclick="claimReward('gold', 3000)">Claim Reward</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Data Science Journey?</h2>
+            <p>Join thousands of students who have transformed their careers with our comprehensive data science program. No prior experience required.</p>
+            <a href="payment.html" class=" btn btn-accent">Enroll Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CloudMars</h3>
+                    <div class="footer-about">
+                        <p>CloudMars Academy is a leading online education platform specializing in data science and AI technologies.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Machine Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Deep Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI Engineering</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Visualization</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Webinars</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CloudMars Academy. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="#">CloudMars Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Test Modal -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('test-modal')">&times;</span>
+            <h3>Foundations Track Assessment</h3>
+            <div id="test-questions">
+                <!-- Questions will be added here by JavaScript -->
+            </div>
+            <button class="btn btn-primary" onclick="submitTest()" style="margin-top: 20px;"><i class="fas fa-paper-plane"></i> Submit Test</button>
+        </div>
+    </div>
+
+    <!-- Lesson Modal -->
+    <div id="lesson-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('lesson-modal')">&times;</span>
+            <h3 id="lesson-title">Lesson Title</h3>
+            
+            <div id="video-placeholder" style="display: none; text-align: center; padding: 40px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                <i class="fas fa-video-slash" style="font-size: 3rem; color: var(--gray); margin-bottom: 15px;"></i>
+                <h4 style="color: var(--dark);">Video Not Available</h4>
+                <p style="color: var(--gray);">The video for this lesson is currently being prepared. Please check the lesson notes and resources.</p>
+            </div>
+            
+            <div class="video-container" id="video-container" style="display: none;">
+                <iframe id="lesson-video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <div class="lesson-tabs">
+                <button class="lesson-tab active" onclick="openLessonTab('notes')">Notes</button>
+                <button class="lesson-tab" onclick="openLessonTab('challenge')">Challenge</button>
+                <button class="lesson-tab" onclick="openLessonTab('resources')">Resources</button>
+            </div>
+            
+            <div id="lesson-notes" class="lesson-tab-content active">
+                <div id="lesson-content">
+                    <!-- Lesson notes content will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="lesson-challenge" class="lesson-tab-content">
+                <div id="challenge-content">
+                    <!-- Challenge content will be loaded here -->
+                </div>
+                <button class="btn btn-primary" onclick="submitChallenge()" style="margin-top: 20px;">
+                    <i class="fas fa-paper-plane"></i> Submit Challenge
+                </button>
+            </div>
+            
+            <div id="lesson-resources" class="lesson-tab-content">
+                <div id="resources-content">
+                    <!-- Resources content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Submission Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
+            <h3>Submit Project</h3>
+            <form id="project-form" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Project Name</label>
+                    <input type="text" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" value="Foundations Project: Data Analysis" readonly>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">GitHub Repository</label>
+                    <input type="url" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" placeholder="https://github.com/yourusername/project" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notebook File</label>
+                    <input type="file" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" accept=".ipynb" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notes (Optional)</label>
+                    <textarea style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px; min-height: 100px;" placeholder="Any additional information about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Project</button>
+            </form>
+        </div>
+    </div>
+   <script type="module">
+import { auth, addUserPoints, onSnapshot, doc, getDoc, db } from './firebaseauth.js';
+
+// Global variables
+let currentUserId = null;
+let currentLessonTitle = '';
+let courseId = 'ds101';
+let totalPoints = (() => {
+    const stored = localStorage.getItem('totalPoints');
+    try {
+        const parsed = JSON.parse(stored);
+        if (typeof parsed === 'number') {
+            return [{ points: parsed, lessonTitle: 'Legacy Points', timestamp: new Date().toISOString() }];
+        }
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        return [];
+    }
+})();
+let userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || {};
+let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
+let youtubePlayer = null;
+
+// Load YouTube Iframe API
+function loadYouTubeAPI() {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+// Called by YouTube Iframe API when loaded
+window.onYouTubeIframeAPIReady = function() {
+    console.log('YouTube Iframe API ready');
+};
+
+// Check authentication state and sync points from Firestore
+auth.onAuthStateChanged(async (user) => {
+    console.log('onAuthStateChanged triggered at', new Date().toISOString());
+    if (user) {
+        currentUserId = user.uid;
+        console.log(`User ${currentUserId} authenticated in course page`);
+
+        const userDocRef = doc(db, 'users', currentUserId);
+        onSnapshot(userDocRef, (doc) => {
+            if (doc.exists()) {
+                const userData = doc.data();
+                console.log(`Firestore points for user ${currentUserId}:`, userData.points);
+
+                const totalPointsEl = document.getElementById('total-points');
+                const xpEarnedEl = document.getElementById('xp-earned');
+                if (totalPointsEl) totalPointsEl.textContent = userData.points || 0;
+                if (xpEarnedEl) xpEarnedEl.textContent = userData.points || 0;
+
+                totalPoints = userData.pointsHistory || [];
+                localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+            } else {
+                console.error(`User document not found for ${currentUserId}`);
+            }
+        }, (error) => {
+            console.error(`Error syncing points for user ${currentUserId}:`, error);
+        });
+
+        await migrateLocalStoragePoints(user.uid);
+    } else {
+        currentUserId = null;
+        console.log('No user authenticated, using localStorage for points');
+        updatePointsDisplay();
+    }
+});
+
+// Migrate localStorage points to Firestore (one-time)
+// async function migrateLocalStoragePoints(userId) {
+//     if (totalPoints.length > 0) {
+//         console.log(`Migrating ${totalPoints.length} localStorage points to Firestore for user ${userId}`);
+//         const userDocRef = doc(db, 'users', userId);
+//         const userDoc = await getDoc(userDocRef);
+//         const existingHistory = userDoc.exists() ? (userDoc.data().pointsHistory || []) : [];
+//         const existingSources = existingHistory.map(entry => `${entry.points}:${entry.source}:${entry.timestamp}`);
+//         for (const entry of totalPoints) {
+//             const entryKey = `${entry.points}:${entry.lessonTitle}:${entry.timestamp}`;
+//             if (!existingSources.includes(entryKey)) {
+//                 try {
+//                     await addUserPoints(userId, entry.points, entry.lessonTitle || 'Migrated Points', courseId);
+//                     console.log(`Migrated points: ${entry.points} for ${entry.lessonTitle}`);
+//                 } catch (error) {
+//                     console.error(`Error migrating points for ${entry.lessonTitle}:`, error);
+//                 }
+//             } else {
+//                 console.log(`Skipped duplicate entry: ${entryKey}`);
+//             }
+//         }
+//         totalPoints = [];
+//         localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+//     }
+// }
+
+// Add points and sync with Firestore
+async function addPoints(points, lessonTitle) {
+    if (!points || !lessonTitle) {
+        console.warn('Attempted to add points without valid parameters:', { points, lessonTitle });
+        return;
+    }
+    console.trace(`addPoints called with ${points} points for ${lessonTitle} at ${new Date().toISOString()}`);
+    const newPointsEntry = {
+        points: points,
+        lessonTitle: lessonTitle || currentLessonTitle,
+        timestamp: new Date().toISOString(),
+    };
+    // Check for duplicate entries
+    const entryKey = `${points}:${lessonTitle}:${newPointsEntry.timestamp}`;
+    const existingKeys = totalPoints.map(e => `${e.points}:${e.lessonTitle}:${e.timestamp}`);
+    if (existingKeys.includes(entryKey)) {
+        console.log(`Skipped duplicate points entry: ${entryKey}`);
+        return;
+    }
+    totalPoints.push(newPointsEntry);
+    localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+
+    if (currentUserId) {
+        try {
+            console.log(`Adding ${points} points to Firestore for user ${currentUserId}, lesson: ${lessonTitle}`);
+            await addUserPoints(currentUserId, points, lessonTitle || 'Course Activity', courseId);
+        } catch (error) {
+            console.error(`Error adding points to Firestore for user ${currentUserId}:`, error);
+            showNotification('Error syncing points with server', 'error');
+        }
+    }
+
+    updatePointsDisplay();
+    showNotification(`+${points} XP! Total: ${getTotalPointsSum()} XP`, 'success');
+}
+
+// Get latest points (for localStorage fallback)
+function getLatestPoints() {
+    if (totalPoints.length > 0) {
+        return totalPoints[totalPoints.length - 1].points;
+    }
+    return 0;
+}
+
+// Get total points sum (for localStorage fallback)
+function getTotalPointsSum() {
+    return totalPoints.reduce((sum, entry) => sum + entry.points, 0);
+}
+
+// Example usage for correct answers
+function onCorrectAnswer(points) {
+    addPoints(points, currentLessonTitle);
+    console.log("Latest points:", getLatestPoints());
+    console.log("Total points:", getTotalPointsSum());
+}
+
+// Load saved points and setup event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded triggered at', new Date().toISOString());
+    updateCompletedLessons();
+    updateProgressBar();
+    loadYouTubeAPI();
+
+    // Attach playLesson event listeners programmatically
+    document.querySelectorAll('.lesson-play').forEach(btn => {
+        btn.removeEventListener('click', playLesson); // Prevent duplicate listeners
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            playLesson(this);
+        });
+    });
+
+    // Remove and re-add challenge submit handler to prevent duplicates
+    document.removeEventListener('click', handleChallengeSubmit);
+    document.addEventListener('click', handleChallengeSubmit);
+
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    });
+
+    const projectForm = document.getElementById('project-form');
+    if (projectForm) {
+        projectForm.removeEventListener('submit', handleProjectSubmit); // Prevent duplicate listeners
+        projectForm.addEventListener('submit', handleProjectSubmit);
+    }
+});
+
+function handleChallengeSubmit(e) {
+    if (e.target && e.target.closest('button') && e.target.closest('button').textContent.includes('Submit Challenge')) {
+        console.log('Submit Challenge button clicked at', new Date().toISOString());
+        submitChallenge();
+    }
+}
+
+function handleProjectSubmit(e) {
+    e.preventDefault();
+    alert('Project submitted successfully! It will be reviewed by our team.');
+    addPoints(600, 'Project Submission');
+    closeModal('project-modal');
+}
+
+function updatePointsDisplay() {
+    if (!currentUserId) {
+        const total = getTotalPointsSum();
+        const totalPointsEl = document.getElementById('total-points');
+        const xpEarnedEl = document.getElementById('xp-earned');
+        if (totalPointsEl) totalPointsEl.textContent = total;
+        if (xpEarnedEl) xpEarnedEl.textContent = total;
+    }
+}
+
+function updateCompletedLessons() {
+    completedLessons.forEach(lessonId => {
+        const lessonItem = document.querySelector(`.lesson-item[data-id="${lessonId}"]`);
+        if (lessonItem) lessonItem.classList.add('completed');
+    });
+}
+
+function showTrack(trackId) {
+    document.querySelectorAll('.track-panel').forEach(panel => panel.classList.remove('active'));
+    const trackPanel = document.getElementById(`${trackId}-track`);
+    if (trackPanel) trackPanel.classList.add('active');
+
+    document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
+    if (event.currentTarget) event.currentTarget.classList.add('active');
+}
+
+function toggleModule(header) {
+    header.classList.toggle('active');
+    const lessonsList = header.nextElementSibling;
+    if (lessonsList) {
+        lessonsList.style.maxHeight = header.classList.contains('active') ? lessonsList.scrollHeight + 'px' : '0';
+    }
+}
+
+function playLesson(playButton) {
+    const lessonItem = playButton.closest('.lesson-item');
+    currentLessonTitle = lessonItem.querySelector('span').textContent;
+    const lessonId = lessonItem.dataset.id;
+
+    console.log(`Opening lesson: ${currentLessonTitle} (ID: ${lessonId})`);
+
+    const lessonTitleEl = document.getElementById('lesson-title');
+    if (lessonTitleEl) lessonTitleEl.textContent = currentLessonTitle;
+
+    const videoData = getVideoDataByLesson(currentLessonTitle);
+    const videoContainer = document.getElementById('video-container');
+    const videoPlaceholder = document.getElementById('video-placeholder');
+
+    if (videoContainer && videoPlaceholder) {
+        if (videoData.id) {
+            videoPlaceholder.style.display = 'none';
+            videoContainer.style.display = 'block';
+            videoContainer.innerHTML = `<div id="youtube-player"></div>`;
+
+            youtubePlayer = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: videoData.id,
+                playerVars: {
+                    autoplay: 1,
+                    start: videoData.startTime || 0,
+                    modestbranding: 1,
+                    rel: 0
+                },
+                events: {
+                    onReady: (event) => {
+                        console.log('YouTube player ready for video:', videoData.id);
+                        event.target.playVideo();
+                    },
+                    onError: (error) => {
+                        console.error('YouTube player error:', error);
+                        showNotification('Error loading video. Please try again.', 'error');
+                    }
+                }
+            });
+        } else {
+            videoPlaceholder.style.display = 'block';
+            videoContainer.style.display = 'none';
+            videoPlaceholder.innerHTML = `<p>${videoData.message || 'Video not available'}</p>`;
+        }
+    } else {
+        console.error('Video container or placeholder not found');
+    }
+
+    const lessonContentEl = document.getElementById('lesson-content');
+    if (lessonContentEl) lessonContentEl.innerHTML = getLessonNotes(currentLessonTitle);
+
+    const challengeContentEl = document.getElementById('challenge-content');
+    if (challengeContentEl) challengeContentEl.innerHTML = getLessonChallenge(currentLessonTitle, lessonId);
+
+    const resourcesContentEl = document.getElementById('resources-content');
+    if (resourcesContentEl) resourcesContentEl.innerHTML = getLessonResources(currentLessonTitle);
+
+    if (userAnswers[lessonId]) {
+        const challengeData = userAnswers[lessonId];
+        const questions = document.querySelectorAll('.challenge-question');
+        const totalPossible = Array.from(questions).reduce((sum, q) => sum + parseInt(q.dataset.points), 0);
+        const percentage = Math.round((challengeData.pointsEarned / totalPossible) * 100);
+
+        if (challengeContentEl) {
+            challengeContentEl.insertAdjacentHTML('beforeend', `
+                <div class="challenge-result">
+                    <h4>Previous Challenge Result (Submitted on ${new Date(challengeData.completed).toLocaleDateString()})</h4>
+                    <p>You scored ${challengeData.pointsEarned}/${totalPossible} XP (${percentage}%)</p>
+                    ${generateAnswerReview(challengeData)}
+                </div>
+            `);
+        }
+
+        const submitBtn = document.querySelector('#lesson-challenge .btn-primary');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Already Submitted';
+        }
+    }
+
+    document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+    const videoTab = document.querySelector('.lesson-tab[onclick="openLessonTab(\'video\')]');
+    const videoTabContent = document.getElementById('lesson-video-tab');
+    if (videoTab) videoTab.classList.add('active');
+    if (videoTabContent) videoTabContent.classList.add('active');
+
+    const lessonModal = document.getElementById('lesson-modal');
+    if (lessonModal) lessonModal.style.display = 'flex';
+}
+
+function getVideoDataByLesson(lessonTitle) {
+    const videoMap = {
+        "Python Basics and Data Types": { id: "kqtD5dpn9C8", title: "Python Basics Tutorial", startTime: 0, duration: "25:30" },
+        "Functions and Control Flow": { id: "9Os0o3wzS_I", title: "Python Functions Explained", startTime: 0, duration: "30:45" },
+        "Working with Files and APIs": { id: "WvhQhj4n6b8", title: "Python Files and APIs", startTime: 0, duration: "35:10" },
+        "Object-Oriented Programming": { id: "Ej_02ICOIgs", title: "Python OOP Tutorial", startTime: 0, duration: "40:20" },
+        "Introduction to Pandas": { id: "dcqPhpY8t4k", title: "Pandas Introduction", startTime: 0, duration: "30:15" },
+        "Data Cleaning Techniques": { id: "KdmPHEnPJd8", title: "Data Cleaning with Pandas", startTime: 0, duration: "35:50" },
+        "Grouping and Aggregation": { id: "tx1dsJzwNjg", title: "Pandas Grouping Tutorial", startTime: 0, duration: "40:25" },
+        "Time Series Analysis": { id: "UFuo7_EHI1I", title: "Time Series in Pandas", startTime: 0, duration: "45:10" },
+        "Linear and Logistic Regression": { id: "zM4VZR0px8E", title: "Regression Models", startTime: 0, duration: "50:30" },
+        "Decision Trees and Random Forests": { id: "7VeUPuFGJHk", title: "Decision Trees Tutorial", startTime: 0, duration: "45:15" },
+        "Support Vector Machines": { id: "efR1C6CvhmE", title: "SVM Explained", startTime: 0, duration: "55:20" },
+        "Model Evaluation Techniques": { id: "PO4hiKeMfWg", title: "Model Evaluation", startTime: 0, duration: "45:45" },
+        "Clustering Algorithms": { id: "EItlUEPCIzM", title: "Clustering Methods", startTime: 0, duration: "45:10" },
+        "Dimensionality Reduction": { id: "HMOI_lkzW08", title: "Dimensionality Reduction", startTime: 0, duration: "40:25" },
+        "Association Rule Learning": { id: "n3RolJvOBsM", title: "Association Rules", startTime: 0, duration: "50:50" },
+        "Neural Network Fundamentals": { id: "aircAruvnKk", title: "Neural Networks Basics", startTime: 0, duration: "55:15" },
+        "Convolutional Neural Networks": { id: "YRhxdVk_sIs", title: "CNN Tutorial", startTime: 0, duration: "50:20" },
+        "Recurrent Neural Networks": { id: "UNmqTiOnR94", title: "RNN Explained", startTime: 0, duration: "60:30" },
+        "Text Preprocessing": { id: "rmVRLeJRkl4", title: "NLP Text Processing", startTime: 0, duration: "45:10" },
+        "Word Embeddings": { id: "5MaWmXwxFN0", title: "Word Embeddings Tutorial", startTime: 0, duration: "50:25" },
+        "Transformer Models": { id: "TQQlZhbC51s", title: "Transformers Explained", startTime: 0, duration: "65:50" }
+    };
+
+    return videoMap[lessonTitle] || { id: null, title: "Video Not Available", message: "The video for this lesson is currently being prepared." };
+}
+
+function getLessonNotes(lessonTitle) {
+    const notesMap = {
+        "Python Basics and Data Types": `
+            <h4>Python Fundamentals</h4>
+            <p>Python is a powerful programming language for data science with simple syntax and rich ecosystem.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Variables and data types (int, float, str, bool)</li>
+                <li>Basic operations and expressions</li>
+                <li>Lists, tuples, dictionaries, and sets</li>
+                <li>String manipulation</li>
+            </ul>
+        `,
+        "Functions and Control Flow": `
+            <h4>Functions in Python</h4>
+            <p>Functions allow you to organize and reuse code effectively.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Function definition and invocation</li>
+                <li>Parameters and arguments</li>
+                <li>Return values</li>
+                <li>Scope of variables</li>
+            </ul>
+            <h4>Control Flow</h4>
+            <p>Control the execution flow of your program with:</p>
+            <ul>
+                <li>Conditional statements (if/elif/else)</li>
+                <li>Loops (for, while)</li>
+                <li>Break and continue statements</li>
+            </ul>
+        `,
+        "Working with Files and APIs": `
+            <h4>File Handling</h4>
+            <p>Working with files is essential for data science projects.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Opening and closing files</li>
+                <li>Reading and writing text files</li>
+                <li>Working with CSV and JSON files</li>
+                <li>Context managers (with statement)</li>
+            </ul>
+            <h4>API Interactions</h4>
+            <p>APIs allow you to access data from web services:</p>
+            <ul>
+                <li>Making HTTP requests</li>
+                <li>Working with REST APIs</li>
+                <li>Parsing JSON responses</li>
+            </ul>
+        `,
+        "Object-Oriented Programming": `
+            <h4>OOP Concepts</h4>
+            <p>Object-oriented programming helps organize complex code.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Classes and objects</li>
+                <li>Inheritance and polymorphism</li>
+                <li>Encapsulation</li>
+                <li>Special methods</li>
+            </ul>
+        `,
+        "Introduction to Pandas": `
+            <h4>Pandas Basics</h4>
+            <p>Pandas is the most popular Python library for data manipulation and analysis.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Series and DataFrames</li>
+                <li>Reading and writing data</li>
+                <li>Basic data exploration</li>
+                <li>Indexing and selection</li>
+            </ul>
+        `,
+        "Data Cleaning Techniques": `
+            <h4>Data Cleaning</h4>
+            <p>Cleaning data is a crucial step in the data science pipeline.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Handling missing data</li>
+                <li>Removing duplicates</li>
+                <li>Data type conversion</li>
+                <li>String manipulation</li>
+            </ul>
+        `,
+        "Grouping and Aggregation": `
+            <h4>Grouping Data</h4>
+            <p>Grouping allows you to analyze subsets of your data.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>groupby() operation</li>
+                <li>Aggregation functions</li>
+                <li>Multi-level grouping</li>
+                <li>Pivot tables</li>
+            </ul>
+        `,
+        "Time Series Analysis": `
+            <h4>Time Series</h4>
+            <p>Working with time-stamped data requires special techniques.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>DateTimeIndex</li>
+                <li>Resampling</li>
+                <li>Rolling windows</li>
+                <li>Time zone handling</li>
+            </ul>
+        `,
+        "Linear and Logistic Regression": `
+            <h4>Regression Models</h4>
+            <p>Regression is used for predicting continuous values.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Simple and multiple linear regression</li>
+                <li>Logistic regression for classification</li>
+                <li>Model coefficients and interpretation</li>
+                <li>Assumptions of regression</li>
+            </ul>
+        `,
+        "Decision Trees and Random Forests": `
+            <h4>Tree-Based Models</h4>
+            <p>Decision trees are versatile machine learning algorithms.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>How decision trees work</li>
+                <li>Entropy and information gain</li>
+                <li>Random forests for improved performance</li>
+                <li>Feature importance</li>
+            </ul>
+        `,
+        "Support Vector Machines": `
+            <h4>SVM</h4>
+            <p>SVMs are powerful for classification tasks.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Maximal margin classifier</li>
+                <li>Kernel trick</li>
+                <li>Soft margin classifier</li>
+                <li>Hyperparameter tuning</li>
+            </ul>
+        `,
+        "Model Evaluation Techniques": `
+            <h4>Model Evaluation</h4>
+            <p>Proper evaluation is crucial for machine learning.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Train-test split</li>
+                <li>Cross-validation</li>
+                <li>Confusion matrix</li>
+                <li>ROC curves</li>
+            </ul>
+        `,
+        "Clustering Algorithms": `
+            <h4>Clustering</h4>
+            <p>Clustering groups similar data points together.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>K-means clustering</li>
+                <li>Hierarchical clustering</li>
+                <li>DBSCAN</li>
+                <li>Choosing the number of clusters</li>
+            </ul>
+        `,
+        "Dimensionality Reduction": `
+            <h4>Dimensionality Reduction</h4>
+            <p>Reducing features while preserving information.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Principal Component Analysis (PCA)</li>
+                <li>t-SNE</li>
+                <li>Feature selection</li>
+                <li>Curse of dimensionality</li>
+            </ul>
+        `,
+        "Association Rule Learning": `
+            <h4>Association Rules</h4>
+            <p>Discovering interesting relationships in large datasets.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Apriori algorithm</li>
+                <li>Support and confidence</li>
+                <li>Market basket analysis</li>
+            </ul>
+        `,
+        "Neural Network Fundamentals": `
+            <h4>Neural Networks</h4>
+            <p>Neural networks are inspired by biological neurons.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Perceptrons</li>
+                <li>Activation functions</li>
+                <li>Backpropagation</li>
+                <li>Gradient descent</li>
+            </ul>
+        `,
+        "Convolutional Neural Networks": `
+            <h4>CNNs</h4>
+            <p>CNNs are specialized for image processing.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Convolution operation</li>
+                <li>Pooling layers</li>
+                <li>Transfer learning</li>
+                <li>Architectures (ResNet, VGG, etc.)</li>
+            </ul>
+        `,
+        "Recurrent Neural Networks": `
+            <h4>RNNs</h4>
+            <p>RNNs are designed for sequential data.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Recurrent connections</li>
+                <li>LSTM and GRU cells</li>
+                <li>Sequence prediction</li>
+            </ul>
+        `,
+        "Text Preprocessing": `
+            <h4>Text Processing</h4>
+            <p>Preparing text data for NLP tasks.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Tokenization</li>
+                <li>Stemming and lemmatization</li>
+                <li>Stop word removal</li>
+                <li>Regular expressions</li>
+            </ul>
+        `,
+        "Word Embeddings": `
+            <h4>Word Embeddings</h4>
+            <p>Representing words as dense vectors.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Word2Vec</li>
+                <li>GloVe</li>
+                <li>FastText</li>
+                <li>Contextual embeddings</li>
+            </ul>
+        `,
+        "Transformer Models": `
+            <h4>Transformers</h4>
+            <p>State-of-the-art architecture for NLP.</p>
+            <p>Key concepts:</p>
+            <ul>
+                <li>Attention mechanism</li>
+                <li>BERT and GPT models</li>
+                <li>Fine-tuning</li>
+            </ul>
+        `
+    };
+
+    return notesMap[lessonTitle] || `
+        <h4>${lessonTitle}</h4>
+        <p>Detailed notes for this lesson will appear here. The content is currently being prepared by our instructors.</p>
+        <p>Check back soon for updates or proceed to the challenge to test your understanding.</p>
+    `;
+}
+
+function getLessonChallenge(lessonTitle, lessonId) {
+    const challengesMap = {
+        "python-basics": {
+            questions: [
+                { text: "Which of the following is NOT a valid Python data type?", options: ["int", "float", "decimal"], correct: 2, points: 10 },
+                { text: "What is the output of: print(type(5.0))?", options: ["<class 'int'>", "<class 'float'>", "<class 'double'>"], correct: 1, points: 10 },
+                { text: "Which operator is used for exponentiation in Python?", options: ["^", "**", "*"], correct: 1, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "functions-flow": {
+            questions: [
+                { text: "What keyword is used to define a function in Python?", options: ["func", "def", "function"], correct: 1, points: 10 },
+                { text: "What does the range(5) function return?", options: ["[0, 1, 2, 3, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4, 5]"], correct: 0, points: 10 },
+                { text: "Which statement immediately exits a loop?", options: ["exit", "break", "continue"], correct: 1, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "files-apis": {
+            questions: [
+                { text: "Which mode opens a file for both reading and writing?", options: ["r+", "w", "a"], correct: 0, points: 10 },
+                { text: "Which library is commonly used for making HTTP requests in Python?", options: ["requests", "http", "urllib"], correct: 0, points: 10 },
+                { text: "What does JSON stand for?", options: ["JavaScript Object Notation", "Java Standard Object Notation", "JavaScript Oriented Notation"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "oop": {
+            questions: [
+                { text: "What is the correct syntax to create a class in Python?", options: ["class MyClass:", "def MyClass:", "new class MyClass:"], correct: 0, points: 10 },
+                { text: "Which method is called when an object is created?", options: ["__init__", "__new__", "__create__"], correct: 0, points: 10 },
+                { text: "What is the main purpose of inheritance?", options: ["Code reuse", "Performance improvement", "Memory optimization"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "pandas-intro": {
+            questions: [
+                { text: "What is the primary data structure in Pandas?", options: ["Array", "DataFrame", "Matrix"], correct: 1, points: 10 },
+                { text: "Which function reads a CSV file into a DataFrame?", options: ["pd.read_csv()", "pd.read_excel()", "pd.read_table()"], correct: 0, points: 10 },
+                { text: "What does df.head() display?", options: ["The last 5 rows", "The first 5 rows", "A random sample"], correct: 1, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "data-cleaning": {
+            questions: [
+                { text: "Which method is used to fill missing values in a DataFrame?", options: ["fillna()", "dropna()", "replace()"], correct: 0, points: 10 },
+                { text: "What does df.duplicated() return?", options: ["A boolean Series", "A DataFrame without duplicates", "None"], correct: 0, points: 10 },
+                { text: "Which method converts string dates to datetime objects?", options: ["pd.to_datetime()", "df.convert_date()", "pd.date_parse()"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "grouping": {
+            questions: [
+                { text: "What does df.groupby('column').mean() return?", options: ["Mean values for each group", "The original DataFrame", "A Series with counts"], correct: 0, points: 10 },
+                { text: "Which aggregation function counts non-null values?", options: ["count()", "sum()", "size()"], correct: 0, points: 10 },
+                { text: "What does the pivot_table() function do?", options: ["Creates a spreadsheet-style pivot table", "Rotates the DataFrame", "Combines multiple DataFrames"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "time-series": {
+            questions: [
+                { text: "Which Pandas data type is used for time series?", options: ["DateTimeIndex", "TimeSeries", "DateArray"], correct: 0, points: 10 },
+                { text: "What does resample('M') do?", options: ["Resamples to monthly frequency", "Resamples to minute frequency", "Resamples to millisecond frequency"], correct: 0, points: 10 },
+                { text: "Which function calculates rolling averages?", options: ["rolling()", "moving()", "average()"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "linear-regression": {
+            questions: [
+                { text: "Which library is commonly used for linear regression in Python?", options: ["scikit-learn", "pandas", "numpy"], correct: 0, points: 10 },
+                { text: "What is the purpose of the intercept in linear regression?", options: ["The expected mean value of Y when X=0", "The slope of the line", "The error term"], correct: 0, points: 10 },
+                { text: "Which metric measures regression model performance?", options: ["R-squared", "Accuracy", "Precision"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "decision-trees": {
+            questions: [
+                { text: "What is the main advantage of decision trees?", options: ["Interpretability", "Speed", "Accuracy"], correct: 0, points: 10 },
+                { text: "What does a Random Forest combine?", options: ["Multiple decision trees", "Different algorithms", "Various datasets"], correct: 0, points: 10 },
+                { text: "Which parameter controls tree depth?", options: ["max_depth", "min_samples", "n_estimators"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "svm": {
+            questions: [
+                { text: "What does SVM stand for?", options: ["Support Vector Machine", "Standard Vector Model", "Supervised Vector Method"], correct: 0, points: 10 },
+                { text: "What is the kernel trick?", options: ["Mapping data to higher dimensions", "Reducing data dimensions", "Normalizing data"], correct: 0, points: 10 },
+                { text: "Which kernel is commonly used in SVM?", options: ["RBF", "Linear", "All of the above"], correct: 2, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "model-evaluation": {
+            questions: [
+                { text: "What is the purpose of train_test_split?", options: ["To evaluate model performance", "To speed up training", "To reduce data size"], correct: 0, points: 10 },
+                { text: "Which metric is used for classification problems?", options: ["Accuracy", "MSE", "R-squared"], correct: 0, points: 10 },
+                { text: "What does k-fold cross-validation do?", options: ["Divides data into k subsets", "Trains k different models", "Both"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "clustering": {
+            questions: [
+                { text: "What is the most common clustering algorithm?", options: ["K-means", "DBSCAN", "Hierarchical"], correct: 0, points: 10 },
+                { text: "What does the elbow method determine?", options: ["Optimal number of clusters", "Cluster quality", "Algorithm speed"], correct: 0, points: 10 },
+                { text: "Which algorithm doesn't require specifying the number of clusters?", options: ["DBSCAN", "K-means", "GMM"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "dimensionality": {
+            questions: [
+                { text: "What does PCA stand for?", options: ["Principal Component Analysis", "Primary Component Algorithm", "Principal Correlation Analysis"], correct: 0, points: 10 },
+                { text: "What is the main goal of PCA?", options: ["Reduce dimensionality", "Increase accuracy", "Speed up training"], correct: 0, points: 10 },
+                { text: "Which parameter controls the number of components in PCA?", options: ["n_components", "k", "n_features"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "association": {
+            questions: [
+                { text: "What is the Apriori algorithm used for?", options: ["Association rule mining", "Classification", "Regression"], correct: 0, points: 10 },
+                { text: "What does support measure?", options: ["Frequency of itemset", "Strength of rule", "Confidence"], correct: 0, points: 10 },
+                { text: "Which application commonly uses association rules?", options: ["Market basket analysis", "Image recognition", "Time series forecasting"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "neural-networks": {
+            questions: [
+                { text: "What is an artificial neuron inspired by?", options: ["Biological neuron", "Mathematical function", "Both"], correct: 2, points: 10 },
+                { text: "Which activation function is commonly used in hidden layers?", options: ["ReLU", "Sigmoid", "Tanh"], correct: 0, points: 10 },
+                { text: "What is the purpose of backpropagation?", options: ["To update weights", "To initialize weights", "To normalize inputs"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "cnn": {
+            questions: [
+                { text: "What is CNN particularly good at?", options: ["Image recognition", "Text processing", "Time series"], correct: 0, points: 10 },
+                { text: "What does a convolution operation do?", options: ["Applies filters to extract features", "Combines features", "Normalizes inputs"], correct: 0, points: 10 },
+                { text: "Which layer typically follows a convolutional layer?", options: ["Pooling layer", "Dense layer", "Dropout layer"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "rnn": {
+            questions: [
+                { text: "What type of data are RNNs designed for?", options: ["Sequential data", "Image data", "Tabular data"], correct: 0, points: 10 },
+                { text: "What is a common problem with basic RNNs?", options: ["Vanishing gradients", "Exploding gradients", "Both"], correct: 2, points: 10 },
+                { text: "Which advanced RNN architecture has memory cells?", options: ["LSTM", "GRU", "Both"], correct: 2, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "text-preprocessing": {
+            questions: [
+                { text: "What is tokenization?", options: ["Splitting text into words", "Removing stop words", "Stemming words"], correct: 0, points: 10 },
+                { text: "What does stemming do?", options: ["Reduces words to root form", "Removes punctuation", "Identifies parts of speech"], correct: 0, points: 10 },
+                { text: "Which is NOT a common text preprocessing step?", options: ["Feature scaling", "Lowercasing", "Removing stop words"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "word-embeddings": {
+            questions: [
+                { text: "What do word embeddings represent?", options: ["Words as dense vectors", "Words as sparse vectors", "Words as strings"], correct: 0, points: 10 },
+                { text: "Which algorithm is commonly used for word embeddings?", options: ["Word2Vec", "TF-IDF", "Bag of Words"], correct: 0, points: 10 },
+                { text: "What does word similarity in embedding space indicate?", options: ["Semantic similarity", "Syntactic similarity", "Both"], correct: 2, points: 10 }
+            ],
+            totalPoints: 30
+        },
+        "transformers": {
+            questions: [
+                { text: "What is the key innovation in transformers?", options: ["Attention mechanism", "Recurrent connections", "Convolutional layers"], correct: 0, points: 10 },
+                { text: "Which is a popular transformer model?", options: ["BERT", "GPT", "Both"], correct: 2, points: 10 },
+                { text: "What does BERT stand for?", options: ["Bidirectional Encoder Representations from Transformers", "Basic Encoder for Representation Tasks", "Bidirectional Embedding Recognition Technique"], correct: 0, points: 10 }
+            ],
+            totalPoints: 30
+        }
+    };
+
+    const challenge = challengesMap[lessonId] || {
+        questions: [],
+        totalPoints: 0,
+        message: "No challenge available for this lesson yet."
+    };
+
+    let html = `<h4>Lesson Challenge (Total: ${challenge.totalPoints} XP)</h4>`;
+
+    if (challenge.message) {
+        html += `<p>${challenge.message}</p>`;
+    } else {
+        challenge.questions.forEach((q, i) => {
+            html += `
+                <div class="challenge-question" data-points="${q.points}" data-correct="${q.correct}">
+                    <p>${i+1}. ${q.text}</p>
+                    ${q.options.map((opt, j) => `
+                        <label>
+                            <input type="radio" name="q${i}" value="${j}">
+                            ${opt}
+                        </label>
+                    `).join('')}
+                </div>
+            `;
+        });
+
+        if (!userAnswers[lessonId]) {
+            html += `
+                <button class="btn btn-primary" onclick="submitChallenge()" style="margin-top: 20px;">
+                    <i class="fas fa-paper-plane"></i> Submit Challenge
+                </button>
+            `;
+        }
+    }
+
+    return html;
+}
+
+function getLessonResources(lessonTitle) {
+    const resourcesMap = {
+        "Python Basics and Data Types": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://docs.python.org/3/tutorial/" target="_blank">Python Official Tutorial</a></li>
+                <li><a href="https://www.w3schools.com/python/" target="_blank">W3Schools Python Tutorial</a></li>
+                <li><a href="https://realpython.com/start-here/" target="_blank">Real Python Tutorials</a></li>
+            </ul>
+            <h4>Practice Exercises</h4>
+            <ul>
+                <li><a href="https://www.practicepython.org/" target="_blank">Practice Python Exercises</a></li>
+                <li><a href="https://www.hackerrank.com/domains/tutorials/10-days-of-python" target="_blank">HackerRank Python Challenges</a></li>
+            </ul>
+        `,
+        "Functions and Control Flow": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/defining-your-own-python-function/" target="_blank">Defining Python Functions</a></li>
+                <li><a href="https://www.w3schools.com/python/python_functions.asp" target="_blank">W3Schools Functions Tutorial</a></li>
+            </ul>
+            <h4>Practice Exercises</h4>
+            <ul>
+                <li><a href="https://www.w3resource.com/python-exercises/python-functions-exercises.php" target="_blank">Python Functions Exercises</a></li>
+            </ul>
+        `,
+        "Working with Files and APIs": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/read-write-files-python/" target="_blank">File Handling in Python</a></li>
+                <li><a href="https://realpython.com/python-requests/" target="_blank">Python Requests Library</a></li>
+            </ul>
+        `,
+        "Object-Oriented Programming": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python3-object-oriented-programming/" target="_blank">OOP in Python 3</a></li>
+                <li><a href="https://www.programiz.com/python-programming/object-oriented-programming" target="_blank">OOP Tutorial</a></li>
+            </ul>
+        `,
+        "Introduction to Pandas": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html" target="_blank">Pandas Official Tutorials</a></li>
+                <li><a href="https://www.tutorialspoint.com/python_pandas/index.htm" target="_blank">TutorialsPoint Pandas Guide</a></li>
+            </ul>
+            <h4>Practice Exercises</h4>
+            <ul>
+                <li><a href="https://www.machinelearning.com/python/101-pandas-exercises-python/" target="_blank">101 Pandas Exercises</a></li>
+            </ul>
+        `,
+        "Data Cleaning Techniques": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-data-cleaning-numpy-pandas/" target="_blank">Data Cleaning with Pandas</a></li>
+                <li><a href="https://towardsdatascience.com/data-cleaning-in-python-the-ultimate-guide-2020-c63b88bf0a0d" target="_blank">Data Cleaning Guide</a></li>
+            </ul>
+        `,
+        "Grouping and Aggregation": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/pandas-groupby/" target="_blank">Pandas GroupBy</a></li>
+                <li><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html" target="_blank">Official GroupBy Documentation</a></li>
+            </ul>
+        `,
+        "Time Series Analysis": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-time-series/" target="_blank">Python Time Series Tutorial</a></li>
+                <li><a href="https://machinelearningmastery.com/time-series-datasets-for-machine-learning/" target="_blank">Time Series Datasets</a></li>
+            </ul>
+        `,
+        "Linear and Logistic Regression": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/linear-regression-in-python/" target="_blank">Linear Regression in Python</a></li>
+                <li><a href="https://machinelearningmastery.com/logistic-regression-for-machine-learning/" target="_blank">Logistic Regression Guide</a></li>
+            </ul>
+        `,
+        "Decision Trees and Random Forests": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://towardsdatascience.com/decision-trees-in-machine-learning-641b9c4e8052" target="_blank">Decision Trees Explained</a></li>
+                <li><a href="https://www.datacamp.com/community/tutorials/random-forests-classifier-python" target="_blank">Random Forest Tutorial</a></li>
+            </ul>
+        `,
+        "Support Vector Machines": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/scikit-learn-python/#support-vector-machines-svms" target="_blank">SVMs in scikit-learn</a></li>
+                <li><a href="https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/" target="_blank">SVM with Example Code</a></li>
+            </ul>
+        `,
+        "Model Evaluation Techniques": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://scikit-learn.org/stable/modules/model_evaluation.html" target="_blank">Model Evaluation in scikit-learn</a></li>
+                <li><a href="https://machinelearningmastery.com/metrics-evaluate-machine-learning-algorithms-python/" target="_blank">Evaluation Metrics</a></li>
+            </ul>
+        `,
+        "Clustering Algorithms": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/k-means-clustering-python/" target="_blank">K-Means Clustering</a></li>
+                <li><a href="https://scikit-learn.org/stable/modules/clustering.html" target="_blank">Clustering in scikit-learn</a></li>
+            </ul>
+        `,
+        "Dimensionality Reduction": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://machinelearningmastery.com/dimensionality-reduction-algorithms-with-python/" target="_blank">Dimensionality Reduction Algorithms</a></li>
+                <li><a href="https://towardsdatascience.com/pca-using-python-scikit-learn-e653f8989e60" target="_blank">PCA Tutorial</a></li>
+            </ul>
+        `,
+        "Association Rule Learning": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.kdnuggets.com/2016/04/association-rules-apriori-algorithm-tutorial.html" target="_blank">Apriori Algorithm Tutorial</a></li>
+                <li><a href="https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/" target="_blank">Association Rules in Python</a></li>
+            </ul>
+        `,
+        "Neural Network Fundamentals": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-ai-neural-network/" target="_blank">Neural Networks in Python</a></li>
+                <li><a href="https://victorzhou.com/blog/intro-to-neural-networks/" target="_blank">Introduction to Neural Networks</a></li>
+            </ul>
+        `,
+        "Convolutional Neural Networks": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-ai-neural-network/" target="_blank">CNNs in Python</a></li>
+                <li><a href="https://cs231n.github.io/convolutional-networks/" target="_blank">CS231n CNN Guide</a></li>
+            </ul>
+        `,
+        "Recurrent Neural Networks": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-keras-text-classification/" target="_blank">RNNs with Keras</a></li>
+                <li><a href="https://towardsdatascience.com/illustrated-guide-to-recurrent-neural-networks-79e5eb8049c9" target="_blank">Illustrated RNN Guide</a></li>
+            </ul>
+        `,
+        "Text Preprocessing": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/nltk-nlp-python/" target="_blank">NLP with NLTK</a></li>
+                <li><a href="https://machinelearningmastery.com/clean-text-machine-learning-python/" target="_blank">Text Cleaning for ML</a></li>
+            </ul>
+        `,
+        "Word Embeddings": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-word-embedding/" target="_blank">Word Embeddings in Python</a></li>
+                <li><a href="https://towardsdatascience.com/introduction-to-word-embeddings-4cf857b12edc" target="_blank">Word Embeddings Introduction</a></li>
+            </ul>
+        `,
+        "Transformer Models": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://realpython.com/python-nlp-transformer-models/" target="_blank">Transformer Models in Python</a></li>
+                <li><a href="https://jalammar.github.io/illustrated-transformer/" target="_blank">Illustrated Transformer</a></li>
+            </ul>
+        `
+    };
+
+    return resourcesMap[lessonTitle] || `
+        <h4>Resources for ${lessonTitle}</h4>
+        <p>No additional resources for this lesson yet. Check back soon or contact support if you need specific materials.</p>
+    `;
+}
+
+function submitChallenge() {
+    const lessonItem = document.querySelector(`.lesson-item[data-id="${currentLessonTitle.replace(/\s+/g, '-').toLowerCase()}"]`);
+    const lessonId = lessonItem ? lessonItem.dataset.id : currentLessonTitle.replace(/\s+/g, '-').toLowerCase();
+
+    if (userAnswers[lessonId]) {
+        alert("You've already submitted this challenge!");
+        return;
+    }
+
+    const questions = document.querySelectorAll('.challenge-question');
+    let totalEarned = 0;
+    let correctAnswers = 0;
+    let challengeData = {
+        submitted: true,
+        answers: [],
+        pointsEarned: 0,
+        completed: new Date().toISOString(),
+        lessonTitle: currentLessonTitle
+    };
+
+    questions.forEach(q => {
+        const selected = q.querySelector('input:checked');
+        const points = parseInt(q.dataset.points);
+        const correctAnswer = parseInt(q.dataset.correct);
+        let isCorrect = false;
+
+        if (selected) {
+            const userAnswer = parseInt(selected.value);
+            isCorrect = userAnswer === correctAnswer;
+
+            challengeData.answers.push({
+                question: q.querySelector('p').textContent,
+                userAnswer: userAnswer,
+                correctAnswer: correctAnswer,
+                isCorrect: isCorrect,
+                points: isCorrect ? points : 0
+            });
+
+            if (isCorrect) {
+                totalEarned += points;
+                correctAnswers++;
+                q.style.background = 'rgba(22, 163, 74, 0.1)';
+            } else {
+                q.style.background = 'rgba(220, 38, 38, 0.1)';
+            }
+        } else {
+            challengeData.answers.push({
+                question: q.querySelector('p').textContent,
+                userAnswer: null,
+                correctAnswer: correctAnswer,
+                isCorrect: false,
+                points: 0
+            });
+            q.style.background = 'rgba(220, 38, 38, 0.1)';
+        }
+    });
+
+    const totalPossible = Array.from(questions).reduce((sum, q) => sum + parseInt(q.dataset.points), 0);
+    const percentage = Math.round((correctAnswers / questions.length) * 100);
+
+    challengeData.pointsEarned = totalEarned;
+    userAnswers[lessonId] = challengeData;
+    localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+
+    if (!completedLessons.includes(lessonId)) {
+        completedLessons.push(lessonId);
+        localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+    }
+
+    const resultHTML = `
+        <div class="challenge-result">
+            <h4>Challenge Result</h4>
+            <p>You scored ${totalEarned}/${totalPossible} XP (${percentage}%)</p>
+            <p>${getFeedbackMessage(percentage)}</p>
+            ${generateAnswerReview(challengeData)}
+        </div>
+    `;
+
+    const challengeContentEl = document.getElementById('challenge-content');
+    if (challengeContentEl) challengeContentEl.insertAdjacentHTML('beforeend', resultHTML);
+
+    const submitBtn = document.querySelector('#lesson-challenge .btn-primary');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Already Submitted';
+    }
+
+    if (totalEarned > 0) {
+        addPoints(totalEarned, currentLessonTitle);
+        markLessonAsCompleted(currentLessonTitle, totalEarned, lessonId);
+    }
+     }
+
+function generateAnswerReview(challengeData) {
+    let html = '<div class="answer-review"><h5>Answer Review:</h5><ul>';
+
+    challengeData.answers.forEach((answer, index) => {
+        const icon = answer.isCorrect ? 'fa-check' : 'fa-times';
+        const color = answer.isCorrect ? 'var(--success)' : 'var(--danger)';
+
+        html += `
+            <li style="color: ${color}; margin-bottom: 8px;">
+                <i class="fas ${icon}"></i> 
+                <strong>Q${index+1}:</strong> ${answer.question}
+                ${!answer.isCorrect ? `<br><small>Correct answer: Option ${answer.correctAnswer + 1}</small>` : ''}
+            </li>
+        `;
+    });
+
+    html += '</ul></div>';
+    return html;
+}
+
+function getFeedbackMessage(percentage) {
+    if (percentage >= 90) return "Excellent work! You've mastered this lesson.";
+    if (percentage >= 70) return "Good job! You have a solid understanding.";
+    if (percentage >= 50) return "Not bad! Review the lesson to improve.";
+    return "Keep practicing! Review the lesson materials and try again.";
+}
+
+function markLessonAsCompleted(lessonTitle, pointsEarned, lessonId) {
+    const lessonItems = document.querySelectorAll('.lesson-item');
+    lessonItems.forEach(item => {
+        if (item.querySelector('span').textContent === lessonTitle || item.dataset.id === lessonId) {
+            item.classList.add('completed');
+            const statusElement = item.querySelector('.lesson-status');
+            if (statusElement) {
+                statusElement.innerHTML = `<i class="fas fa-check-circle"></i> Completed (${pointsEarned} XP)`;
+            }
+        }
+    });
+
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const totalLessons = document.querySelectorAll('.lesson-item').length;
+    const completedLessonsCount = document.querySelectorAll('.lesson-item.completed').length;
+    const progressPercentage = Math.round((completedLessonsCount / totalLessons) * 100);
+
+    const progressFill = document.querySelector('.progress-fill');
+    const statValueProgress = document.querySelector('.stat-value:nth-child(1)');
+    const statValueCompleted = document.querySelector('.stat-value:nth-child(3)');
+    const lessonsCompleted = document.getElementById('lessons-completed');
+
+    if (progressFill) progressFill.style.width = `${progressPercentage}%`;
+    if (statValueProgress) statValueProgress.textContent = `${progressPercentage}%`;
+    if (statValueCompleted) statValueCompleted.textContent = completedLessonsCount;
+    if (lessonsCompleted) lessonsCompleted.textContent = completedLessonsCount;
+}
+
+function openLessonTab(tabName) {
+    document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+
+    const tab = document.querySelector(`.lesson-tab[onclick="openLessonTab('${tabName}')"]`);
+    const content = document.getElementById(`lesson-${tabName}`);
+    if (tab) tab.classList.add('active');
+    if (content) content.classList.add('active');
+}
+
+function startTest() {
+    const testModal = document.getElementById('test-modal');
+    const questionsContainer = document.getElementById('test-questions');
+
+    if (testModal && questionsContainer) {
+        questionsContainer.innerHTML = `
+            <h4>Foundations Track Assessment</h4>
+            <p>Answer all questions to complete the test. You need at least 80% to pass.</p>
+            
+            <div class="test-question">
+                <p>1. Which Python library is primarily used for data manipulation and analysis?</p>
+                <label><input type="radio" name="q1" value="a"> NumPy</label>
+                <label><input type="radio" name="q1" value="b"> Pandas</label>
+                <label><input type="radio" name="q1" value="c"> Matplotlib</label>
+            </div>
+            
+            <div class="test-question">
+                <p>2. What does the .describe() method in Pandas provide?</p>
+                <label><input type="radio" name="q2" value="a"> Descriptive statistics</label>
+                <label><input type="radio" name="q2" value="b"> Data visualization</label>
+                <label><input type="radio" name="q2" value="c"> Data cleaning</label>
+            </div>
+            
+            <div class="test-question">
+                <p>3. Which of these is NOT a valid Python data structure?</p>
+                <label><input type="radio" name="q3" value="a"> List</label>
+                <label><input type="radio" name="q3" value="b"> Tuple</label>
+                <label><input type="radio" name="q3" value="c"> Stack</label>
+            </div>
+            
+            <div class="test-question">
+                <p>4. What is the correct way to create a DataFrame from a dictionary?</p>
+                <label><input type="radio" name="q4" value="a"> pd.DataFrame.from_dict()</label>
+                <label><input type="radio" name="q4" value="b"> pd.DataFrame(dict)</label>
+                <label><input type="radio" name="q4" value="c"> pd.createDataFrame(dict)</label>
+            </div>
+            
+            <div class="test-question">
+                <p>5. Which method is used to handle missing data in Pandas?</p>
+                <label><input type="radio" name="q5" value="a"> fillna()</label>
+                <label><input type="radio" name="q5" value="b"> dropna()</label>
+                <label><input type="radio" name="q5" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="test-question">
+                <p>6. What does the groupby() function do in Pandas?</p>
+                <label><input type="radio" name="q6" value="a"> Groups data by columns</label>
+                <label><input type="radio" name="q6" value="b"> Aggregates data</label>
+                <label><input type="radio" name="q6" value="c"> Both a and b</label>
+            </div>
+            
+            <button class="btn btn-primary" onclick="submitTest()" style="margin-top: 20px;">
+                <i class="fas fa-paper-plane"></i> Submit Test
+            </button>
+        `;
+        testModal.style.display = 'flex';
+    }
+}
+
+function submitTest() {
+    const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "c",
+        q4: "b",
+        q5: "c",
+        q6: "c"
+    };
+
+    let score = 0;
+    const totalQuestions = Object.keys(answers).length;
+
+    for (const [question, correctAnswer] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        if (selected && selected.value === correctAnswer) score++;
+    }
+
+    const percentage = Math.round((score / totalQuestions) * 100);
+    const passed = percentage >= 80;
+    const xpEarned = passed ? 200 : 50;
+
+    const questionsContainer = document.getElementById('test-questions');
+    if (questionsContainer) {
+        questionsContainer.innerHTML = `
+            <div class="test-result">
+                <h4>Test Result</h4>
+                <p>You scored ${score}/${totalQuestions} (${percentage}%)</p>
+                <p>${passed ? 'Congratulations! You passed the test!' : 'Keep studying! You need 80% to pass.'}</p>
+                <p>You earned ${xpEarned} XP!</p>
+            </div>
+        `;
+    }
+
+    addPoints(xpEarned, 'Track Assessment');
+
+    if (passed) {
+        document.querySelectorAll('#foundations-track .lesson-item').forEach(item => {
+            const lessonId = item.dataset.id;
+            if (!completedLessons.includes(lessonId)) {
+                completedLessons.push(lessonId);
+                item.classList.add('completed');
+            }
+        });
+        localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+        updateProgressBar();
+    }
+}
+
+function submitProject() {
+    const projectModal = document.getElementById('project-modal');
+    if (projectModal) projectModal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+
+    if (modalId === 'lesson-modal' && youtubePlayer) {
+        youtubePlayer.destroy();
+        youtubePlayer = null;
+        const videoContainer = document.getElementById('video-container');
+        if (videoContainer) videoContainer.innerHTML = '';
+    }
+}
+
+let pyodideLoading = false;
+let pyodideLoaded = false;
+
+function changeNotebookTab(tabName) {
+    document.querySelectorAll('.notebook-tab').forEach(tab => tab.classList.remove('active'));
+    const tab = document.querySelector(`.notebook-tab[onclick="changeNotebookTab('${tabName}')"]`);
+    if (tab) tab.classList.add('active');
+
+    const editor = document.getElementById('notebook-editor');
+    if (!editor) return;
+
+    if (tabName === 'python') {
+        editor.value = `# Welcome to the Python Notebook
+# Try running this basic Python code
+
+import pandas as pd
+import numpy as np
+
+# Create a simple DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Score': [85, 92, 78]
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:")
+print(df)
+
+# Calculate average score
+avg_score = df['Score'].mean()
+print(f"\\nAverage Score: {avg_score:.2f}")
+
+# Add a new column
+df['Grade'] = np.where(df['Score'] >= 90, 'A',
+                    np.where(df['Score'] >= 80, 'B', 'C'))
+print("\\nDataFrame with Grades:")
+print(df)`;
+    } else if (tabName === 'sql') {
+        editor.value = `-- Welcome to the SQL Notebook
+-- Try running this basic SQL code
+
+-- Create a table
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    score DECIMAL(5,2)
+);
+
+-- Insert data
+INSERT INTO students VALUES
+(1, 'Alice', 25, 85.5),
+(2, 'Bob', 30, 92.0),
+(3, 'Charlie', 35, 78.3);
+
+-- Query data
+SELECT name, age, score FROM students WHERE score > 80;`;
+    } else if (tabName === 'r') {
+        editor.value = `# Welcome to the R Notebook
+# Try running this basic R code
+
+# Create a data frame
+students <- data.frame(
+    name = c("Alice", "Bob", "Charlie"),
+    age = c(25, 30, 35),
+    score = c(85, 92, 78)
+)
+
+# Print the data frame
+print("Students Data:")
+print(students)
+
+# Calculate average score
+avg_score <- mean(students$score)
+print(paste("Average Score:", round(avg_score, 2)))`;
+    }
+}
+
+async function runCode() {
+    const editor = document.getElementById('notebook-editor');
+    const output = document.getElementById('output');
+    const progress = document.getElementById('progress');
+
+    if (!editor || !output || !progress) return;
+
+    output.innerHTML = '<p>Initializing environment...</p>';
+    progress.style.width = '10%';
+
+    try {
+        if (!window.pyodide && !pyodideLoading) {
+            pyodideLoading = true;
+            output.innerHTML = '<p>Loading Python interpreter (this may take 20-30 seconds)...</p>';
+            progress.style.width = '30%';
+
+            window.pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/"
+            });
+            progress.style.width = '50%';
+
+            output.innerHTML += '<p>Loading numpy package...</p>';
+            await pyodide.loadPackage('numpy');
+            progress.style.width = '70%';
+
+            output.innerHTML += '<p>Loading pandas package...</p>';
+            await pyodide.loadPackage('pandas');
+            progress.style.width = '90%';
+
+            pyodideLoaded = true;
+            output.innerHTML += '<p>Environment ready!</p>';
+        }
+
+        progress.style.width = '100%';
+
+        output.innerHTML = '';
+
+        let consoleOutput = '';
+        pyodide.setStdout({
+            batched: (text) => {
+                consoleOutput += text;
+                output.innerHTML = `<pre>${consoleOutput}</pre>`;
+            }
+        });
+
+        await pyodide.runPythonAsync(editor.value);
+
+        progress.style.width = '0%';
+
+    } catch (error) {
+        output.innerHTML = `
+            <h4 style="color: #dc3545;">Execution Error</h4>
+            <pre style="color: #dc3545;">${error.message}</pre>
+        `;
+        progress.style.width = '0%';
+        console.error(error);
+    } finally {
+        pyodideLoading = false;
+    }
+}
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.backgroundColor = type === 'success' ? 'var(--success)' : 'var(--danger)';
+    notification.style.color = 'white';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '5px';
+    notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+    notification.style.zIndex = '1000';
+    notification.style.display = 'flex';
+    notification.style.alignItems = 'center';
+    notification.style.gap = '10px';
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }, 10);
+}
+
+function claimReward(rewardType, requiredPoints, event) {
+    if (!event || !event.isTrusted) {
+        console.warn(`Unauthorized claimReward call for ${rewardType} at ${new Date().toISOString()}`);
+        return;
+    }
+    console.trace(`claimReward called for ${rewardType} at ${new Date().toISOString()}`);
+    const total = getTotalPointsSum();
+    if (total >= requiredPoints) {
+        showNotification(`Congratulations! You've claimed the ${rewardType} reward.`, 'success');
+        addPoints(50, `Reward: ${rewardType}`);
+    } else {
+        showNotification(`You need ${requiredPoints - total} more XP to claim this reward. Keep learning!`, 'error');
+    }
+}
+
+// Expose functions globally to avoid ReferenceError
+window.changeNotebookTab = changeNotebookTab;
+window.runCode = runCode;
+window.openLessonTab = openLessonTab;
+window.submitChallenge = submitChallenge;
+window.startTest = startTest;
+window.submitTest = submitTest;
+window.submitProject = submitProject;
+window.closeModal = closeModal;
+window.showTrack = showTrack;
+window.toggleModule = toggleModule;
+window.claimReward = claimReward;
+window.playLesson = playLesson;
+    </script>
+</body>
+</html>

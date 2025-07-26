@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudMars - Learning Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #3e62a5;
+      --primary-dark: #1e1b4b;
+      --secondary: #a02f09;
+      --accent: #f68b1e;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gradient: linear-gradient(135deg, #a02f09 0%, #370e74 100%);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #fff;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header.scrolled {
+      padding: 1rem 0;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: rgba(7, 5, 32, 0.9);
+      padding: 1rem 0;
+      color: white;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: white;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: #c7d2fe;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--gradient);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .cta-button {
+      background: var(--gradient);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+    }
+    
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      transition: all 0.3s ease;
+    }
+    .profile-avatar:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+    .hero {
+      position: relative;
+      padding: 12rem 0 8rem;
+      background: linear-gradient(135deg, #1a244c 0%, #1a3460 100%);
+      color: white;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width:150%;
+      height: 100%;
+      background: url('photo5.jpg') no-repeat center/cover;
+      opacity: 0.40;
+      clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .hero-content {
+      max-width: 600px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 3.0rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hero p {
+      font-size: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+    }
+    .hero-search {
+      margin: 2rem 0;
+    }
+    .hero-search .search-container {
+      background: rgba(255, 255, 255, 0.973);
+      border-radius: 50px;
+      padding: 0.5rem;
+      transition: all 0.3s ease;
+      display: flex;
+      max-width: 600px;
+    }
+    .hero-search .search-container:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .hero-search .search-container input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: white;
+      padding: 0.75rem 1rem;
+      outline: none;
+    }
+    .hero-search .search-container input::placeholder {
+      color: rgb(94, 92, 92);
+    }
+    .hero-search .search-container button {
+      background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .hero-search .search-container button:hover {
+      background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+    }
+    .custom-shape-divider-bottom-1745519631 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .custom-shape-divider-bottom-1745519631 svg {
+      position: relative;
+      display: block;
+      width: calc(128% + 1.3px);
+      height: 194px;
+      transform: rotate(180deg);
+    }
+    .custom-shape-divider-bottom-1745519631 .shape-fill {
+      fill: #ffffff;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        padding: 10rem 0 6rem;
+        text-align: center;
+      }
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero-search .search-container {
+        flex-direction: column;
+        background: transparent;
+        gap: 1rem;
+      }
+      .hero-search .search-container input {
+        background: rgba(255,255,255,0.2);
+        border-radius: 50px;
+        padding: 1rem;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+    .stats-section {
+      padding: 6rem 0;
+      background-color: white;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    .stat-card .icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(160,47,9,0.1) 0%, rgba(91,33,182,0.1) 100%);
+      border-radius: 20px;
+    }
+    .stat-card .icon i {
+      font-size: 2rem;
+      color: var(--primary);
+    }
+    .stat-card h3 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat-card p {
+      color: #64748b;
+      font-size: 1rem;
+    }
+    .companies-section {
+      padding: 4rem 0;
+      background-color: var(--light);
+    }
+    .companies-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    .company-logo {
+      filter: grayscale(100%);
+      opacity: 0.6;
+      transition: all 0.3s ease;
+      height: 40px;
+    }
+    .company-logo:hover {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+    .about-section {
+      padding: 6rem 0;
+      background-color: white;
+    }
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .about-images {
+      position: relative;
+      height: 500px;
+    }
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 1rem;
+      height: 100%;
+    }
+    .main-image {
+      grid-column: 1 / 5;
+      grid-row: 1 / 5;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+    .secondary-image-1 {
+      grid-column: 4 / 7;
+      grid-row: 2 / 4;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+    .secondary-image-2 {
+      grid-column: 3 / 6;
+      grid-row: 4 / 6;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      z-index: 2;
+    }
+    .about-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .about-images img:hover {
+      transform: scale(1.02);
+    }
+    .years-badge {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      background: var(--gradient);
+      color: white;
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+      z-index: 3;
+    }
+    .years-badge h3 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .years-badge p {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .about-text h3 {
+      font-size: 1.75rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+    .about-text p {
+      color: #64748b;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, rgba(160,47,9,0.1) 0%, rgba(91,33,182,0.1) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+    .feature-icon i {
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    .feature-content h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    .feature-content p {
+      margin-bottom: 0;
+      font-size: 0.95rem;
+    }
+    .about-cta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .courses-section {
+      padding: 6rem 0;
+      background-color: var(--light);
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .section-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+    .section-header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: #64748b;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    .course-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+    .course-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px rgba(0,0,0,0.1);
+    }
+    .course-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    .course-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .course-card:hover .course-image img {
+      transform: scale(1.05);
+    }
+    .course-content {
+      padding: 1.75rem;
+    }
+    .course-level {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .course-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .course-desc {
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .course-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .course-rating {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+    .course-students {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    .course-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .original-price {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+    .enroll-btn, .view-course-btn {
+      display: block;
+      width: 100%;
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      padding: 0.9rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+    .enroll-btn:hover, .view-course-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #5b21b6 0%, #a02f09 100%);
+    }
+    .instructors-section {
+      padding: 6rem 0;
+      background-color: var(--light);
+      overflow: hidden;
+    }
+    .instructors-scroll-container {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 2rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .instructors-scroll {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem;
+      width: max-content;
+    }
+    .instructor-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      width: 300px;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .instructor-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    .instructor-image {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+    .instructor-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.3s ease;
+    }
+    .instructor-card:hover .instructor-image img {
+      transform: scale(1.05);
+    }
+    .instructor-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .instructor-info {
+      padding: 1.5rem;
+    }
+    .instructor-info h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    .instructor-info .specialty {
+      display: block;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .instructor-info p {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .instructor-social {
+      display: flex;
+      gap: 0.8rem;
+    }
+    .instructor-social a {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      background: rgba(91,33,182,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+    .instructor-social a:hover {
+      background: var(--gradient);
+      color: white;
+      transform: translateY(-3px);
+    }
+    .instructors-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .instructors-scroll-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .instructors-scroll-container::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    .instructors-scroll-container::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    .instructors-scroll-container::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
+    .testimonials {
+      padding: 6rem 0;
+      background-color: white;
+    }
+    .testimonial-slider {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      position: relative;
+    }
+    .testimonial-card {
+      text-align: center;
+    }
+    .testimonial-text {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 2rem;
+      line-height: 1.8;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .author-image {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .author-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .author-info h4 {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+    .author-info p {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    footer {
+      background-color: var(--primary-dark);
+      color: white;
+      padding: 5rem 0 2rem;
+    }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .footer-logo i {
+      margin-right: 10px;
+    }
+    .footer-about p {
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .social-links a:hover {
+      background: var(--gradient);
+      transform: translateY(-3px);
+    }
+    .footer-links h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+    .footer-links h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--gradient);
+    }
+    .footer-links ul {
+      list-style: none;
+    }
+    .footer-links li {
+      margin-bottom: 0.75rem;
+    }
+    .footer-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+    .footer-newsletter p {
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .newsletter-form {
+      display: flex;
+      margin-bottom: 1.5rem;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 50px 0 0 50px;
+      outline: none;
+    }
+    .newsletter-form button {
+      background: var(--gradient);
+      color: white;
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 50px 50px 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .newsletter-form button:hover {
+      background: linear-gradient(135deg, #5b21b6 0%, #a02f09 100%);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+    .footer-bottom p {
+      opacity: 0.8;
+    }
+    @media (max-width: 1024px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+      .about-images {
+        height: 400px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-images {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-cloud"></i> CloudMars
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="#contact">contact</a></li>
+        <li><a href="#about">About</a></li>
+        <li id="profileLink" style="display: none;">
+          <a href="profile.html">
+            <img src="avatar.jpeg" alt="Profile Avatar" class="profile-avatar">
+          </a>
+        </li>
+        <li><a href="login.html" class="cta-button" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="#" id="logoutBtn" class="cta-button" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </header>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Now learning From anywhere , and Build<br>your <span class="highlight-text">bright career</span>.</h1>
+        <br>
+        <p>Learn in-demand tech skills from industry experts and land your dream job in tech.</p>
+        
+        <!-- Search Bar in Hero -->
+        <div class="hero-search">
+          <div class="search-container">
+            <input type="text" placeholder="What do you want to learn today?" aria-label="Search for courses">
+            <button><i class="fas fa-search"></i> Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-shape-divider-bottom-1745519631">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" class="shape-fill"></path>
+        <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" class="shape-fill"></path>
+        <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="icon"><i class="fas fa-users"></i></div>
+          <h3>50K+</h3>
+          <p>Active Students</p>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><i class="fas fa-book"></i></div>
+          <h3>100+</h3>
+          <p>Courses Available</p>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <h3>500+</h3>
+          <p>Expert Instructors</p>
+        </div>
+        <div class="stat-card">
+          <div class="icon"><i class="fas fa-globe"></i></div>
+          <h3>180+</h3>
+          <p>Countries Reached</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="companies-section">
+    <div class="container">
+      <h2 class="section-header">Trusted by Top Companies</h2>
+      <div class="companies-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="company-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="company-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="company-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="IBM" class="company-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Cisco_logo_blue_2016.svg" alt="Cisco" class="company-logo">
+      </div>
+    </div>
+  </section>
+  <section class="about-section" id="about">
+    <div class="container about-content">
+      <div class="about-images">
+        <div class="image-grid">
+          <div class="main-image">
+            <img src="33.jpg" alt="Learning Environment">
+          </div>
+          <div class="secondary-image-1">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7" alt="Student Collaboration">
+          </div>
+          <div class="secondary-image-2">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655" alt="Online Learning">
+          </div>
+        </div>
+        <div class="years-badge">
+          <h3>10+</h3>
+          <p>Years Experience</p>
+        </div>
+      </div>
+      <div class="about-text">
+        <h3>Empowering Education Through Technology</h3>
+        <p>CloudMars is dedicated to providing world-class education in technology, bridging the gap between ambition and achievement with expertly crafted courses.</p>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-book-open"></i></div>
+          <div class="feature-content">
+            <h4>Comprehensive Curriculum</h4>
+            <p>Learn from industry-aligned courses designed to make you job-ready.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+          <div class="feature-content">
+            <h4>Expert Instructors</h4>
+            <p>Be mentored by professionals from top tech companies.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+          <div class="feature-content">
+            <h4>Certified Courses</h4>
+            <p>Earn recognized certifications to boost your career.</p>
+          </div>
+        </div>
+        <div class="about-cta">
+          <a href="#courses" class="cta-button"><i class="fas fa-book"></i> View Courses</a>
+          <a href="#instructors" class="cta-button"><i class="fas fa-users"></i> Meet Our Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="courses-section" id="courses">
+    <div class="container">
+      <div class="section-header">
+        <h2>Explore Our Top Courses</h2>
+        <p>Discover a range of courses designed to equip you with the skills needed for the future of tech.</p>
+      </div>
+      <div class="course-grid">
+        <div class="course-card">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80" alt="Full Stack Web Development">
+          </div>
+          <div class="course-content">
+            <span class="course-level">Intermediate</span>
+            <h3 class="course-title">Full Stack Web Development</h3>
+            <p class="course-desc">Master front-end and back-end development with modern frameworks like React, Node.js, and MongoDB.</p>
+            <div class="course-meta">
+              <span class="course-rating"><i class="fas fa-star"></i> 4.8</span>
+              <span class="course-students">12K+ Students</span>
+            </div>
+            <div class="course-price">$999.00 <span class="original-price">$1299.00</span></div>
+            <a href="payment.html" class="enroll-btn" data-course="Full Stack Web Development">Enroll Now</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1376&q=80" alt="AI & Machine Learning Engineer">
+          </div>
+          <div class="course-content">
+            <span class="course-level">Advanced</span>
+            <h3 class="course-title">AI & Machine Learning Engineer</h3>
+            <p class="course-desc">Dive into AI with hands-on projects in deep learning, NLP, and computer vision using TensorFlow and PyTorch.</p>
+            <div class="course-meta">
+              <span class="course-rating"><i class="fas fa-star"></i> 4.9</span>
+              <span class="course-students">8K+ Students</span>
+            </div>
+            <div class="course-price">$1499.00 <span class="original-price">$1799.00</span></div>
+            <a href="payment.html" class="enroll-btn" data-course="AI & Machine Learning Engineer">Enroll Now</a>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-image">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Data Science">
+          </div>
+          <div class="course-content">
+            <span class="course-level">Intermediate</span>
+            <h3 class="course-title">Data Science professional</h3>
+            <p class="course-desc">Learn data analysis, visualization, and predictive modeling with Python, R, and SQL.</p>
+            <div class="course-meta">
+              <span class="course-rating"><i class="fas fa-star"></i> 4.7</span>
+              <span class="course-students">15K+ Students</span>
+            </div>
+            <div class="course-price">$1299.00 <span class="original-price">$1599.00</span></div>
+            <a href="payment.html" class="enroll-btn" data-course="Data Science professional">Enroll Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Instructors Section -->
+  <section id="instructors" class="instructors-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Expert Instructors</h2>
+        <p>Learn from industry leaders with real-world experience</p>
+      </div>
+      
+      <div class="instructors-scroll-container">
+        <div class="instructors-scroll">
+          <!-- Instructor 1 -->
+          <div class="instructor-card">
+            <div class="instructor-image">
+              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Sarah Johnson">
+              <div class="instructor-badge">
+                <i class="fas fa-star"></i> 4.9
+              </div>
+            </div>
+            <div class="instructor-info">
+              <h3>Sarah Johnson</h3>
+              <span class="specialty">AI Lead at Google</span>
+              <p>10+ years building production AI systems at top tech companies</p>
+              <div class="instructor-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructor 2 -->
+          <div class="instructor-card">
+            <div class="instructor-image">
+              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Michael Chen">
+              <div class="instructor-badge">
+                <i class="fas fa-star"></i> 4.8
+              </div>
+            </div>
+            <div class="instructor-info">
+              <h3>Michael Chen</h3>
+              <span class="specialty">Data Science Director</span>
+              <p>Built recommendation systems for Fortune 500 companies</p>
+              <div class="instructor-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructor 3 -->
+          <div class="instructor-card">
+            <div class="instructor-image">
+              <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="David Rodriguez">
+              <div class="instructor-badge">
+                <i class="fas fa-star"></i> 4.95
+              </div>
+            </div>
+            <div class="instructor-info">
+              <h3>David Rodriguez</h3>
+              <span class="specialty">CTO at TechStart</span>
+              <p>Full-stack expert with 12 years experience</p>
+              <div class="instructor-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructor 4 -->
+          <div class="instructor-card">
+            <div class="instructor-image">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Emily Wilson">
+              <div class="instructor-badge">
+                <i class="fas fa-star"></i> 4.85
+              </div>
+            </div>
+            <div class="instructor-info">
+              <h3>Emily Wilson</h3>
+              <span class="specialty">Cloud Architect</span>
+              <p>AWS certified solutions architect</p>
+              <div class="instructor-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Instructor 5 -->
+          <div class="instructor-card">
+            <div class="instructor-image">
+              <img src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="James Lee">
+              <div class="instructor-badge">
+                <i class="fas fa-star"></i> 4.9
+              </div>
+            </div>
+            <div class="instructor-info">
+              <h3>James Lee</h3>
+              <span class="specialty">Cybersecurity Expert</span>
+              <p>Penetration tester with 9 years experience</p>
+              <div class="instructor-social">
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-globe"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+  </section>
+
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <h2>What Our Students Say</h2>
+        <p>Hear from our graduates who have transformed their careers with CloudMars.</p>
+      </div>
+      <div class="testimonial-slider">
+        <div class="testimonial-card"></div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <i class="fas fa-cloud"></i>
+            <span>CloudMars</span>
+          </div>
+          <p>Empowering individuals with cutting-edge tech skills to transform their careers and lives through immersive education.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#courses">Courses</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-newsletter">
+          <h3>Newsletter</h3>
+          <p>Subscribe to our newsletter to get updates on new courses and special offers.</p>
+          <form class="newsletter-form">
+            <input type="email" placeholder="Your Email">
+            <button type="submit"><i class="fas fa-paper-plane"></i></button>
+          </form>
+          <p><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</p>
+          <p><i class="fas fa-envelope"></i> info@cloudmars.com</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2023 CloudMars. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script type="module">
+    import { auth, db, onAuthStateChanged, doc, getDoc, signOut } from './firebaseauth.js';
+
+    // Course page mapping
+    const coursePageMap = {
+      "Full Stack Web Development": "web.html",
+      "AI & Machine Learning Engineer": "machine_learning.html",
+      "Data Science professional": "data.html"
+    };
+
+    // Check authentication state and update UI
+    function updateCourseButtons(enrolledCourses = []) {
+      console.log('Updating course buttons with enrolled courses:', enrolledCourses);
+      const courseCards = document.querySelectorAll('.course-card');
+      
+      courseCards.forEach(card => {
+        const courseTitle = card.querySelector('.course-title').textContent.trim();
+        const button = card.querySelector('.enroll-btn, .view-course-btn');
+        
+        console.log(`Checking course: ${courseTitle}`);
+        
+        const isEnrolled = enrolledCourses.some(course => 
+          course.courseName.trim().toLowerCase() === courseTitle.toLowerCase()
+        );
+
+        if (isEnrolled) {
+          console.log(`${courseTitle} is enrolled, updating to Show Course`);
+          button.className = 'view-course-btn';
+          button.textContent = 'Show Course';
+          button.href = coursePageMap[courseTitle] || '#';
+          button.removeAttribute('data-course');
+        } else {
+          console.log(`${courseTitle} is not enrolled, keeping Enroll Now`);
+          button.className = 'enroll-btn';
+          button.textContent = 'Enroll Now';
+          button.href = 'payment.html';
+          button.setAttribute('data-course', courseTitle);
+        }
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      const loginBtn = document.getElementById('loginBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+      const profileLink = document.getElementById('profileLink');
+
+      if (user) {
+        console.log('User is signed in:', user.uid);
+        loginBtn.style.display = 'none';
+        logoutBtn.style.display = 'inline-flex';
+        profileLink.style.display = 'block';
+
+        try {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
+
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const enrolledCourses = userData.enrolledCourses || [];
+            console.log('Fetched user data:', userData);
+            console.log('Enrolled courses:', enrolledCourses);
+            updateCourseButtons(enrolledCourses);
+
+            // Set profile picture if available
+            if (userData.profilePicture) {
+              profileLink.querySelector('img').src = userData.profilePicture;
+            }
+
+            // Retry after 2 seconds to handle Firestore delays
+            setTimeout(async () => {
+              console.log('Retrying course button update...');
+              const retryDoc = await getDoc(userDocRef);
+              if (retryDoc.exists()) {
+                const retryData = retryDoc.data();
+                updateCourseButtons(retryData.enrolledCourses || []);
+              }
+            }, 2000);
+          } else {
+            console.error('User document does not exist');
+            alert('User data not found. Please try logging in again.');
+          }
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+          alert('Error loading course enrollment status. Please try again later.');
+        }
+      } else {
+        console.log('No user signed in');
+        loginBtn.style.display = 'inline-flex';
+        logoutBtn.style.display = 'none';
+        profileLink.style.display = 'none';
+        updateCourseButtons();
+      }
+    });
+
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        await signOut(auth);
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error('Logout error:', error);
+        alert('Failed to logout. Please try again.');
+      }
+    });
+
+    // Search functionality
+    const searchInput = document.querySelector('.search-container input');
+    const searchButton = document.querySelector('.search-container button');
+
+    function searchCourses(query) {
+      console.log(`Searching for: ${query}`);
+      for (const courseName in coursePageMap) {
+        if (courseName.toLowerCase().includes(query)) {
+          console.log(`Found match: ${courseName}, redirecting to ${coursePageMap[courseName]}`);
+          window.location.href = coursePageMap[courseName];
+          return;
+        }
+      }
+      console.log(`No match found for: ${query}`);
+      alert(`No courses found for "${query}". Please try another search term.`);
+    }
+
+    searchButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim().toLowerCase();
+      if (query) {
+        searchCourses(query);
+      } else {
+        alert('Please enter a search term.');
+      }
+    });
+
+    searchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const query = searchInput.value.trim().toLowerCase();
+        if (query) {
+          searchCourses(query);
+        } else {
+          alert('Please enter a search term.');
+        }
+      }
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+        header.style.background = 'rgba(30, 27, 75, 0.95)';
+      } else {
+        header.style.boxShadow = 'none';
+        header.style.background = 'rgba(30, 27, 75, 0.9)';
+      }
+    });
+
+    // Testimonial slider
+    let currentTestimonial = 0;
+    const testimonials = [
+      {
+        text: "The Full Stack program completely changed my career trajectory.",
+        name: "Sarah Johnson",
+        role: "Frontend Developer at TechStart",
+        image: "https://randomuser.me/api/portraits/women/44.jpg"
+      },
+      {
+        text: "The Data Science program gave me both the technical skills and the confidence to break into tech.",
+        name: "Michael Chen",
+        role: "Data Analyst at DataCorp",
+        image: "https://randomuser.me/api/portraits/men/32.jpg"
+      },
+      {
+        text: "The instructors' real-world experience made all the difference.",
+        name: "David Rodriguez",
+        role: "Security Engineer at SafeNet",
+        image: "https://randomuser.me/api/portraits/men/22.jpg"
+      }
+    ];
+
+    function showTestimonial(index) {
+      const testimonial = testimonials[index];
+      const testimonialElement = document.querySelector('.testimonial-card');
+      testimonialElement.innerHTML = `
+        <p class="testimonial-text">${testimonial.text}</p>
+        <div class="testimonial-author">
+          <div class="author-image">
+            <img src="${testimonial.image}" alt="${testimonial.name}">
+          </div>
+          <div class="author-info">
+            <h4>${testimonial.name}</h4>
+            <p>${testimonial.role}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    setInterval(() => {
+      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      showTestimonial(currentTestimonial);
+    }, 3000);
+
+    showTestimonial(0);
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Horizontal scroll with mouse wheel
+    const instructorsScroll = document.querySelector('.instructors-scroll-container');
+    instructorsScroll.addEventListener('wheel', (e) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        instructorsScroll.scrollLeft += e.deltaY;
+      }
+    });
+
+    // Touch support for mobile
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    instructorsScroll.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - instructorsScroll.offsetLeft;
+      scrollLeft = instructorsScroll.scrollLeft;
+    });
+
+    instructorsScroll.addEventListener('mouseleave', () => {
+      isDown = false;
+    });
+
+    instructorsScroll.addEventListener('mouseup', () => {
+      isDown = false;
+    });
+
+    instructorsScroll.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - instructorsScroll.offsetLeft;
+      const walk = (x - startX) * 2;
+      instructorsScroll.scrollLeft = scrollLeft - walk;
+    });
+  </script>
+</body>
+</html>

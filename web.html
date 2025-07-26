@@ -1,0 +1,4344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEb Mastery | CloudMars Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+    <style>
+   :root {
+        /* Primary Blues */
+        --primary: #071d4e;       /* Vibrant primary blue */
+        --primary-light: #071d4e; /* Lighter blue for highlights */
+        --primary-dark: #063c57;  /* Deep navy */
+        --primary-darker: #042a3d; /* Even darker for accents */
+        
+        /* Secondary & Accents */
+        --secondary: #dde1ed;     /* Rich royal blue */
+        --accent: #a00136;       /* Elegant purple (complements blue nicely) */
+        --accent-light: #ddb65c;  /* Lighter purple */
+        --accent-dark: #9a2504;   /* Darker purple */
+        
+        /* Status Colors */
+        --success: #16a34a;      /* Fresh green */
+        --success-light: #86efac; /* Light success */
+        --danger: #dc2626;       /* Bold red */
+        --warning: #d97706;      /* Warm amber */
+        --info: #071d4e;         /* Sky blue */
+        
+        /* Neutrals */
+        --dark: #1e293b;         /* Dark slate for text */
+        --darker: #0f172a;       /* Very dark */
+        --light: #f8fafc;        /* Light background */
+        --lighter: #ffffff;      /* Pure white */
+        --gray: #64748b;         /* Medium gray */
+        --light-gray: #e2e8f0;   /* Light gray */
+        --dark-gray: #475569;    /* Dark gray */
+        
+        /* Gradients */
+        --gradient-primary: linear-gradient(135deg, #213561 0%, #1e40af 100%);
+        --gradient-accent: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+        --gradient-success: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+        --gradient-dark: linear-gradient(135deg, #a02f09 0%, #5b21b6 100%);
+        
+        /* Special Colors */
+        --bronze: #b45309;       /* Warmer bronze */
+        --silver: #b45309;       /* Cool silver */
+        --gold: #b45309;         /* Vibrant gold */
+        
+        /* Effects */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            body {
+                font-family: 'Poppins', sans-serif;
+                line-height: 1.7;
+                color: var(--dark);
+                background-color: #f8f9fa;
+                overflow-x: hidden;
+                scroll-behavior: smooth;
+            }
+    
+            h1, h2, h3, h4 {
+                font-weight: 700;
+                line-height: 1.2;
+            }
+    
+            h1, h2 {
+                font-family: 'Montserrat', sans-serif;
+            }
+    
+            .section-title {
+                font-family: 'Playfair Display', serif;
+                position: relative;
+                display: inline-block;
+                margin-bottom: 1.5rem;
+            }
+    
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: var(--accent);
+                border-radius: 2px;
+            }
+    
+            /* .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            } */
+    
+            section {
+                padding: 100px 0;
+                position: relative;
+            }
+    
+            /* ===== Buttons ===== */
+            .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);}
+    
+            .btn i {
+                margin-right: 8px;
+            }
+    
+            .btn-primary {
+                background: var(--gradient-primary);
+                color: white;
+                
+            }
+    
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+            }
+    
+            .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+    
+            .btn-primary:hover::before {
+                left: 100%;
+            }
+    
+            .btn-accent {
+                background: var(--gradient-accent);
+                color: rgb(255, 255, 255);
+            }
+    
+            .btn-accent:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(247, 37, 133, 0.3);
+            }
+    
+            .btn-outline {
+                background: transparent;
+                color: var(--primary);
+                border: 2px solid var(--primary);
+            }
+    
+            .btn-outline:hover {
+                background: var(--primary);
+                color: white;
+            }
+    
+            /* ===== Header ===== */
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            /* Header Styles */
+    header {
+      background-color: rgba(7, 5, 32, 0.9);
+      padding: 1rem 0;
+      color: white;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+    
+    .logo i {
+      margin-right: 10px;
+      color: white;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .nav-links a:hover {
+      color: #c7d2fe;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: var(--gradient);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .cta-button {
+      background: var(--gradient);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+      background: linear-gradient(135deg, #03278a 0%, #a02f09 100%);
+    }
+    
+   
+    .user-profile {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+    
+           
+     .points-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+     .points-badge {
+            background: var(--gradient-accent);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(247, 37, 133, 0.2);
+        }
+
+       
+            /* ===== Hero Section ===== */
+            .course-hero {
+                background: var(--gradient-primary);
+                color: 2563eb(41, 32, 135);
+                padding: 200px 0 120px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            }
+    
+            .course-hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 45%;
+                height: 100%;
+                background: url('th.jpeg') no-repeat center/cover;
+                opacity: 0.15;
+                clip-path: polygon(25% 0%, 100% 0%, 100% 100%, 0% 100%);
+            }
+    
+            .hero-content {
+                max-width: 800px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .course-hero h1 {
+                font-size: 3.5rem;
+                margin-bottom: 25px;
+                animation: fadeInUp 1s ease;
+                line-height: 1.1;
+                color: #f8fafc;
+                text-shadow: 0 2px 10px rgba(93, 86, 86, 0.897);
+            }
+    
+            .course-hero p {
+                font-size: 1.25rem;
+                margin-bottom: 35px;
+                opacity: 0.9;
+                animation: fadeInUp 1s ease 0.2s forwards;
+                opacity: 0;
+                color: #f8fafc;
+    
+            }
+    
+            .level-badges {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 40px;
+                animation: fadeInUp 1s ease 0.4s forwards;
+                opacity: 0;
+            }
+    
+            .level-badge {
+                background: rgba(255, 255, 255, 0.15);
+                padding: 10px 24px;
+                border-radius: 50px;
+                font-weight: 600;
+                transition: all 0.3s;
+                cursor: pointer;
+                backdrop-filter: blur(5px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+    
+            .level-badge:hover {
+                background: rgba(255, 255, 255, 0.25);
+            }
+    
+            .level-badge.active {
+                background: white;
+                color: var(--primary);
+                font-weight: 700;
+                box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            }
+    
+            .hero-buttons {
+                display: flex;
+                gap: 20px;
+                animation: fadeInUp 1s ease 0.6s forwards;
+                opacity: 0;
+            }
+    
+            /* ===== Course Tracks ===== */
+            .course-tracks {
+                background: white;
+                position: relative;
+            }
+    
+            .course-tracks::before {
+                content: '';
+                position: absolute;
+                top: -100px;
+                left: 0;
+                width: 100%;
+                height: 150px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%234361ee"></path></svg>') no-repeat center top;
+                background-size: 100% 100%;
+            }
+    
+            .section-header {
+                text-align: center;
+                margin-bottom: 70px;
+            }
+    
+            .section-header h2 {
+                font-size: 2.8rem;
+                color: var(--darker);
+                margin-bottom: 20px;
+                position: relative;
+            }
+    
+            .section-header p {
+                color: var(--gray);
+                max-width: 700px;
+                margin: 0 auto;
+                font-size: 1.1rem;
+            }
+    
+            .track-container {
+                display: flex;
+                gap: 40px;
+            }
+    
+            .track-nav {
+                flex: 1;
+                position: sticky;
+                top: 120px;
+                align-self: flex-start;
+            }
+    
+            .track-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+    
+            .track-btn {
+                padding: 18px 24px;
+                border-radius: 12px;
+                background: var(--secondary);
+                border: none;
+                text-align: left;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+                border-left: 4px solid transparent;
+            }
+    
+            .track-btn:hover {
+                transform: translateX(10px);
+                background: var(--primary-light);
+                color: white;
+                box-shadow: 0 5px 15px rgba(67, 97, 238, 0.2);
+            }
+    
+            .track-btn.active {
+                background: var(--primary);
+                color: white;
+                border-left: 4px solid var(--accent);
+                transform: translateX(10px);
+            }
+    
+            .track-btn .badge {
+                background: rgba(255, 255, 255, 0.3);
+                padding: 5px 12px;
+                border-radius: 50px;
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+    
+            .track-btn.active .badge {
+                background: white;
+                color: var(--primary);
+            }
+    
+            .track-content {
+                flex: 3;
+                background: white;
+                border-radius: 16px;
+                padding: 40px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                border: 1px solid var(--light-gray);
+            }
+    
+            .track-panel {
+                display: none;
+                animation: fadeIn 0.5s ease;
+            }
+    
+            .track-panel.active {
+                display: block;
+            }
+    
+            .track-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 35px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--light-gray);
+            }
+    
+            .track-header h3 {
+                font-size: 2rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+    
+            .track-header h3 i {
+                color: var(--accent);
+            }
+    
+            .completion-badge {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+            }
+    
+            .track-description {
+                margin-bottom: 35px;
+                line-height: 1.8;
+                font-size: 1.05rem;
+                color: var(--gray);
+            }
+    
+            .tools-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin-bottom: 40px;
+            }
+    
+            .tool-badge {
+                background: var(--secondary);
+                padding: 10px 18px;
+                border-radius: 50px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                transition: all 0.3s ease;
+            }
+    
+            .tool-badge:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+    
+            .tool-badge i {
+                color: var(--primary);
+                font-size: 1.1rem;
+            }
+    
+            /* Curriculum */
+            .curriculum-section h4 {
+                margin-bottom: 25px;
+                font-size: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: var(--darker);
+            }
+    
+            .curriculum-section h4 i {
+                color: var(--accent);
+            }
+    
+            .module {
+                margin-bottom: 30px;
+                border: 1px solid var(--light-gray);
+                border-radius: 12px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            }
+    
+            .module:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+    
+            .module-header {
+                background: white;
+                padding: 18px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+    
+            .module-header:hover {
+                background: #f8f9fa;
+            }
+    
+            .module-header h5 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                font-size: 1.2rem;
+                color: var(--darker);
+            }
+    
+            .module-header i {
+                color: var(--primary);
+                transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+    
+            .module-header.active i {
+                transform: rotate(90deg);
+                color: var(--accent);
+            }
+    
+            .lessons-list {
+                list-style: none;
+                background: white;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+    
+            .module-header.active + .lessons-list {
+                max-height: 1000px;
+            }
+    
+            .lesson-item {
+                padding: 18px 25px 18px 60px;
+                border-top: 1px solid var(--light-gray);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.3s;
+                position: relative;
+            }
+    
+            .lesson-item:hover {
+                background: #f8f9fa;
+            }
+    
+            .lesson-item.completed {
+                background: rgba(76, 201, 240, 0.05);
+            }
+    
+            .lesson-item.completed::before {
+                content: '\f058';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                left: 25px;
+                color: var(--success);
+                font-size: 1.2rem;
+            }
+    
+            .lesson-info {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+            }
+    
+            .lesson-play {
+                color: var(--primary);
+                cursor: pointer;
+                font-size: 1.2rem;
+                transition: all 0.3s;
+            }
+    
+            .lesson-play:hover {
+                color: var(--accent);
+                transform: scale(1.1);
+            }
+    
+            .lesson-duration {
+                color: var(--gray);
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+    
+            /* Test Section */
+            .test-section {
+                background: var(--secondary);
+                padding: 35px;
+                border-radius: 16px;
+                margin: 50px 0;
+                border: 1px solid var(--light-gray);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .test-section::before {
+                content: '\f19d';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                right: 30px;
+                top: 30px;
+                font-size: 5rem;
+                opacity: 0.05;
+                color: var(--primary);
+                z-index: 0;
+            }
+    
+            .test-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 25px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .test-header h4 {
+                font-size: 1.5rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+    
+            .test-header h4 i {
+                color: var(--accent);
+            }
+    
+            .test-passed {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(76, 201, 240, 0.3);
+            }
+    
+            .test-description {
+                margin-bottom: 25px;
+                position: relative;
+                z-index: 1;
+                color: var(--gray);
+                line-height: 1.8;
+            }
+    
+            /* Project Section */
+            .project-section {
+                background: white;
+                padding: 35px;
+                border-radius: 16px;
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+                margin-top: 50px;
+                border: 1px solid var(--light-gray);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .project-section::before {
+                content: '\f15c';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                right: 30px;
+                top: 30px;
+                font-size: 5rem;
+                opacity: 0.05;
+                color: var(--primary);
+                z-index: 0;
+            }
+    
+            .project-header {
+                margin-bottom: 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-header h4 {
+                font-size: 1.5rem;
+                color: var(--primary);
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+    
+            .project-header h4 i {
+                color: var(--accent);
+            }
+    
+            .project-points {
+                background: var(--gradient-accent);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 50px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                box-shadow: 0 4px 15px rgba(247, 37, 133, 0.3);
+            }
+    
+            .project-description {
+                margin-bottom: 25px;
+                line-height: 1.8;
+                color: var(--gray);
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-requirements {
+                margin-bottom: 35px;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .project-requirements h5 {
+                margin-bottom: 18px;
+                font-size: 1.2rem;
+                color: var(--darker);
+            }
+    
+            .requirements-list {
+                list-style: none;
+                margin-left: 5px;
+            }
+    
+            .requirements-list li {
+                margin-bottom: 12px;
+                padding-left: 30px;
+                position: relative;
+                color: var(--gray);
+            }
+    
+            .requirements-list li::before {
+                content: '\f054';
+                font-family: 'Font Awesome 6 Free';
+                font-weight: 900;
+                position: absolute;
+                left: 0;
+                color: var(--accent);
+            }
+    
+    /* ===== Notebook Section ===== */
+    .notebook-section {
+            background: var(--darker);
+            color: white;
+            padding: 80px 0;
+            border-radius: 16px;
+            margin: 60px 0;
+        }
+
+        .notebook-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .notebook-header h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .notebook-header p {
+            color: #adb5bd;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .notebook-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .notebook-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px 20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .notebook-tabs {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notebook-tab {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .notebook-tab.active {
+            background: var(--data-science);
+        }
+
+        .notebook-run-btn {
+            background: var(--gradient-success);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .notebook-run-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .notebook-editor {
+            height: 400px;
+            background: #1e1e1e;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        #notebook-editor {
+            width: 100%;
+            height: 100%;
+            border: none;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 15px;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            resize: none;
+        }
+
+        .notebook-output {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 100px;
+            font-family: 'Courier New', monospace;
+            color: #d4d4d4;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .notebook-output pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+
+            /* ===== Reward System ===== */
+            .reward-system {
+                background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                color: white;
+                padding: 100px 0;
+                margin: 100px 0;
+                border-radius: 16px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            }
+    
+            .reward-system::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(33, 37, 41, 0.85);
+            }
+    
+            .reward-container {
+                max-width: 1100px;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
+                z-index: 1;
+            }
+    
+            .reward-container h2 {
+                font-size: 3rem;
+                margin-bottom: 25px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .reward-container p {
+                max-width: 700px;
+                margin: 0 auto 50px;
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+    
+            .reward-cards {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+    
+            .reward-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                color: white;
+                border-radius: 16px;
+                padding: 40px 30px;
+                width: 320px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+    
+            .reward-card:hover {
+                transform: translateY(-15px) scale(1.03);
+                background: rgba(255, 255, 255, 0.15);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            }
+    
+            .reward-card h3 {
+                color: white;
+                margin-bottom: 20px;
+                font-size: 1.8rem;
+                position: relative;
+                display: inline-block;
+            }
+    
+            .reward-card h3::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 50px;
+                height: 3px;
+                background: var(--accent);
+            }
+    
+            .reward-card .points {
+                font-size: 2.5rem;
+                font-weight: 800;
+                margin-bottom: 15px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .bronze .points {
+                color: var(--bronze);
+            }
+            
+            .silver .points {
+                color: var(--silver);
+            }
+            
+            .gold .points {
+                color: var(--gold);
+            }
+    
+            .reward-card .discount {
+                font-weight: 600;
+                margin-bottom: 30px;
+                font-size: 1.1rem;
+            }
+    
+            .reward-card .btn {
+                width: 100%;
+            }
+    
+            /* ===== CTA Section ===== */
+            .cta-section {
+                background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') no-repeat center/cover;
+                color: white;
+                text-align: center;
+                padding: 120px 0;
+                border-radius: 16px;
+                position: relative;
+                overflow: hidden;
+                clip-path: polygon(0 0, 100% 10%, 100% 100%, 0 90%);
+            }
+    
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(41, 40, 41, 0.85);
+    
+            }
+    
+            .cta-section .container {
+                position: relative;
+                z-index: 1;
+            }
+    
+            .cta-section h2 {
+                font-size: 3rem;
+                margin-bottom: 25px;
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            }
+    
+            .cta-section p {
+                max-width: 700px;
+                margin: 0 auto 50px;
+                font-size: 1.2rem;
+                opacity: 0.9;
+            }
+    
+            .cta-section .btn {
+                padding: 18px 50px;
+                font-size: 1.2rem;
+                box-shadow: 0 10px 30px rgba(247, 37, 133, 0.4);
+            }
+    
+            /* ===== Code Compiler Section ===== */
+            .compiler-section {
+                background: var(--darker);
+                color: white;
+                padding: 80px 0;
+                border-radius: 16px;
+                margin: 60px 0;
+            }
+    
+            .compiler-header {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+    
+            .compiler-header h3 {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+    
+            .compiler-header p {
+                color: #adb5bd;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+    
+            .compiler-container {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+    
+            .compiler-toolbar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.3);
+                padding: 12px 20px;
+                border-radius: 8px 8px 0 0;
+            }
+    
+            .compiler-tabs {
+                display: flex;
+                gap: 10px;
+            }
+    
+            .compiler-tab {
+                padding: 8px 16px;
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: all 0.3s;
+            }
+    
+            .compiler-tab.active {
+                background: var(--primary);
+            }
+    
+            .compiler-run-btn {
+                background: var(--gradient-success);
+                color: white;
+                padding: 8px 20px;
+                border-radius: 4px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.3s;
+            }
+    
+            .compiler-run-btn:hover {
+                transform: translateY(-2px);
+            }
+    
+            .compiler-editor {
+                height: 400px;
+                background: #1e1e1e;
+                border-radius: 0 0 8px 8px;
+                overflow: hidden;
+            }
+    
+            #editor {
+                width: 100%;
+                height: 100%;
+                border: none;
+                font-family: 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.5;
+                padding: 15px;
+                color: #d4d4d4;
+                background: #1e1e1e;
+                resize: none;
+            }
+    
+            .compiler-output {
+                background: #1e1e1e;
+                padding: 15px;
+                border-radius: 8px;
+                min-height: 100px;
+                font-family: 'Courier New', monospace;
+                color: #d4d4d4;
+                overflow-y: auto;
+                max-height: 300px;
+            }
+    
+            .compiler-output pre {
+                margin: 0;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+            }
+    
+            /* ===== Footer ===== */
+            footer {
+                background: var(--darker);
+                color: white;
+                padding: 100px 0 30px;
+                margin-top: 100px;
+                position: relative;
+                clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+            }
+    
+            footer::before {
+                content: '';
+                position: absolute;
+                top: -100px;
+                left: 0;
+                width: 100%;
+                height: 150px;
+                background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M1200 0L0 0 892.25 114.72 1200 0z" fill="%2314213d"></path></svg>') no-repeat center top;
+                background-size: 100% 100%;
+            }
+    
+            .footer-content {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 50px;
+                margin-bottom: 60px;
+            }
+    
+            .footer-column h3 {
+                font-size: 1.5rem;
+                margin-bottom: 25px;
+                position: relative;
+                padding-bottom: 15px;
+                font-family: 'Montserrat', sans-serif;
+            }
+    
+            .footer-column h3::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 3px;
+                background: var(--accent);
+            }
+    
+            .footer-links {
+                list-style: none;
+            }
+    
+            .footer-links li {
+                margin-bottom: 15px;
+            }
+    
+            .footer-links a {
+                color: #adb5bd;
+                text-decoration: none;
+                transition: all 0.3s;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+    
+            .footer-links a:hover {
+                color: white;
+                transform: translateX(5px);
+            }
+    
+            .footer-links a i {
+                width: 20px;
+                text-align: center;
+                color: var(--accent);
+            }
+    
+            .footer-about p {
+                color: #adb5bd;
+                margin-bottom: 25px;
+                line-height: 1.8;
+            }
+    
+            .social-links {
+                display: flex;
+                gap: 15px;
+                margin-top: 25px;
+            }
+    
+            .social-links a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transition: all 0.3s;
+                font-size: 1.1rem;
+            }
+    
+            .social-links a:hover {
+                background: var(--accent);
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(247, 37, 133, 0.4);
+            }
+    
+            .footer-bottom {
+                text-align: center;
+                padding-top: 30px;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                color: #adb5bd;
+                font-size: 0.9rem;
+            }
+    
+            .footer-bottom a {
+                color: var(--accent);
+                text-decoration: none;
+                transition: all 0.3s;
+            }
+    
+            .footer-bottom a:hover {
+                color: white;
+                text-decoration: underline;
+            }
+    
+            /* ===== Animations ===== */
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+    
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+    
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.05);
+                }
+                100% {
+                    transform: scale(1);
+                }
+            }
+    
+            /* ===== Floating Elements ===== */
+            .floating {
+                animation: floating 6s ease-in-out infinite;
+            }
+    
+            @keyframes floating {
+                0% {
+                    transform: translateY(0px);
+                }
+                50% {
+                    transform: translateY(-15px);
+                }
+                100% {
+                    transform: translateY(0px);
+                }
+            }
+    
+            /* Lesson Modal Styles */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 2000;
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .modal-content {
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                max-width: 800px;
+                width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                position: relative;
+            }
+    
+            .close-modal {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--gray);
+            }
+    
+            .close-modal:hover {
+                color: var(--accent);
+            }
+    
+            /* Lesson Tabs */
+            .lesson-tabs {
+                display: flex;
+                border-bottom: 1px solid var(--light-gray);
+                margin: 20px 0;
+            }
+            
+            .lesson-tab {
+                padding: 10px 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                color: var(--gray);
+                position: relative;
+                margin-right: 5px;
+            }
+            
+            .lesson-tab.active {
+                color: var(--primary);
+            }
+            
+            .lesson-tab.active::after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: 0;
+                width: 100%;
+                height: 3px;
+                background: var(--accent);
+            }
+            
+            .lesson-tab-content {
+                display: none;
+            }
+            
+            .lesson-tab-content.active {
+                display: block;
+            }
+            
+            .challenge-question {
+                margin-bottom: 15px;
+                padding: 15px;
+                background: var(--secondary);
+                border-radius: 8px;
+            }
+            
+            .challenge-question label {
+                display: block;
+                margin: 8px 0;
+                cursor: pointer;
+            }
+            
+            .challenge-question input[type="radio"] {
+                margin-right: 10px;
+            }
+            
+            .video-container {
+                position: relative;
+                padding-bottom: 56.25%; /* 16:9 aspect ratio */
+                height: 0;
+                overflow: hidden;
+                margin: 15px 0;
+                border-radius: 8px;
+                background: var(--darker);
+            }
+            
+            .video-container iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+    
+            /* ===== Responsive Design ===== */
+            @media (max-width: 1200px) {
+                .course-hero h1 {
+                    font-size: 3rem;
+                }
+                
+                .section-header h2 {
+                    font-size: 2.5rem;
+                }
+            }
+    
+            @media (max-width: 992px) {
+                .track-container {
+                    flex-direction: column;
+                }
+                
+                .track-nav {
+                    position: static;
+                    margin-bottom: 30px;
+                }
+                
+                .track-buttons {
+                    flex-direction: row;
+                    overflow-x: auto;
+                    padding-bottom: 15px;
+                    scrollbar-width: thin;
+                }
+                
+                .track-btn {
+                    white-space: nowrap;
+                    min-width: 220px;
+                }
+    
+                .course-hero h1 {
+                    font-size: 2.5rem;
+                }
+    
+                .section-header h2 {
+                    font-size: 2.2rem;
+                }
+    
+                .reward-card {
+                    width: 280px;
+                }
+                
+                .reward-cards {
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+    
+            @media (max-width: 768px) {
+                .course-hero h1 {
+                    font-size: 2.2rem;
+                }
+                
+                .hero-buttons {
+                    flex-direction: column;
+                }
+                
+                .level-badges {
+                    flex-wrap: wrap;
+                }
+                
+                .course-hero::before {
+                    width: 100%;
+                    opacity: 0.1;
+                    clip-path: none;
+                }
+    
+                .section-header h2 {
+                    font-size: 2rem;
+                }
+    
+                .cta-section h2, .reward-container h2 {
+                    font-size: 2.5rem;
+                }
+    
+                .cta-section p, .reward-container p {
+                    font-size: 1rem;
+                }
+            }
+    
+            @media (max-width: 576px) {
+                .course-hero {
+                    padding: 160px 0 80px;
+                }
+                
+                .course-hero h1 {
+                    font-size: 2rem;
+                }
+                
+                .course-hero p {
+                    font-size: 1.1rem;
+                }
+    
+                .section-header h2 {
+                    font-size: 1.8rem;
+                }
+    
+                .track-content {
+                    padding: 25px;
+                }
+    
+                .test-section, .project-section {
+                    padding: 25px;
+                }
+    
+                .cta-section h2, .reward-container h2 {
+                    font-size: 2rem;
+                }
+    
+                .cta-section p, .reward-container p {
+                    font-size: 1rem;
+                }
+    
+                .footer-content {
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                }
+    
+                .compiler-header h3 {
+                    font-size: 1.8rem;
+                }
+    
+                .compiler-tabs {
+                    flex-wrap: wrap;
+                }
+            }
+        </style>
+</head>
+<body>
+    <header id="main-header">
+          <div class="container header-container">
+              <div class="logo">
+                <i class="fas fa-cloud"></i>
+                <span>CloudMars</span>
+              </div>
+              <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="projects.html">projects</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <!-- <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li> -->
+               <div class="points-badge">
+                        <i class="fas fa-coins"></i>
+                         <span id="total-points">0</span> XP
+                    </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="course-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Master Web Technology From Zero to Hero</h1>
+                <p>Join our comprehensive program to learn Web Technology from the ground up. Master Python, statistics, machine learning, and data visualization to become a professional data scientist.</p>
+                
+                <div class="level-badges">
+                    <div class="level-badge active"><i class="fas fa-star"></i> Beginner</div>
+                    <div class="level-badge"><i class="fas fa-chart-line"></i> Intermediate</div>
+                    <div class="level-badge"><i class="fas fa-trophy"></i> Advanced</div>
+                </div>
+    
+                <!-- <div class="hero-buttons">
+                    <a href="payment.html" class="btn btn-accent">Enroll Now</a>
+                    <button class="btn btn-outline"><i class="fas fa-play"></i> Preview Course</button>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Tracks -->
+    <section class="course-tracks">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Your Learning Journey</h2>
+                <p>Our structured curriculum takes you step-by-step through all the skills needed to become a professional  web developer</p>
+            </div>
+            
+            <!-- <div class="progress-tracker">
+                <h4>Your Progress</h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 35%;"></div>
+                </div>
+                <div class="progress-stats">
+                    <div>
+                        <span class="stat-value">35%</span>
+                        <span class="stat-label">Course Completed</span>
+                    </div>
+                    <div>
+                        <span class="stat-value" id="xp-earned">0</span>
+                        <span class="stat-label">XP Earned</span>
+                    </div>
+                    <div>
+                        <span class="stat-value" id="lessons-completed">0</span>
+                        <span class="stat-label">Lessons Completed</span>
+                    </div>
+                </div>
+            </div> -->
+            
+            <div class="track-container">
+                <div class="track-nav">
+                    <div class="track-buttons">
+                        <button class="track-btn active" onclick="showTrack('beginner')">
+                            <span><i class="fas fa-map-marker-alt"></i> Beginner Track</span>
+                            <span class="badge">8 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('intermediate')">
+                            <span><i class="fas fa-compass"></i> Hunter Mid Track</span>
+                            <span class="badge">6 Modules</span>
+                        </button>
+                        <button class="track-btn" onclick="showTrack('advanced')">
+                            <span><i class="fas fa-flag-checkered"></i> Advanced Track</span>
+                            <span class="badge">5Modules</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="track-content">
+                    <!-- Beginner Track -->
+                    <div id="beginner-track" class="track-panel active">
+                        <div class="track-header">
+                            <h3><i class="fas fa-map-marker-alt"></i> Beginner Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-check-circle"></i>
+                                <span>35% Completed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Start your web development journey with the fundamentals. Learn HTML, CSS, and basic JavaScript to build static websites. This track focuses on core concepts and best practices for beginners, giving you a solid foundation to build upon</p>
+                        </div>
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fab fa-html5"></i>
+                                <span>HTML5</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fab fa-css3-alt"></i>
+                                <span>CSS3</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fab fa-js"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-code"></i>
+                                <span>VS Code</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fab fa-git-alt"></i>
+                                <span>Git</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>Responsive Design</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: HTML Fundamentals
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Introduction to HTML</span>
+                                        </div>
+                                        <span class="lesson-duration">15:30</span>
+                                    </li>
+                                    <li class="lesson-item completed">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>HTML Document Structure</span>
+                                        </div>
+                                        <span class="lesson-duration">20:45</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Forms and Input Elements</span>
+                                        </div>
+                                        <span class="lesson-duration">25:10</span>
+                                    </li>
+                                    <li class="lesson-item">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Semantic HTML5 Elements</span>
+                                        </div>
+                                        <span class="lesson-duration">30:20</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: CSS Styling
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item completed" data-id="pandas-intro">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>ICSS Selectors and Box Model/span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">30:15</span>
+                                            <span class="lesson-points">50 XP</span>
+                                            <span class="lesson-status">
+                                                <i class="fas fa-check-circle"></i> Completed
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="data-cleaning">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Flexbox Layout</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">35:50</span>
+                                            <span class="lesson-points">60 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="grouping">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>CSS Grid</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:25</span>
+                                            <span class="lesson-points">70 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="time-series">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Responsive Design Principles</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:10</span>
+                                            <span class="lesson-points">80 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Beginner Track Assessment
+                                </h4>
+                                <div class="test-passed">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Passed</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>This comprehensive test evaluates your understanding of HTML and CSS fundamentals. You'll need to demonstrate proficiency in structuring web pages, applying styles, and creating responsive layouts. Score at least 80% to pass and earn 200 XP points.</p>
+                            </div>
+                            <button class="btn btn-primary" onclick="startTest()"><i class="fas fa-pencil-alt"></i> Take Test</button>
+                        </div>
+                        
+                        <div class="project-section">
+                            <div class="project-header">
+                                <h4>
+                                    <i class="fas fa-project-diagram"></i>
+                                    Foundations Project: Web Technology
+                                </h4>
+                                <div class="project-points">
+                                    <i class="fas fa-coins"></i>
+                                    <span>600 XP</span>
+                                </div>
+                            </div>
+                            <div class="project-description">
+                                <p>Build a responsive personal portfolio website using HTML and CSS. Your portfolio should showcase your skills, projects, and include a contact form. This project will demonstrate your ability to create clean, semantic HTML and well-organized CSS.</p>
+                            </div>
+                            <div class="project-requirements">
+                                <h5>Project Requirements:</h5>
+                                <ul class="requirements-list">
+                                    <li>Fully responsive design that works on mobile, tablet, and desktop</li>
+                                    <li>Use of CSS Flexbox or Grid for layout</li>
+                                    <li>Contact form with client-side validation</li>
+                                    <li>Project gallery with hover effects</li>
+                                    <li>Semantic HTML5 structure</li>
+                                    <li>Clean, organized CSS with comments</li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-primary" onclick="submitProject()"><i class="fas fa-upload"></i> Submit Project</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Intermediate Track -->
+                    <div id="intermediate-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-compass"></i> Hunter Mid Track</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Advance your skills with modern JavaScript, DOM manipulation, and frontend frameworks. Learn to build interactive web applications, work with APIs, and understand essential programming concepts that will take your development skills to the next level.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-robot"></i>
+                                <span>JavaScript ES6+</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>React.js</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-brain"></i>
+                                <span>REST APIs</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-chart-line"></i>
+                                <span>npm</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-sliders-h"></i>
+                                <span>Component Architecture</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-check-double"></i>
+                                <span>State Management</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: JavaScript Deep Dive
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="linear-regression">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>ES6+ Features</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">545:30</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="decision-trees">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>DOM Manipulation</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:15</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="svm">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Asynchronous JavaScript</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:20</span>
+                                            <span class="lesson-points">110 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="model-evaluation">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Modern JavaScript Patterns</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:45</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: React Fundamentals
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="clustering">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Introduction to React</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:10</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="dimensionality">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Components & Props</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:50</span>
+                                            <span class="lesson-points">80 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="association">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Hooks in Depth</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:30</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="test-section">
+                            <div class="test-header">
+                                <h4>
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Hunter Mid Track Assessment
+                                </h4>
+                                <div style="background: var(--gray); color: white; padding: 8px 20px; border-radius: 50px; font-weight: 600;">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Locked</span>
+                                </div>
+                            </div>
+                            <div class="test-description">
+                                <p>Complete the Beginner Track to unlock this assessment. The test will evaluate your JavaScript skills, understanding of frontend frameworks, and ability to work with APIs. You'll need to demonstrate proficiency in building interactive web applications.</p>                            </div>
+                            <button class="btn btn-secondary" disabled><i class="fas fa-lock"></i> Complete Foundations First</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Advanced Track -->
+                    <div id="advanced-track" class="track-panel">
+                        <div class="track-header">
+                            <h3><i class="fas fa-flag-checkered"></i> Advanced trak</h3>
+                            <div class="completion-badge">
+                                <i class="fas fa-lock"></i>
+                                <span>Locked</span>
+                            </div>
+                        </div>
+                        
+                        <div class="track-description">
+                            <p>Master full-stack development with Node.js, Express, and databases. Learn authentication, deployment, and advanced architectural patterns. This track will prepare you for professional web development roles by teaching you how to build complete, production-ready applications.</p>
+                        </div>
+                        
+                        <div class="tools-list">
+                            <div class="tool-badge">
+                                <i class="fas fa-network-wired"></i>
+                                <span>Node.js</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-language"></i>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-cloud"></i>
+                                <span>Authentication</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-server"></i>
+                                <span>Deployment</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-network-wired"></i>
+                                <span>RESTful APIs</span>
+                            </div>
+                            <div class="tool-badge">
+                                <i class="fas fa-cloud"></i>
+                                <span>Cloud Services</span>
+                            </div>
+                        </div>
+                        
+                        <div class="curriculum-section">
+                            <h4>
+                                <i class="fas fa-book-open"></i>
+                                Curriculum Overview
+                            </h4>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 1: Backend Fundamentals
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="neural-networks">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Introduction to Node.js</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">40:15</span>
+                                            <span class="lesson-points">110 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="cnn">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Express Framework</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">35:20</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="rnn">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Database Integration</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:30</span>
+                                            <span class="lesson-points">120 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="rnn">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Authentication & Security</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:30</span>
+                                            <span class="lesson-points">120 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="module">
+                                <div class="module-header" onclick="toggleModule(this)">
+                                    <h5>
+                                        <i class="fas fa-folder"></i>
+                                        Module 2: Advanced Concepts
+                                    </h5>
+                                    <i class="fas fa-chevron-right"></i>
+                                </div>
+                                <ul class="lessons-list">
+                                    <li class="lesson-item" data-id="text-preprocessing">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Performance Optimization</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">50:10</span>
+                                            <span class="lesson-points">90 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="word-embeddings">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>Microservices Architecture</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">55:25</span>
+                                            <span class="lesson-points">100 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                    <li class="lesson-item" data-id="transformers">
+                                        <div class="lesson-info">
+                                            <i class="far fa-play-circle lesson-play" onclick="playLesson(this)"></i>
+                                            <span>CI/CD PipelinesCI/CD Pipelines</span>
+                                        </div>
+                                        <div class="lesson-meta">
+                                            <span class="lesson-duration">45:50</span>
+                                            <span class="lesson-points">130 XP</span>
+                                            <span class="lesson-status">Not Started</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Notebook Section -->
+      <section class="notebook-section">
+        <div class="container">
+            <div class="notebook-header">
+                <h3>Interactive Code Compiler</h3>
+                <p>Practice your coding skills directly in the browser with our built-in compiler. Write, run, and test your HTML, CSS, and JavaScript code in real-time.</p>
+            </div>
+            
+            <div class="notebook-container">
+                <div class="notebook-toolbar">
+                    <div class="notebook-tabs">
+                        <button class="notebook-tab active" onclick="changeNotebookTab('python')">Python</button>
+                        <!-- <button class="notebook-tab" onclick="changeNotebookTab('sql')">SQL</button>
+                        <button class="notebook-tab" onclick="changeNotebookTab('r')">R</button> -->
+                    </div>
+                    <button class="notebook-run-btn" onclick="runCode()">
+                        <i class="fas fa-play"></i> Run Code
+                    </button>
+                </div>
+                
+                <div class="notebook-editor">
+                    <textarea id="notebook-editor" spellcheck="false"># Welcome to the Data Science Notebook
+# Try running this basic Python code
+import numpy as np
+import pandas as pd
+
+# Create a simple DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Score': [85, 92, 78]
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:")
+print(df)
+
+# Calculate average score
+avg_score = df['Score'].mean()
+print(f"\nAverage Score: {avg_score:.2f}")
+
+# Add a new column
+df['Grade'] = np.where(df['Score'] >= 90, 'A',
+                      np.where(df['Score'] >= 80, 'B', 'C'))
+print("\nDataFrame with Grades:")
+print(df)</textarea>
+                </div>
+                
+                <h4 style="margin: 20px 0 10px; color: white;">Output:</h4>
+                <div class="notebook-output" id="output">
+                    <p style="color: #aaa;">Click "Run Code" to see the output here...</p>
+                </div>
+                <div id="progress" class="progress-bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reward System -->
+    <section class="reward-system">
+        <div class="reward-container">
+            <h2>Earn Rewards As You Learn</h2>
+            <p>Complete courses, pass tests, and submit projects to earn XP points and unlock exclusive rewards and discounts</p>
+            
+            <div class="reward-cards">
+                <div class="reward-card bronze">
+                    <h3>Bronze</h3>
+                    <div class="points">500 XP</div>
+                    <div class="discount">5% Discount on Next Course</div>
+                    <button class="btn btn-primary" onclick="claimReward('bronze', 500)">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card silver">
+                    <h3>Silver</h3>
+                    <div class="points">1,500 XP</div>
+                    <div class="discount">10% Discount + Certificate</div>
+                    <button class="btn btn-primary" onclick="claimReward('silver', 1500)">Claim Reward</button>
+                </div>
+                
+                <div class="reward-card gold">
+                    <h3>Gold</h3>
+                    <div class="points">3,000 XP</div>
+                    <div class="discount">20% Discount + Mentorship</div>
+                    <button class="btn btn-primary" onclick="claimReward('gold', 3000)">Claim Reward</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Start Your Data Science Journey?</h2>
+            <p>Join thousands of students who have transformed their careers with our comprehensive data science program. No prior experience required.</p>
+            <a href="payment.html" class=" btn btn-accent">Enroll Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CloudMars</h3>
+                    <div class="footer-about">
+                        <p>CloudMars Academy is a leading online education platform specializing in data science and AI technologies.</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Courses</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Machine Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Deep Learning</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI Engineering</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Data Visualization</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Tutorials</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Webinars</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 CloudMars Academy. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="#">CloudMars Team</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Test Modal -->
+    <div id="test-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('test-modal')">&times;</span>
+            <h3>Foundations Track Assessment</h3>
+            <div id="test-questions">
+                <!-- Questions will be added here by JavaScript -->
+            </div>
+            <button class="btn btn-primary" onclick="submitTest()" style="margin-top: 20px;"><i class="fas fa-paper-plane"></i> Submit Test</button>
+        </div>
+    </div>
+
+    <!-- Lesson Modal -->
+    <div id="lesson-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('lesson-modal')">&times;</span>
+            <h3 id="lesson-title">Lesson Title</h3>
+            
+            <div id="video-placeholder" style="display: none; text-align: center; padding: 40px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+                <i class="fas fa-video-slash" style="font-size: 3rem; color: var(--gray); margin-bottom: 15px;"></i>
+                <h4 style="color: var(--dark);">Video Not Available</h4>
+                <p style="color: var(--gray);">The video for this lesson is currently being prepared. Please check the lesson notes and resources.</p>
+            </div>
+            
+            <div class="video-container" id="video-container" style="display: none;">
+                <iframe id="lesson-video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            
+            <div class="lesson-tabs">
+                <button class="lesson-tab active" onclick="openLessonTab('notes')">Notes</button>
+                <button class="lesson-tab" onclick="openLessonTab('challenge')">Challenge</button>
+                <button class="lesson-tab" onclick="openLessonTab('resources')">Resources</button>
+            </div>
+            
+            <div id="lesson-notes" class="lesson-tab-content active">
+                <div id="lesson-content">
+                    <!-- Lesson notes content will be loaded here -->
+                </div>
+            </div>
+            
+            <div id="lesson-challenge" class="lesson-tab-content">
+                <div id="challenge-content">
+                    <!-- Challenge content will be loaded here -->
+                </div>
+                <button class="btn btn-primary" onclick="submitChallenge()" style="margin-top: 20px;">
+                    <i class="fas fa-paper-plane"></i> Submit Challenge
+                </button>
+            </div>
+            
+            <div id="lesson-resources" class="lesson-tab-content">
+                <div id="resources-content">
+                    <!-- Resources content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Project Submission Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('project-modal')">&times;</span>
+            <h3>Submit Project</h3>
+            <form id="project-form" style="margin-top: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Project Name</label>
+                    <input type="text" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" value="Foundations Project: Data Analysis" readonly>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">GitHub Repository</label>
+                    <input type="url" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" placeholder="https://github.com/yourusername/project" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notebook File</label>
+                    <input type="file" style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px;" accept=".ipynb" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">Notes (Optional)</label>
+                    <textarea style="width: 100%; padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px; min-height: 100px;" placeholder="Any additional information about your project..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit Project</button>
+            </form>
+        </div>
+    </div>
+   <script type="module">
+import { auth, addUserPoints, onSnapshot, doc, getDoc, db } from './firebaseauth.js';
+
+// Global variables
+let currentUserId = null;
+let currentLessonTitle = '';
+let courseId = 'Full Stack';
+let totalPoints = (() => {
+    const stored = localStorage.getItem('totalPoints');
+    try {
+        const parsed = JSON.parse(stored);
+        if (typeof parsed === 'number') {
+            return [{ points: parsed, lessonTitle: 'Legacy Points', timestamp: new Date().toISOString() }];
+        }
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        return [];
+    }
+})();
+let userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || {};
+let completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
+let youtubePlayer = null;
+
+// Load YouTube Iframe API
+function loadYouTubeAPI() {
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+// Called by YouTube Iframe API when loaded
+window.onYouTubeIframeAPIReady = function() {
+    console.log('YouTube Iframe API ready');
+};
+
+// Check authentication state and sync points from Firestore
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        currentUserId = user.uid;
+        console.log(`User ${currentUserId} authenticated in course page`);
+
+        const userDocRef = doc(db, 'users', currentUserId);
+        onSnapshot(userDocRef, (doc) => {
+            if (doc.exists()) {
+                const userData = doc.data();
+                console.log(`Firestore points for user ${currentUserId}:`, userData.points);
+
+                const totalPointsEl = document.getElementById('total-points');
+                const xpEarnedEl = document.getElementById('xp-earned');
+                if (totalPointsEl) totalPointsEl.textContent = userData.points || 0;
+                if (xpEarnedEl) xpEarnedEl.textContent = userData.points || 0;
+
+                totalPoints = userData.pointsHistory || [];
+                localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+            } else {
+                console.error(`User document not found for ${currentUserId}`);
+            }
+        }, (error) => {
+            console.error(`Error syncing points for user ${currentUserId}:`, error);
+        });
+
+        await migrateLocalStoragePoints(user.uid);
+    } else {
+        currentUserId = null;
+        console.log('No user authenticated, using localStorage for points');
+        updatePointsDisplay();
+    }
+});
+
+// Migrate localStorage points to Firestore (one-time)
+// async function migrateLocalStoragePoints(userId) {
+//     if (totalPoints.length > 0) {
+//         console.log(`Migrating ${totalPoints.length} localStorage points to Firestore for user ${userId}`);
+//         for (const entry of totalPoints) {
+//             try {
+//                 await addUserPoints(userId, entry.points, entry.lessonTitle || 'Migrated Points', courseId);
+//                 console.log(`Migrated points: ${entry.points} for ${entry.lessonTitle}`);
+//             } catch (error) {
+//                 console.error(`Error migrating points for ${entry.lessonTitle}:`, error);
+//             }
+//         }
+//         totalPoints = [];
+//         localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+//     }
+// }
+
+// Add points and sync with Firestore
+async function addPoints(points, lessonTitle) {
+    const newPointsEntry = {
+        points: points,
+        lessonTitle: lessonTitle || currentLessonTitle,
+        timestamp: new Date().toISOString(),
+    };
+
+    totalPoints.push(newPointsEntry);
+    localStorage.setItem('totalPoints', JSON.stringify(totalPoints));
+
+    if (currentUserId) {
+        try {
+            console.log(`Adding ${points} points to Firestore for user ${currentUserId}, lesson: ${lessonTitle}`);
+            await addUserPoints(currentUserId, points, lessonTitle || 'Course Activity', courseId);
+        } catch (error) {
+            console.error(`Error adding points to Firestore for user ${currentUserId}:`, error);
+            showNotification('Error syncing points with server', 'error');
+        }
+    }
+
+    updatePointsDisplay();
+    showNotification(`+${points} XP! Total: ${getTotalPointsSum()} XP`, 'success');
+}
+
+// Get latest points (for localStorage fallback)
+function getLatestPoints() {
+    if (totalPoints.length > 0) {
+        return totalPoints[totalPoints.length - 1].points;
+    }
+    return 0;
+}
+
+// Get total points sum (for localStorage fallback)
+function getTotalPointsSum() {
+    return totalPoints.reduce((sum, entry) => sum + entry.points, 0);
+}
+
+// Example usage for correct answers
+function onCorrectAnswer(points) {
+    addPoints(points, currentLessonTitle);
+    console.log("Latest points:", getLatestPoints());
+    console.log("Total points:", getTotalPointsSum());
+}
+
+// Load saved points and setup event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    updateCompletedLessons();
+    updateProgressBar();
+    loadYouTubeAPI();
+
+    // Attach playLesson event listeners programmatically
+    document.querySelectorAll('.lesson-play').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            playLesson(this);
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.closest('button') && e.target.closest('button').textContent.includes('Submit Challenge')) {
+            submitChallenge();
+        }
+    });
+
+    window.addEventListener('scroll', function() {
+        const header = document.getElementById('main-header');
+        if (header) {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+    });
+
+    const projectForm = document.getElementById('project-form');
+    if (projectForm) {
+        projectForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Project submitted successfully! It will be reviewed by our team.');
+            addPoints(600, 'Project Submission');
+            closeModal('project-modal');
+        });
+    }
+});
+
+function updatePointsDisplay() {
+    if (!currentUserId) {
+        const total = getTotalPointsSum();
+        const totalPointsEl = document.getElementById('total-points');
+        const xpEarnedEl = document.getElementById('xp-earned');
+        if (totalPointsEl) totalPointsEl.textContent = total;
+        if (xpEarnedEl) xpEarnedEl.textContent = total;
+    }
+}
+
+function updateCompletedLessons() {
+    completedLessons.forEach(lessonId => {
+        const lessonItem = document.querySelector(`.lesson-item[data-id="${lessonId}"]`);
+        if (lessonItem) lessonItem.classList.add('completed');
+    });
+}
+
+function showTrack(trackId) {
+    document.querySelectorAll('.track-panel').forEach(panel => panel.classList.remove('active'));
+    const trackPanel = document.getElementById(`${trackId}-track`);
+    if (trackPanel) trackPanel.classList.add('active');
+
+    document.querySelectorAll('.track-btn').forEach(btn => btn.classList.remove('active'));
+    if (event.currentTarget) event.currentTarget.classList.add('active');
+}
+
+function toggleModule(header) {
+    header.classList.toggle('active');
+    const lessonsList = header.nextElementSibling;
+    if (lessonsList) {
+        lessonsList.style.maxHeight = header.classList.contains('active') ? lessonsList.scrollHeight + 'px' : '0';
+    }
+}
+
+function playLesson(playButton) {
+    const lessonItem = playButton.closest('.lesson-item');
+    currentLessonTitle = lessonItem.querySelector('span').textContent;
+    const lessonId = lessonItem.dataset.id;
+
+    console.log(`Opening lesson: ${currentLessonTitle} (ID: ${lessonId})`);
+
+    const lessonTitleEl = document.getElementById('lesson-title');
+    if (lessonTitleEl) lessonTitleEl.textContent = currentLessonTitle;
+
+    const videoData = getVideoDataByLesson(currentLessonTitle);
+    const videoContainer = document.getElementById('video-container');
+    const videoPlaceholder = document.getElementById('video-placeholder');
+
+    if (videoContainer && videoPlaceholder) {
+        if (videoData.id) {
+            videoPlaceholder.style.display = 'none';
+            videoContainer.style.display = 'block';
+            videoContainer.innerHTML = `<div id="youtube-player"></div>`;
+
+            youtubePlayer = new YT.Player('youtube-player', {
+                height: '360',
+                width: '640',
+                videoId: videoData.id,
+                playerVars: {
+                    autoplay: 1,
+                    start: videoData.startTime || 0,
+                    modestbranding: 1,
+                    rel: 0
+                },
+                events: {
+                    onReady: (event) => {
+                        console.log('YouTube player ready for video:', videoData.id);
+                        event.target.playVideo();
+                    },
+                    onError: (error) => {
+                        console.error('YouTube player error:', error);
+                        showNotification('Error loading video. Please try again.', 'error');
+                    }
+                }
+            });
+        } else {
+            videoPlaceholder.style.display = 'block';
+            videoContainer.style.display = 'none';
+            videoPlaceholder.innerHTML = `<p>${videoData.message || 'Video not available'}</p>`;
+        }
+    } else {
+        console.error('Video container or placeholder not found');
+    }
+
+    const lessonContentEl = document.getElementById('lesson-content');
+    if (lessonContentEl) lessonContentEl.innerHTML = getLessonNotes(currentLessonTitle);
+
+    const challengeContentEl = document.getElementById('challenge-content');
+    if (challengeContentEl) challengeContentEl.innerHTML = getLessonChallenge(currentLessonTitle, lessonId);
+
+    const resourcesContentEl = document.getElementById('resources-content');
+    if (resourcesContentEl) resourcesContentEl.innerHTML = getLessonResources(currentLessonTitle);
+
+    if (userAnswers[lessonId]) {
+        const challengeData = userAnswers[lessonId];
+        const questions = document.querySelectorAll('.challenge-question');
+        const totalPossible = Array.from(questions).reduce((sum, q) => sum + parseInt(q.dataset.points), 0);
+        const percentage = Math.round((challengeData.pointsEarned / totalPossible) * 100);
+
+        if (challengeContentEl) {
+            challengeContentEl.insertAdjacentHTML('beforeend', `
+                <div class="challenge-result">
+                    <h4>Previous Challenge Result (Submitted on ${new Date(challengeData.completed).toLocaleDateString()})</h4>
+                    <p>You scored ${challengeData.pointsEarned}/${totalPossible} XP (${percentage}%)</p>
+                    ${generateAnswerReview(challengeData)}
+                </div>
+            `);
+        }
+
+        const submitBtn = document.querySelector('#lesson-challenge .btn-primary');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Already Submitted';
+        }
+    }
+
+    document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+    const videoTab = document.querySelector('.lesson-tab[onclick="openLessonTab(\'video\')]');
+    const videoTabContent = document.getElementById('lesson-video-tab');
+    if (videoTab) videoTab.classList.add('active');
+    if (videoTabContent) videoTabContent.classList.add('active');
+
+    const lessonModal = document.getElementById('lesson-modal');
+    if (lessonModal) lessonModal.style.display = 'flex';
+}
+
+function getVideoDataByLesson(lessonTitle) {
+    const videoMap = {
+        // Beginner Track Videos
+        "Introduction to HTML": { id: "qz0aGYrrlhU", startTime: 0, duration: "15:30" },
+        "HTML Document Structure": { id: "UB1O30fR-EE", startTime: 0, duration: "20:45" },
+        "Forms and Input Elements": { id: "fNcJuPIZ2WE", startTime: 0, duration: "25:10" },
+        "Semantic HTML5 Elements": { id: "kGW8Al_cga4", startTime: 0, duration: "30:20" },
+        "CSS Selectors and Box Model": { id: "wNX7lWzch34", startTime: 0, duration: "25:15" },
+        "Flexbox Layout": { id: "JJSoEo8JSnc", startTime: 0, duration: "30:50" },
+        "CSS Grid": { id: "9zBsdzdE4sM", startTime: 0, duration: "35:25" },
+        "Responsive Design Principles": { id: "srvUrASNj0s", startTime: 0, duration: "40:10" },
+        
+        // Hunter Mid Track Videos
+        "ES6+ Features": { id: "NCwa_xi0Uuc", startTime: 0, duration: "45:30" },
+        "DOM Manipulation": { id: "0ik6X4DJKCc", startTime: 0, duration: "30:15" },
+        "Asynchronous JavaScript": { id: "PoRJizFvM7s", startTime: 0, duration: "50:20" },
+        "Modern JavaScript Patterns": { id: "3COQd7nbxag", startTime: 0, duration: "40:45" },
+        "Introduction to React": { id: "w7ejDZ8SWv8", startTime: 0, duration: "40:10" },
+        "Components & Props": { id: "m55PTg1PCaM", startTime: 0, duration: "35:25" },
+        "State & Lifecycle": { id: "m55PTg1PCaM", startTime: 300, duration: "45:50" },
+        "Hooks in Depth": { id: "TNhaISOUy6Q", startTime: 0, duration: "50:30" },
+        
+        // Advanced Track Videos
+        "Introduction to Node.js": { id: "f2EqECiTBL8", startTime: 0, duration: "40:15" },
+        "Express Framework": { id: "G8uL0lFFoN0", startTime: 0, duration: "35:20" },
+        "Database Integration": { id: "WfPu9JrcpZ8", startTime: 0, duration: "50:30" },
+        "Authentication & Security": { id: "F-sFp_AvHc8", startTime: 0, duration: "45:45" },
+        "Performance Optimization": { id: "YJ3Z1QHHgUw", startTime: 0, duration: "50:10" },
+        "Microservices Architecture": { id: "D1WnLxXQeXQ", startTime: 0, duration: "55:25" },
+        "CI/CD Pipelines": { id: "scEDHsr3APg", startTime: 0, duration: "45:50" }
+    };
+
+    return videoMap[lessonTitle] || { id: "qz0aGYrrlhU", startTime: 0, duration: "15:00" };
+}
+       // وظيفة مساعدة للحصول على ملاحظات الدرس
+       function getLessonNotes(lessonTitle) {
+            // في التطبيق الحقيقي، سيكون هذا من قاعدة البيانات
+            const notesMap = {
+                // Beginner Track Notes
+                "Introduction to HTML": `
+                    <h4>HTML Basics</h4>
+                    <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>HTML describes the structure of a web page</li>
+                        <li>HTML consists of a series of elements</li>
+                        <li>HTML elements tell the browser how to display the content</li>
+                    </ul>
+                    <div class="code-example">
+                        <h5>Example:</h5>
+                        <pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;My First Heading&lt;/h1&gt;
+    &lt;p&gt;My first paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+                    </div>
+                `,
+                "HTML Document Structure": `
+                    <h4>Document Structure</h4>
+                    <p>Every HTML document has a specific structure that must be followed.</p>
+                    <p>Essential elements:</p>
+                    <ul>
+                        <li>&lt;!DOCTYPE html&gt; - Defines the document type</li>
+                        <li>&lt;html&gt; - The root element</li>
+                        <li>&lt;head&gt; - Contains meta information</li>
+                        <li>&lt;body&gt; - Contains the visible content</li>
+                    </ul>
+                `,
+                "Forms and Input Elements": `
+                    <h4>HTML Forms</h4>
+                    <p>Forms are used to collect user input which is generally sent to a server for processing.</p>
+                    <p>Key elements:</p>
+                    <ul>
+                        <li>&lt;form&gt; - The container for form elements</li>
+                        <li>&lt;input&gt; - The most important form element</li>
+                        <li>&lt;label&gt; - Defines labels for form elements</li>
+                        <li>&lt;select&gt; - Creates a drop-down list</li>
+                        <li>&lt;textarea&gt; - Defines a multi-line input field</li>
+                    </ul>
+                `,
+                "Semantic HTML5 Elements": `
+                    <h4>Semantic Elements</h4>
+                    <p>Semantic elements clearly describe their meaning to both the browser and the developer.</p>
+                    <p>Examples:</p>
+                    <ul>
+                        <li>&lt;header&gt; - Defines a header for a document or section</li>
+                        <li>&lt;nav&gt; - Defines navigation links</li>
+                        <li>&lt;section&gt; - Defines a section in a document</li>
+                        <li>&lt;article&gt; - Defines independent, self-contained content</li>
+                        <li>&lt;footer&gt; - Defines a footer for a document or section</li>
+                    </ul>
+                `,
+                "CSS Selectors and Box Model": `
+                    <h4>CSS Selectors</h4>
+                    <p>CSS selectors are used to "find" (or select) the HTML elements you want to style.</p>
+                    <p>Common selectors:</p>
+                    <ul>
+                        <li>Element selector (e.g., p, h1, div)</li>
+                        <li>ID selector (#id)</li>
+                        <li>Class selector (.class)</li>
+                        <li>Attribute selector ([attribute])</li>
+                    </ul>
+                    
+                    <h4>Box Model</h4>
+                    <p>All HTML elements can be considered as boxes. The CSS box model is essentially a box that wraps around every HTML element.</p>
+                    <p>Components:</p>
+                    <ul>
+                        <li>Content - The content of the box</li>
+                        <li>Padding - Clears an area around the content</li>
+                        <li>Border - A border that goes around the padding and content</li>
+                        <li>Margin - Clears an area outside the border</li>
+                    </ul>
+                `,
+                "Flexbox Layout": `
+                    <h4>Flexbox Layout</h4>
+                    <p>The Flexible Box Layout Module makes it easier to design flexible responsive layout structure without using float or positioning.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Flex container (parent element)</li>
+                        <li>Flex items (child elements)</li>
+                        <li>Main axis and cross axis</li>
+                        <li>Flex-direction (row or column)</li>
+                        <li>Justify-content (alignment along main axis)</li>
+                        <li>Align-items (alignment along cross axis)</li>
+                    </ul>
+                `,
+                "CSS Grid": `
+                    <h4>CSS Grid Layout</h4>
+                    <p>The CSS Grid Layout Module offers a grid-based layout system, with rows and columns, making it easier to design web pages.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Grid container (parent element)</li>
+                        <li>Grid items (child elements)</li>
+                        <li>Grid lines (dividers between columns and rows)</li>
+                        <li>Grid tracks (space between two grid lines)</li>
+                        <li>Grid cells (single unit of the grid)</li>
+                        <li>Grid areas (rectangular area made up of one or more grid cells)</li>
+                    </ul>
+                `,
+                "Responsive Design Principles": `
+                    <h4>Responsive Web Design</h4>
+                    <p>Responsive web design makes your web page look good on all devices (desktops, tablets, and phones).</p>
+                    <p>Key techniques:</p>
+                    <ul>
+                        <li>Viewport meta tag</li>
+                        <li>Media queries</li>
+                        <li>Fluid grids</li>
+                        <li>Flexible images</li>
+                        <li>Mobile-first approach</li>
+                    </ul>
+                `,
+                
+                // Hunter Mid Track Notes
+                "ES6+ Features": `
+                    <h4>Modern JavaScript Features</h4>
+                    <p>ES6+ introduced many powerful features to JavaScript that make the language more expressive and easier to work with.</p>
+                    <p>Key features:</p>
+                    <ul>
+                        <li>Arrow functions - concise syntax for writing functions</li>
+                        <li>Template literals - string interpolation and multi-line strings</li>
+                        <li>Destructuring - unpack values from arrays or objects</li>
+                        <li>Spread/Rest operators - working with arrays and function parameters</li>
+                        <li>Modules - organizing code into reusable modules</li>
+                        <li>Classes - syntactic sugar over prototype-based inheritance</li>
+                    </ul>
+                `,
+                "DOM Manipulation": `
+                    <h4>Document Object Model</h4>
+                    <p>The DOM is a programming interface for web documents that represents the page so programs can change the document structure, style, and content.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>DOM tree structure - nodes and elements hierarchy</li>
+                        <li>Selecting elements - querySelector, getElementById, etc.</li>
+                        <li>Modifying elements - changing content, attributes, styles</li>
+                        <li>Event handling - responding to user interactions</li>
+                        <li>Creating and removing elements - dynamic content</li>
+                    </ul>
+                `,
+                "Asynchronous JavaScript": `
+                    <h4>Async Programming</h4>
+                    <p>JavaScript is single-threaded but uses asynchronous programming techniques to handle operations that take time to complete.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Callbacks - traditional async handling</li>
+                        <li>Promises - cleaner async code with then/catch</li>
+                        <li>Async/Await - syntactic sugar for promises</li>
+                        <li>Fetch API - modern way to make HTTP requests</li>
+                        <li>Error handling - try/catch with async code</li>
+                    </ul>
+                `,
+                "Modern JavaScript Patterns": `
+                    <h4>JavaScript Patterns</h4>
+                    <p>Modern JavaScript development uses several patterns to create maintainable and scalable applications.</p>
+                    <p>Key patterns:</p>
+                    <ul>
+                        <li>Module pattern - encapsulation and organization</li>
+                        <li>Revealing module pattern - cleaner public API</li>
+                        <li>Observer pattern - event-driven architecture</li>
+                        <li>Singleton pattern - single instance restriction</li>
+                        <li>Factory pattern - object creation abstraction</li>
+                    </ul>
+                `,
+                "Introduction to React": `
+                    <h4>React Fundamentals</h4>
+                    <p>React is a JavaScript library for building user interfaces, particularly single-page applications.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Component-based architecture</li>
+                        <li>Virtual DOM for efficient updates</li>
+                        <li>JSX syntax - HTML-like syntax in JavaScript</li>
+                        <li>Unidirectional data flow</li>
+                        <li>React ecosystem - tools and libraries</li>
+                    </ul>
+                `,
+                "Components & Props": `
+                    <h4>React Components</h4>
+                    <p>Components let you split the UI into independent, reusable pieces.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Functional vs class components</li>
+                        <li>Props - passing data to components</li>
+                        <li>Composition vs inheritance</li>
+                        <li>Component lifecycle (for class components)</li>
+                        <li>Conditional rendering</li>
+                    </ul>
+                `,
+                "State & Lifecycle": `
+                    <h4>Component State</h4>
+                    <p>State allows React components to change their output over time in response to user actions.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Local component state</li>
+                        <li>setState and state updates</li>
+                        <li>Lifecycle methods (for class components)</li>
+                        <li>Controlled vs uncontrolled components</li>
+                        <li>Lifting state up</li>
+                    </ul>
+                `,
+                "Hooks in Depth": `
+                    <h4>React Hooks</h4>
+                    <p>Hooks let you use state and other React features without writing classes.</p>
+                    <p>Key hooks:</p>
+                    <ul>
+                        <li>useState - add state to functional components</li>
+                        <li>useEffect - side effects in functional components</li>
+                        <li>useContext - access context in functional components</li>
+                        <li>useReducer - alternative to useState for complex state</li>
+                        <li>Custom hooks - extracting component logic</li>
+                    </ul>
+                `,
+                
+                // Advanced Track Notes
+                "Introduction to Node.js": `
+                    <h4>Node.js Basics</h4>
+                    <p>Node.js is a JavaScript runtime built on Chrome's V8 JavaScript engine for building server-side applications.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Event-driven architecture</li>
+                        <li>Non-blocking I/O model</li>
+                        <li>npm - Node package manager</li>
+                        <li>Core modules - fs, http, path, etc.</li>
+                        <li>CommonJS modules</li>
+                    </ul>
+                `,
+                "Express Framework": `
+                    <h4>Express.js</h4>
+                    <p>Express is a minimal and flexible Node.js web application framework that provides a robust set of features.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Routing - handling different HTTP requests</li>
+                        <li>Middleware - functions that have access to request/response objects</li>
+                        <li>Templating engines - Pug, EJS, etc.</li>
+                        <li>Error handling</li>
+                        <li>RESTful API design</li>
+                    </ul>
+                `,
+                "Database Integration": `
+                    <h4>Working with Databases</h4>
+                    <p>Modern web applications need to store and retrieve data from databases.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>SQL vs NoSQL databases</li>
+                        <li>MongoDB - document database</li>
+                        <li>Mongoose - MongoDB object modeling</li>
+                        <li>Database relationships</li>
+                        <li>Transactions and data integrity</li>
+                    </ul>
+                `,
+                "Authentication & Security": `
+                    <h4>Application Security</h4>
+                    <p>Security is critical for any web application handling user data.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Authentication vs authorization</li>
+                        <li>Password hashing and salting</li>
+                        <li>JWT (JSON Web Tokens)</li>
+                        <li>OAuth and social login</li>
+                        <li>Common security vulnerabilities (XSS, CSRF, SQL injection)</li>
+                    </ul>
+                `,
+                "Performance Optimization": `
+                    <h4>Optimizing Performance</h4>
+                    <p>Performance is crucial for user experience and search engine rankings.</p>
+                    <p>Key techniques:</p>
+                    <ul>
+                        <li>Code splitting and lazy loading</li>
+                        <li>Caching strategies</li>
+                        <li>Database indexing and query optimization</li>
+                        <li>Asset optimization (images, fonts, etc.)</li>
+                        <li>Monitoring and profiling</li>
+                    </ul>
+                `,
+                "Microservices Architecture": `
+                    <h4>Microservices</h4>
+                    <p>Microservices architecture structures an application as a collection of loosely coupled services.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Service decomposition</li>
+                        <li>API gateways</li>
+                        <li>Inter-service communication</li>
+                        <li>Data consistency in distributed systems</li>
+                        <li>Containerization with Docker</li>
+                    </ul>
+                `,
+                "CI/CD Pipelines": `
+                    <h4>Continuous Integration/Deployment</h4>
+                    <p>CI/CD automates the process of software delivery.</p>
+                    <p>Key concepts:</p>
+                    <ul>
+                        <li>Automated testing</li>
+                        <li>Build pipelines</li>
+                        <li>Deployment strategies</li>
+                        <li>Infrastructure as code</li>
+                        <li>Monitoring and rollback</li>
+                    </ul>
+                `
+            };
+            
+    
+            
+            return notesMap[lessonTitle] || `<p>Detailed notes for ${lessonTitle} will appear here.</p>`;
+    }
+        
+       function getLessonChallenge(lessonTitle) {
+          const challengesMap = {
+         "Introduction to HTML": `
+            <h4>Test Your Knowledge</h4>
+            <p>Answer these questions to check your understanding of HTML basics:</p>
+            
+            <div class="challenge-question">
+                <p>1. What does HTML stand for?</p>
+                <label><input type="radio" name="q1" value="a"> Hyper Text Markup Language</label>
+                <label><input type="radio" name="q1" value="b"> Hyperlinks and Text Markup Language</label>
+                <label><input type="radio" name="q1" value="c"> Home Tool Markup Language</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. Which HTML element is used for the largest heading?</p>
+                <label><input type="radio" name="q2" value="a"> &lt;h6&gt;</label>
+                <label><input type="radio" name="q2" value="b"> &lt;head&gt;</label>
+                <label><input type="radio" name="q2" value="c"> &lt;h1&gt;</label>
+            </div>
+        `,
+
+        "HTML Document Structure": `
+            <h4>HTML Structure Challenge</h4>
+            <p>Create a proper HTML document structure with:</p>
+            
+            <div class="challenge-question">
+                <p>1. Which of these is required in a valid HTML5 document?</p>
+                <label><input type="radio" name="q1" value="a"> &lt;!DOCTYPE html&gt;</label>
+                <label><input type="radio" name="q1" value="b"> &lt;meta charset="UTF-8"&gt;</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. Where should the &lt;title&gt; element be placed?</p>
+                <label><input type="radio" name="q2" value="a"> Inside &lt;body&gt;</label>
+                <label><input type="radio" name="q2" value="b"> Inside &lt;head&gt;</label>
+                <label><input type="radio" name="q2" value="c"> After &lt;/html&gt;</label>
+            </div>
+        `,
+
+        "Forms and Input Elements": `
+            <h4>Forms Challenge</h4>
+            <p>Test your knowledge of HTML forms:</p>
+            
+            <div class="challenge-question">
+                <p>1. Which input type is used for passwords?</p>
+                <label><input type="radio" name="q1" value="a"> &lt;input type="text"&gt;</label>
+                <label><input type="radio" name="q1" value="b"> &lt;input type="password"&gt;</label>
+                <label><input type="radio" name="q1" value="c"> &lt;input type="hidden"&gt;</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. Which attribute is required for form submission?</p>
+                <label><input type="radio" name="q2" value="a"> placeholder</label>
+                <label><input type="radio" name="q2" value="b"> name</label>
+                <label><input type="radio" name="q2" value="c"> class</label>
+            </div>
+        `,
+
+        "Flexbox Layout": `
+            <h4>Flexbox Challenge</h4>
+            <p>Test your Flexbox knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. Which property enables Flexbox?</p>
+                <label><input type="radio" name="q1" value="a"> display: grid;</label>
+                <label><input type="radio" name="q1" value="b"> display: flex;</label>
+                <label><input type="radio" name="q1" value="c"> display: block;</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do you center items vertically in Flexbox?</p>
+                <label><input type="radio" name="q2" value="a"> align-items: center;</label>
+                <label><input type="radio" name="q2" value="b"> justify-content: center;</label>
+                <label><input type="radio" name="q2" value="c"> flex-direction: column;</label>
+            </div>
+        `,
+
+        "CSS Grid": `
+            <h4>CSS Grid Challenge</h4>
+            <p>Test your CSS Grid knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. Which property defines grid columns?</p>
+                <label><input type="radio" name="q1" value="a"> grid-template-rows</label>
+                <label><input type="radio" name="q1" value="b"> grid-template-columns</label>
+                <label><input type="radio" name="q1" value="c"> grid-gap</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do you span an item across 2 columns?</p>
+                <label><input type="radio" name="q2" value="a"> grid-column: span 2;</label>
+                <label><input type="radio" name="q2" value="b"> column-span: 2;</label>
+                <label><input type="radio" name="q2" value="c"> span-columns: 2;</label>
+            </div>
+        `,
+
+        "Responsive Design Principles": `
+            <h4>Responsive Design Challenge</h4>
+            <p>Test your responsive design knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is the purpose of a viewport meta tag?</p>
+                <label><input type="radio" name="q1" value="a"> To set the page title</label>
+                <label><input type="radio" name="q1" value="b"> To control page dimensions on mobile</label>
+                <label><input type="radio" name="q1" value="c"> To link CSS files</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. Which CSS feature is most used for responsive layouts?</p>
+                <label><input type="radio" name="q2" value="a"> Media queries</label>
+                <label><input type="radio" name="q2" value="b"> CSS variables</label>
+                <label><input type="radio" name="q2" value="c"> Animations</label>
+            </div>
+        `,
+
+        "ES6+ Features": `
+            <h4>ES6+ Challenge</h4>
+            <p>Test your modern JavaScript knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What does the 'const' keyword do?</p>
+                <label><input type="radio" name="q1" value="a"> Declares a constant variable</label>
+                <label><input type="radio" name="q1" value="b"> Declares a block-scoped variable</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What is the output of: console.log(\`Hello \${name}\`)?</p>
+                <label><input type="radio" name="q2" value="a"> "Hello name"</label>
+                <label><input type="radio" name="q2" value="b"> "Hello \${name}"</label>
+                <label><input type="radio" name="q2" value="c"> "Hello " + name value</label>
+            </div>
+        `,
+
+        "DOM Manipulation": `
+            <h4>DOM Challenge</h4>
+            <p>Test your DOM manipulation skills:</p>
+            
+            <div class="challenge-question">
+                <p>1. How do you select an element by ID?</p>
+                <label><input type="radio" name="q1" value="a"> document.querySelector()</label>
+                <label><input type="radio" name="q1" value="b"> document.getElementById()</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do you create a new element?</p>
+                <label><input type="radio" name="q2" value="a"> document.createElement()</label>
+                <label><input type="radio" name="q2" value="b"> document.newElement()</label>
+                <label><input type="radio" name="q2" value="c"> document.addElement()</label>
+            </div>
+        `,
+
+        "Asynchronous JavaScript": `
+            <h4>Async Challenge</h4>
+            <p>Test your async JavaScript knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What does the async keyword do?</p>
+                <label><input type="radio" name="q1" value="a"> Makes a function return a promise</label>
+                <label><input type="radio" name="q1" value="b"> Allows await to be used in the function</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What does the await keyword do?</p>
+                <label><input type="radio" name="q2" value="a"> Pauses execution until promise settles</label>
+                <label><input type="radio" name="q2" value="b"> Makes a function asynchronous</label>
+                <label><input type="radio" name="q2" value="c"> Handles promise rejection</label>
+            </div>
+        `,
+
+        "Modern JavaScript Patterns": `
+            <h4>JS Patterns Challenge</h4>
+            <p>Test your modern JS patterns knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is destructuring assignment?</p>
+                <label><input type="radio" name="q1" value="a"> Unpacking values from objects/arrays</label>
+                <label><input type="radio" name="q1" value="b"> A way to clone objects</label>
+                <label><input type="radio" name="q1" value="c"> A method for deep copying</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What is the spread operator used for?</p>
+                <label><input type="radio" name="q2" value="a"> Expanding iterables</label>
+                <label><input type="radio" name="q2" value="b"> Copying arrays/objects</label>
+                <label><input type="radio" name="q2" value="c"> Both a and b</label>
+            </div>
+        `,
+
+        "Introduction to React": `
+            <h4>React Basics Challenge</h4>
+            <p>Test your React fundamentals:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is React primarily used for?</p>
+                <label><input type="radio" name="q1" value="a"> Building user interfaces</label>
+                <label><input type="radio" name="q1" value="b"> Server-side rendering</label>
+                <label><input type="radio" name="q1" value="c"> Database management</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What command creates a new React app?</p>
+                <label><input type="radio" name="q2" value="a"> npx create-react-app</label>
+                <label><input type="radio" name="q2" value="b"> npm init react-app</label>
+                <label><input type="radio" name="q2" value="c"> Both a and b</label>
+            </div>
+        `,
+
+        "Components & Props": `
+            <h4>Components Challenge</h4>
+            <p>Test your React components knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. How do you pass data to child components?</p>
+                <label><input type="radio" name="q1" value="a"> Using props</label>
+                <label><input type="radio" name="q1" value="b"> Using state</label>
+                <label><input type="radio" name="q1" value="c"> Using refs</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What is a pure component?</p>
+                <label><input type="radio" name="q2" value="a"> A component that doesn't rerender unnecessarily</label>
+                <label><input type="radio" name="q2" value="b"> A stateless component</label>
+                <label><input type="radio" name="q2" value="c"> A component without lifecycle methods</label>
+            </div>
+        `,
+
+        "State & Lifecycle": `
+            <h4>State Challenge</h4>
+            <p>Test your React state knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. Where should you initialize state in a class component?</p>
+                <label><input type="radio" name="q1" value="a"> In the constructor</label>
+                <label><input type="radio" name="q1" value="b"> Using useState hook</label>
+                <label><input type="radio" name="q1" value="c"> In componentDidMount</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. When does componentDidMount run?</p>
+                <label><input type="radio" name="q2" value="a"> After component renders</label>
+                <label><input type="radio" name="q2" value="b"> Before component renders</label>
+                <label><input type="radio" name="q2" value="c"> When props change</label>
+            </div>
+        `,
+
+        "Hooks in Depth": `
+            <h4>Hooks Challenge</h4>
+            <p>Test your React Hooks knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. When should you use useMemo?</p>
+                <label><input type="radio" name="q1" value="a"> To memoize expensive calculations</label>
+                <label><input type="radio" name="q1" value="b"> To manage side effects</label>
+                <label><input type="radio" name="q1" value="c"> To create refs</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What does useEffect replace in class components?</p>
+                <label><input type="radio" name="q2" value="a"> componentDidMount</label>
+                <label><input type="radio" name="q2" value="b"> componentDidUpdate</label>
+                <label><input type="radio" name="q2" value="c"> Both a and b</label>
+            </div>
+        `,
+
+        "Introduction to Node.js": `
+            <h4>Node.js Challenge</h4>
+            <p>Test your Node.js fundamentals:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is Node.js built on?</p>
+                <label><input type="radio" name="q1" value="a"> Chrome's V8 engine</label>
+                <label><input type="radio" name="q1" value="b"> Firefox's SpiderMonkey</label>
+                <label><input type="radio" name="q1" value="c"> Microsoft's Chakra</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do you import a module in Node.js?</p>
+                <label><input type="radio" name="q2" value="a"> import module from 'module'</label>
+                <label><input type="radio" name="q2" value="b"> require('module')</label>
+                <label><input type="radio" name="q2" value="c"> include 'module'</label>
+            </div>
+        `,
+
+        "Express Framework": `
+            <h4>Express Challenge</h4>
+            <p>Test your Express.js knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. How do you create an Express app?</p>
+                <label><input type="radio" name="q1" value="a"> const app = express()</label>
+                <label><input type="radio" name="q1" value="b"> const app = new Express()</label>
+                <label><input type="radio" name="q1" value="c"> const app = Express.create()</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do you define a GET route?</p>
+                <label><input type="radio" name="q2" value="a"> app.get('/path', handler)</label>
+                <label><input type="radio" name="q2" value="b"> app.route('/path').get(handler)</label>
+                <label><input type="radio" name="q2" value="c"> Both a and b</label>
+            </div>
+        `,
+
+        "Database Integration": `
+            <h4>Database Challenge</h4>
+            <p>Test your database knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is MongoDB?</p>
+                <label><input type="radio" name="q1" value="a"> A NoSQL database</label>
+                <label><input type="radio" name="q1" value="b"> A relational database</label>
+                <label><input type="radio" name="q1" value="c"> A caching system</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What is Mongoose?</p>
+                <label><input type="radio" name="q2" value="a"> An ODM for MongoDB</label>
+                <label><input type="radio" name="q2" value="b"> A SQL query builder</label>
+                <label><input type="radio" name="q2" value="c"> A migration tool</label>
+            </div>
+        `,
+
+        "Authentication & Security": `
+            <h4>Auth Challenge</h4>
+            <p>Test your authentication knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is JWT used for?</p>
+                <label><input type="radio" name="q1" value="a"> Authentication</label>
+                <label><input type="radio" name="q1" value="b"> Authorization</label>
+                <label><input type="radio" name="q1" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What should you never store in JWT?</p>
+                <label><input type="radio" name="q2" value="a"> Sensitive user data</label>
+                <label><input type="radio" name="q2" value="b"> User roles</label>
+                <label><input type="radio" name="q2" value="c"> Expiration time</label>
+            </div>
+        `,
+
+        "Performance Optimization": `
+            <h4>Performance Challenge</h4>
+            <p>Test your performance knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is lazy loading?</p>
+                <label><input type="radio" name="q1" value="a"> Loading resources as needed</label>
+                <label><input type="radio" name="q1" value="b"> Preloading all resources</label>
+                <label><input type="radio" name="q1" value="c"> Caching resources</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. What is the benefit of code splitting?</p>
+                <label><input type="radio" name="q2" value="a"> Smaller initial bundle</label>
+                <label><input type="radio" name="q2" value="b"> Faster build times</label>
+                <label><input type="radio" name="q2" value="c"> Better type checking</label>
+            </div>
+        `,
+
+        "Microservices Architecture": `
+            <h4>Microservices Challenge</h4>
+            <p>Test your microservices knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What is a microservice?</p>
+                <label><input type="radio" name="q1" value="a"> A small, independent service</label>
+                <label><input type="radio" name="q1" value="b"> A monolithic architecture</label>
+                <label><input type="radio" name="q1" value="c"> A database model</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. How do microservices communicate?</p>
+                <label><input type="radio" name="q2" value="a"> HTTP/REST or messaging</label>
+                <label><input type="radio" name="q2" value="b"> Shared database</label>
+                <label><input type="radio" name="q2" value="c"> Direct function calls</label>
+            </div>
+        `,
+
+        "CI/CD Pipelines": `
+            <h4>CI/CD Challenge</h4>
+            <p>Test your CI/CD knowledge:</p>
+            
+            <div class="challenge-question">
+                <p>1. What does CI stand for?</p>
+                <label><input type="radio" name="q1" value="a"> Continuous Integration</label>
+                <label><input type="radio" name="q1" value="b"> Continuous Improvement</label>
+                <label><input type="radio" name="q1" value="c"> Code Inspection</label>
+            </div>
+            
+            <div class="challenge-question">
+                <p>2. Which file is commonly used to configure CI pipelines?</p>
+                <label><input type="radio" name="q2" value="a"> .github/workflows.yml</label>
+                <label><input type="radio" name="q2" value="b"> .gitlab-ci.yml</label>
+                <label><input type="radio" name="q2" value="c"> Both a and b</label>
+            </div>
+        `
+    };
+    
+    return challengesMap[lessonTitle] || `<p>No challenge available for ${lessonTitle} yet.</p>`;
+}
+        
+function getLessonResources(lessonTitle) {
+    const resourcesMap = {
+        "Introduction to HTML": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank">MDN HTML Documentation</a></li>
+                <li><a href="https://www.w3schools.com/html/" target="_blank">W3Schools HTML Tutorial</a></li>
+                <li><a href="https://html.spec.whatwg.org/" target="_blank">HTML Living Standard</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download HTML Cheat Sheet
+            </button>
+        `,
+
+        "HTML Document Structure": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure" target="_blank">MDN Document Structure</a></li>
+                <li><a href="https://www.w3schools.com/html/html_layout.asp" target="_blank">W3Schools HTML Layout</a></li>
+                <li><a href="https://html.spec.whatwg.org/multipage/semantics.html" target="_blank">HTML Semantics Spec</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download HTML5 Structure Guide
+            </button>
+        `,
+
+        "Forms and Input Elements": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/Forms" target="_blank">MDN Web Forms</a></li>
+                <li><a href="https://www.w3schools.com/html/html_forms.asp" target="_blank">W3Schools HTML Forms</a></li>
+                <li><a href="https://html.spec.whatwg.org/multipage/forms.html" target="_blank">HTML Forms Spec</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Forms Best Practices
+            </button>
+        `,
+
+        "Flexbox Layout": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="_blank">CSS Tricks Flexbox Guide</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox" target="_blank">MDN Flexbox</a></li>
+                <li><a href="https://www.w3.org/TR/css-flexbox-1/" target="_blank">Flexbox Spec</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Flexbox Cheat Sheet
+            </button>
+        `,
+
+        "CSS Grid": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://css-tricks.com/snippets/css/complete-guide-grid/" target="_blank">CSS Tricks Grid Guide</a></li>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout" target="_blank">MDN CSS Grid</a></li>
+                <li><a href="https://www.w3.org/TR/css-grid-1/" target="_blank">CSS Grid Spec</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Grid Template Areas Guide
+            </button>
+        `,
+
+        "Responsive Design Principles": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank">MDN Responsive Design</a></li>
+                <li><a href="https://www.w3schools.com/css/css_rwd_intro.asp" target="_blank">W3Schools RWD</a></li>
+                <li><a href="https://www.smashingmagazine.com/guides/responsive-design/" target="_blank">Smashing Magazine Guide</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Breakpoints Cheat Sheet
+            </button>
+        `,
+
+        "ES6+ Features": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference" target="_blank">MDN JavaScript Reference</a></li>
+                <li><a href="https://es6-features.org/" target="_blank">ES6 Features Examples</a></li>
+                <li><a href="https://github.com/getify/You-Dont-Know-JS" target="_blank">You Don't Know JS Books</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download ES6+ Cheat Sheet
+            </button>
+        `,
+
+        "DOM Manipulation": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" target="_blank">MDN DOM Docs</a></li>
+                <li><a href="https://www.w3schools.com/js/js_htmldom.asp" target="_blank">W3Schools DOM</a></li>
+                <li><a href="https://dom.spec.whatwg.org/" target="_blank">DOM Living Standard</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download DOM Methods Reference
+            </button>
+        `,
+
+        "Asynchronous JavaScript": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous" target="_blank">MDN Async JS</a></li>
+                <li><a href="https://javascript.info/async" target="_blank">JavaScript.info Async</a></li>
+                <li><a href="https://github.com/getify/You-Dont-Know-JS/tree/1st-ed/async%20%26%20performance" target="_blank">YDKJS: Async & Performance</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Async Patterns Guide
+            </button>
+        `,
+
+        "Modern JavaScript Patterns": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.patterns.dev/posts/" target="_blank">JavaScript Patterns</a></li>
+                <li><a href="https://github.com/ryanmcdermott/clean-code-javascript" target="_blank">Clean Code JavaScript</a></li>
+                <li><a href="https://javascriptpatterns.vercel.app/" target="_blank">JavaScript Patterns Guide</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Design Patterns PDF
+            </button>
+        `,
+
+        "Introduction to React": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://reactjs.org/docs/getting-started.html" target="_blank">React Official Docs</a></li>
+                <li><a href="https://beta.reactjs.org/" target="_blank">React Beta Docs</a></li>
+                <li><a href="https://www.w3schools.com/react/" target="_blank">W3Schools React</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download React Quick Start
+            </button>
+        `,
+
+        "Components & Props": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://reactjs.org/docs/components-and-props.html" target="_blank">React Components Docs</a></li>
+                <li><a href="https://www.freecodecamp.org/news/react-components-jsx-props-for-beginners/" target="_blank">FreeCodeCamp Guide</a></li>
+                <li><a href="https://javascript.plainenglish.io/react-components-and-props-explained-1a4f690a8563" target="_blank">Components Explained</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Components Best Practices
+            </button>
+        `,
+
+        "State & Lifecycle": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://reactjs.org/docs/state-and-lifecycle.html" target="_blank">React State Docs</a></li>
+                <li><a href="https://www.freecodecamp.org/news/react-state-management/" target="_blank">State Management Guide</a></li>
+                <li><a href="https://javascript.plainenglish.io/react-lifecycle-methods-explained-1cc3c366f4b7" target="_blank">Lifecycle Explained</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download State Management Patterns
+            </button>
+        `,
+
+        "Hooks in Depth": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://reactjs.org/docs/hooks-reference.html" target="_blank">React Hooks API</a></li>
+                <li><a href="https://www.freecodecamp.org/news/react-hooks-fundamentals/" target="_blank">Hooks Fundamentals</a></li>
+                <li><a href="https://github.com/streamich/react-use" target="_blank">React-use Collection</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Custom Hooks Examples
+            </button>
+        `,
+
+        "Introduction to Node.js": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://nodejs.org/en/docs/" target="_blank">Node.js Docs</a></li>
+                <li><a href="https://www.w3schools.com/nodejs/" target="_blank">W3Schools Node.js</a></li>
+                <li><a href="https://nodejs.dev/learn" target="_blank">Node.js Learning Path</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Node.js Core Modules
+            </button>
+        `,
+
+        "Express Framework": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://expressjs.com/" target="_blank">Express Official Docs</a></li>
+                <li><a href="https://www.tutorialspoint.com/expressjs/index.htm" target="_blank">Express Tutorial</a></li>
+                <li><a href="https://expressjs.com/en/resources/middleware.html" target="_blank">Express Middleware</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Express Router Guide
+            </button>
+        `,
+
+        "Database Integration": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.mongodb.com/docs/" target="_blank">MongoDB Docs</a></li>
+                <li><a href="https://mongoosejs.com/docs/guide.html" target="_blank">Mongoose Docs</a></li>
+                <li><a href="https://www.prisma.io/" target="_blank">Prisma ORM</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download MongoDB Cheat Sheet
+            </button>
+        `,
+
+        "Authentication & Security": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://jwt.io/introduction/" target="_blank">JWT Guide</a></li>
+                <li><a href="https://owasp.org/www-project-top-ten/" target="_blank">OWASP Top 10</a></li>
+                <li><a href="https://cheatsheetseries.owasp.org/" target="_blank">OWASP Cheat Sheets</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Security Best Practices
+            </button>
+        `,
+
+        "Performance Optimization": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://web.dev/learn/" target="_blank">Web.dev Performance</a></li>
+                <li><a href="https://developers.google.com/web/tools/lighthouse" target="_blank">Lighthouse Docs</a></li>
+                <li><a href="https://github.com/GoogleChrome/web.dev" target="_blank">Web Performance Recipes</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Performance Checklist
+            </button>
+        `,
+
+        "Microservices Architecture": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://microservices.io/" target="_blank">Microservices Patterns</a></li>
+                <li><a href="https://docs.microsoft.com/en-us/azure/architecture/guide/architecture-styles/microservices" target="_blank">Microsoft Guide</a></li>
+                <li><a href="https://www.nginx.com/blog/introduction-to-microservices/" target="_blank">NGINX Guide</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download Microservices Blueprint
+            </button>
+        `,
+
+        "CI/CD Pipelines": `
+            <h4>Additional Resources</h4>
+            <ul>
+                <li><a href="https://www.redhat.com/en/topics/devops/what-is-ci-cd" target="_blank">RedHat CI/CD Guide</a></li>
+                <li><a href="https://docs.github.com/en/actions" target="_blank">GitHub Actions</a></li>
+                <li><a href="https://docs.gitlab.com/ee/ci/" target="_blank">GitLab CI/CD</a></li>
+            </ul>
+            
+            <h4>Downloadable Files</h4>
+            <button class="btn btn-outline">
+                <i class="fas fa-download"></i> Download CI/CD Workflow Templates
+            </button>
+        `
+    };
+    
+    return resourcesMap[lessonTitle] || `<p>No additional resources for ${lessonTitle} yet.</p>`;
+}
+
+function submitChallenge() {
+    const lessonItem = document.querySelector(`.lesson-item[data-id="${currentLessonTitle.replace(/\s+/g, '-').toLowerCase()}"]`);
+    const lessonId = lessonItem ? lessonItem.dataset.id : currentLessonTitle.replace(/\s+/g, '-').toLowerCase();
+
+    if (userAnswers[lessonId]) {
+        alert("You've already submitted this challenge!");
+        return;
+    }
+
+    const questions = document.querySelectorAll('.challenge-question');
+    let totalEarned = 0;
+    let correctAnswers = 0;
+    let challengeData = {
+        submitted: true,
+        answers: [],
+        pointsEarned: 0,
+        completed: new Date().toISOString(),
+        lessonTitle: currentLessonTitle
+    };
+
+    questions.forEach(q => {
+        const selected = q.querySelector('input:checked');
+        const points = parseInt(q.dataset.points);
+        const correctAnswer = parseInt(q.dataset.correct);
+        let isCorrect = false;
+
+        if (selected) {
+            const userAnswer = parseInt(selected.value);
+            isCorrect = userAnswer === correctAnswer;
+
+            challengeData.answers.push({
+                question: q.querySelector('p').textContent,
+                userAnswer: userAnswer,
+                correctAnswer: correctAnswer,
+                isCorrect: isCorrect,
+                points: isCorrect ? points : 0
+            });
+
+            if (isCorrect) {
+                totalEarned += points;
+                correctAnswers++;
+                q.style.background = 'rgba(22, 163, 74, 0.1)';
+            } else {
+                q.style.background = 'rgba(220, 38, 38, 0.1)';
+            }
+        } else {
+            challengeData.answers.push({
+                question: q.querySelector('p').textContent,
+                userAnswer: null,
+                correctAnswer: correctAnswer,
+                isCorrect: false,
+                points: 0
+            });
+            q.style.background = 'rgba(220, 38, 38, 0.1)';
+        }
+    });
+
+    const totalPossible = Array.from(questions).reduce((sum, q) => sum + parseInt(q.dataset.points), 0);
+    const percentage = Math.round((correctAnswers / questions.length) * 100);
+
+    challengeData.pointsEarned = totalEarned;
+    userAnswers[lessonId] = challengeData;
+    localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+
+    if (!completedLessons.includes(lessonId)) {
+        completedLessons.push(lessonId);
+        localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+    }
+
+    const resultHTML = `
+        <div class="challenge-result">
+            <h4>Challenge Result</h4>
+            <p>You scored ${totalEarned}/${totalPossible} XP (${percentage}%)</p>
+            <p>${getFeedbackMessage(percentage)}</p>
+            ${generateAnswerReview(challengeData)}
+        </div>
+    `;
+
+    const challengeContentEl = document.getElementById('challenge-content');
+    if (challengeContentEl) challengeContentEl.insertAdjacentHTML('beforeend', resultHTML);
+
+    const submitBtn = document.querySelector('#lesson-challenge .btn-primary');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Already Submitted';
+    }
+
+    if (totalEarned > 0) {
+        addPoints(totalEarned, currentLessonTitle);
+        markLessonAsCompleted(currentLessonTitle, totalEarned, lessonId);
+    }
+}
+
+function generateAnswerReview(challengeData) {
+    let html = '<div class="answer-review"><h5>Answer Review:</h5><ul>';
+
+    challengeData.answers.forEach((answer, index) => {
+        const icon = answer.isCorrect ? 'fa-check' : 'fa-times';
+        const color = answer.isCorrect ? 'var(--success)' : 'var(--danger)';
+
+        html += `
+            <li style="color: ${color}; margin-bottom: 8px;">
+                <i class="fas ${icon}"></i> 
+                <strong>Q${index+1}:</strong> ${answer.question}
+                ${!answer.isCorrect ? `<br><small>Correct answer: Option ${answer.correctAnswer + 1}</small>` : ''}
+            </li>
+        `;
+    });
+
+    html += '</ul></div>';
+    return html;
+}
+
+function getFeedbackMessage(percentage) {
+    if (percentage >= 90) return "Excellent work! You've mastered this lesson.";
+    if (percentage >= 70) return "Good job! You have a solid understanding.";
+    if (percentage >= 50) return "Not bad! Review the lesson to improve.";
+    return "Keep practicing! Review the lesson materials and try again.";
+}
+
+function markLessonAsCompleted(lessonTitle, pointsEarned, lessonId) {
+    const lessonItems = document.querySelectorAll('.lesson-item');
+    lessonItems.forEach(item => {
+        if (item.querySelector('span').textContent === lessonTitle || item.dataset.id === lessonId) {
+            item.classList.add('completed');
+            const statusElement = item.querySelector('.lesson-status');
+            if (statusElement) {
+                statusElement.innerHTML = `<i class="fas fa-check-circle"></i> Completed (${pointsEarned} XP)`;
+            }
+        }
+    });
+
+    updateProgressBar();
+}
+
+function updateProgressBar() {
+    const totalLessons = document.querySelectorAll('.lesson-item').length;
+    const completedLessonsCount = document.querySelectorAll('.lesson-item.completed').length;
+    const progressPercentage = Math.round((completedLessonsCount / totalLessons) * 100);
+
+    const progressFill = document.querySelector('.progress-fill');
+    const statValueProgress = document.querySelector('.stat-value:nth-child(1)');
+    const statValueCompleted = document.querySelector('.stat-value:nth-child(3)');
+    const lessonsCompleted = document.getElementById('lessons-completed');
+
+    if (progressFill) progressFill.style.width = `${progressPercentage}%`;
+    if (statValueProgress) statValueProgress.textContent = `${progressPercentage}%`;
+    if (statValueCompleted) statValueCompleted.textContent = completedLessonsCount;
+    if (lessonsCompleted) lessonsCompleted.textContent = completedLessonsCount;
+}
+
+function openLessonTab(tabName) {
+    document.querySelectorAll('.lesson-tab').forEach(tab => tab.classList.remove('active'));
+    document.querySelectorAll('.lesson-tab-content').forEach(content => content.classList.remove('active'));
+
+    const tab = document.querySelector(`.lesson-tab[onclick="openLessonTab('${tabName}')"]`);
+    const content = document.getElementById(`lesson-${tabName}`);
+    if (tab) tab.classList.add('active');
+    if (content) content.classList.add('active');
+}
+
+function startTest() {
+    const testModal = document.getElementById('test-modal');
+    const questionsContainer = document.getElementById('test-questions');
+
+    if (testModal && questionsContainer) {
+        questionsContainer.innerHTML = `
+            <h4>Foundations Track Assessment</h4>
+            <p>Answer all questions to complete the test. You need at least 80% to pass.</p>
+            
+            <div class="test-question">
+                <p>1. Which Python library is primarily used for data manipulation and analysis?</p>
+                <label><input type="radio" name="q1" value="a"> NumPy</label>
+                <label><input type="radio" name="q1" value="b"> Pandas</label>
+                <label><input type="radio" name="q1" value="c"> Matplotlib</label>
+            </div>
+            
+            <div class="test-question">
+                <p>2. What does the .describe() method in Pandas provide?</p>
+                <label><input type="radio" name="q2" value="a"> Descriptive statistics</label>
+                <label><input type="radio" name="q2" value="b"> Data visualization</label>
+                <label><input type="radio" name="q2" value="c"> Data cleaning</label>
+            </div>
+            
+            <div class="test-question">
+                <p>3. Which of these is NOT a valid Python data structure?</p>
+                <label><input type="radio" name="q3" value="a"> List</label>
+                <label><input type="radio" name="q3" value="b"> Tuple</label>
+                <label><input type="radio" name="q3" value="c"> Stack</label>
+            </div>
+            
+            <div class="test-question">
+                <p>4. What is the correct way to create a DataFrame from a dictionary?</p>
+                <label><input type="radio" name="q4" value="a"> pd.DataFrame.from_dict()</label>
+                <label><input type="radio" name="q4" value="b"> pd.DataFrame(dict)</label>
+                <label><input type="radio" name="q4" value="c"> pd.createDataFrame(dict)</label>
+            </div>
+            
+            <div class="test-question">
+                <p>5. Which method is used to handle missing data in Pandas?</p>
+                <label><input type="radio" name="q5" value="a"> fillna()</label>
+                <label><input type="radio" name="q5" value="b"> dropna()</label>
+                <label><input type="radio" name="q5" value="c"> Both a and b</label>
+            </div>
+            
+            <div class="test-question">
+                <p>6. What does the groupby() function do in Pandas?</p>
+                <label><input type="radio" name="q6" value="a"> Groups data by columns</label>
+                <label><input type="radio" name="q6" value="b"> Aggregates data</label>
+                <label><input type="radio" name="q6" value="c"> Both a and b</label>
+            </div>
+            
+            <button class="btn btn-primary" onclick="submitTest()" style="margin-top: 20px;">
+                <i class="fas fa-paper-plane"></i> Submit Test
+            </button>
+        `;
+        testModal.style.display = 'flex';
+    }
+}
+
+function submitTest() {
+    const answers = {
+        q1: "b",
+        q2: "a",
+        q3: "c",
+        q4: "b",
+        q5: "c",
+        q6: "c"
+    };
+
+    let score = 0;
+    const totalQuestions = Object.keys(answers).length;
+
+    for (const [question, correctAnswer] of Object.entries(answers)) {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        if (selected && selected.value === correctAnswer) score++;
+    }
+
+    const percentage = Math.round((score / totalQuestions) * 100);
+    const passed = percentage >= 80;
+    const xpEarned = passed ? 200 : 50;
+
+    const questionsContainer = document.getElementById('test-questions');
+    if (questionsContainer) {
+        questionsContainer.innerHTML = `
+            <div class="test-result">
+                <h4>Test Result</h4>
+                <p>You scored ${score}/${totalQuestions} (${percentage}%)</p>
+                <p>${passed ? 'Congratulations! You passed the test!' : 'Keep studying! You need 80% to pass.'}</p>
+                <p>You earned ${xpEarned} XP!</p>
+            </div>
+        `;
+    }
+
+    addPoints(xpEarned, 'Track Assessment');
+
+    if (passed) {
+        document.querySelectorAll('#foundations-track .lesson-item').forEach(item => {
+            const lessonId = item.dataset.id;
+            if (!completedLessons.includes(lessonId)) {
+                completedLessons.push(lessonId);
+                item.classList.add('completed');
+            }
+        });
+        localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
+        updateProgressBar();
+    }
+}
+
+function submitProject() {
+    const projectModal = document.getElementById('project-modal');
+    if (projectModal) projectModal.style.display = 'flex';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) modal.style.display = 'none';
+
+    if (modalId === 'lesson-modal' && youtubePlayer) {
+        youtubePlayer.destroy();
+        youtubePlayer = null;
+        const videoContainer = document.getElementById('video-container');
+        if (videoContainer) videoContainer.innerHTML = '';
+    }
+}
+
+let pyodideLoading = false;
+let pyodideLoaded = false;
+
+function changeNotebookTab(tabName) {
+    document.querySelectorAll('.notebook-tab').forEach(tab => tab.classList.remove('active'));
+    const tab = document.querySelector(`.notebook-tab[onclick="changeNotebookTab('${tabName}')"]`);
+    if (tab) tab.classList.add('active');
+
+    const editor = document.getElementById('notebook-editor');
+    if (!editor) return;
+
+    if (tabName === 'python') {
+        editor.value = `# Welcome to the Python Notebook
+# Try running this basic Python code
+
+import pandas as pd
+import numpy as np
+
+# Create a simple DataFrame
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie'],
+    'Age': [25, 30, 35],
+    'Score': [85, 92, 78]
+}
+
+df = pd.DataFrame(data)
+print("Original DataFrame:")
+print(df)
+
+# Calculate average score
+avg_score = df['Score'].mean()
+print(f"\\nAverage Score: {avg_score:.2f}")
+
+# Add a new column
+df['Grade'] = np.where(df['Score'] >= 90, 'A',
+                    np.where(df['Score'] >= 80, 'B', 'C'))
+print("\\nDataFrame with Grades:")
+print(df)`;
+    } else if (tabName === 'sql') {
+        editor.value = `-- Welcome to the SQL Notebook
+-- Try running this basic SQL code
+
+-- Create a table
+CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    score DECIMAL(5,2)
+);
+
+-- Insert data
+INSERT INTO students VALUES
+(1, 'Alice', 25, 85.5),
+(2, 'Bob', 30, 92.0),
+(3, 'Charlie', 35, 78.3);
+
+-- Query data
+SELECT name, age, score FROM students WHERE score > 80;`;
+    } else if (tabName === 'r') {
+        editor.value = `# Welcome to the R Notebook
+# Try running this basic R code
+
+# Create a data frame
+students <- data.frame(
+    name = c("Alice", "Bob", "Charlie"),
+    age = c(25, 30, 35),
+    score = c(85, 92, 78)
+)
+
+# Print the data frame
+print("Students Data:")
+print(students)
+
+# Calculate average score
+avg_score <- mean(students$score)
+print(paste("Average Score:", round(avg_score, 2)))`;
+    }
+}
+
+async function runCode() {
+    const editor = document.getElementById('notebook-editor');
+    const output = document.getElementById('output');
+    const progress = document.getElementById('progress');
+
+    if (!editor || !output || !progress) return;
+
+    output.innerHTML = '<p>Initializing environment...</p>';
+    progress.style.width = '10%';
+
+    try {
+        if (!window.pyodide && !pyodideLoading) {
+            pyodideLoading = true;
+            output.innerHTML = '<p>Loading Python interpreter (this may take 20-30 seconds)...</p>';
+            progress.style.width = '30%';
+
+            window.pyodide = await loadPyodide({
+                indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/"
+            });
+            progress.style.width = '50%';
+
+            output.innerHTML += '<p>Loading numpy package...</p>';
+            await pyodide.loadPackage('numpy');
+            progress.style.width = '70%';
+
+            output.innerHTML += '<p>Loading pandas package...</p>';
+            await pyodide.loadPackage('pandas');
+            progress.style.width = '90%';
+
+            pyodideLoaded = true;
+            output.innerHTML += '<p>Environment ready!</p>';
+        }
+
+        progress.style.width = '100%';
+
+        output.innerHTML = '';
+
+        let consoleOutput = '';
+        pyodide.setStdout({
+            batched: (text) => {
+                consoleOutput += text;
+                output.innerHTML = `<pre>${consoleOutput}</pre>`;
+            }
+        });
+
+        await pyodide.runPythonAsync(editor.value);
+
+        progress.style.width = '0%';
+
+    } catch (error) {
+        output.innerHTML = `
+            <h4 style="color: #dc3545;">Execution Error</h4>
+            <pre style="color: #dc3545;">${error.message}</pre>
+        `;
+        progress.style.width = '0%';
+        console.error(error);
+    } finally {
+        pyodideLoading = false;
+    }
+}
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.backgroundColor = type === 'success' ? 'var(--success)' : 'var(--danger)';
+    notification.style.color = 'white';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '5px';
+    notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+    notification.style.zIndex = '1000';
+    notification.style.display = 'flex';
+    notification.style.alignItems = 'center';
+    notification.style.gap = '10px';
+    notification.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        <span>${message}</span>
+    `;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        notification.classList.add('show');
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }, 10);
+}
+
+function claimReward(rewardType, requiredPoints) {
+    const total = getTotalPointsSum();
+    if (total >= requiredPoints) {
+        alert(`Congratulations! You've claimed the ${rewardType} reward.`);
+        addPoints(50, 'Reward Claim');
+    } else {
+        alert(`You need ${requiredPoints - total} more XP to claim this reward. Keep learning!`);
+    }
+}
+
+// Expose functions globally to avoid ReferenceError
+window.changeNotebookTab = changeNotebookTab;
+window.runCode = runCode;
+window.openLessonTab = openLessonTab;
+window.submitChallenge = submitChallenge;
+window.startTest = startTest;
+window.submitTest = submitTest;
+window.submitProject = submitProject;
+window.closeModal = closeModal;
+window.showTrack = showTrack;
+window.toggleModule = toggleModule;
+window.claimReward = claimReward;
+window.playLesson = playLesson;
+    </script>
+</body>
+</html>

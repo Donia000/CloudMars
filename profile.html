@@ -1,0 +1,1109 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile | CloudMars Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3e62a5;
+            --primary-dark: #1e1b4b;
+            --secondary: #a02f09;
+            --accent: #f68b1e;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, #a02f09 0%, #370e74 100%);
+            --transition: all 0.3s ease;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --hover-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            --light-gray: #e5e7eb;
+            --gray: #6b7280;
+            --darker: #1f2937;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --success: #10b981;
+            --primary-light: #a5b4fc;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fff; color: var(--dark); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        header { background-color: rgba(7, 5, 32, 0.9); padding: 1rem 0; color: white; position: fixed; width: 100%; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); backdrop-filter: blur(10px); transition: all 0.3s ease; }
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.8rem; font-weight: 700; display: flex; align-items: center; color: white; }
+        .logo i { margin-right: 10px; color: white; }
+        .nav-links { display: flex; list-style: none; gap: 2rem; align-items: center; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; }
+        .nav-links a:hover { color: #c7d2fe; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gradient); transition: all 0.3s ease; }
+        .nav-links a:hover::after { width: 100%; }
+        .cta-button { background: var(--gradient); color: white; padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); }
+        .profile-header { position: relative; margin-bottom: 120px; }
+        .cover-photo { height: 350px; background: linear-gradient(135deg, #1a244c 0%, #1a3460 100%); border-radius: 0 0 12px 12px; overflow: hidden; position: relative; }
+        .cover-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+        .cover-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)); }
+        .profile-picture-container { position: absolute; bottom: -75px; left: 50px; display: flex; flex-direction: column; align-items: center; z-index: 10; }
+        .profile-picture { width: 180px; height: 180px; border-radius: 50%; border: 6px solid white; background: white; overflow: hidden; box-shadow: var(--card-shadow); position: relative; transition: var(--transition); }
+        .profile-picture:hover { transform: scale(1.05); box-shadow: var(--hover-shadow); }
+        .profile-picture img { width: 100%; height: 100%; object-fit: cover; }
+        .upload-photo { position: absolute; bottom: 15px; right: 15px; background: var(--primary); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2); transition: var(--transition); }
+        .upload-photo:hover { background: var(--primary-dark); transform: scale(1.1); }
+        .upload-photo input { display: none; }
+        .profile-level { background: white; padding: 8px 20px; border-radius: 50px; margin-top: 15px; font-weight: 700; color: var(--primary); box-shadow: var(--card-shadow); display: flex; align-items: center; gap: 8px; }
+        .profile-level i { color: var(--warning); }
+        .profile-info { padding: 0 30px; margin-bottom: 50px; }
+        .profile-name { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; color: var(--darker); }
+        .profile-title { color: var(--primary); font-size: 1.2rem; margin-bottom: 15px; font-weight: 600; }
+        .profile-bio { line-height: 1.8; margin-bottom: 25px; max-width: 700px; color: var(--gray); font-size: 1.05rem; }
+        .profile-actions { display: flex; gap: 15px; }
+        .edit-profile { background: var(--gradient); color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .edit-profile:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .contact-btn { background: white; color: var(--primary); border: 2px solid var(--primary); padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
+        .contact-btn:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .profile-section { background: white; border-radius: 12px; box-shadow: var(--card-shadow); padding: 30px; margin-bottom: 30px; transition: var(--transition); }
+        .profile-section:hover { box-shadow: var(--hover-shadow); transform: translateY(-3px); }
+        .section-title { font-size: 1.6rem; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--light-gray); display: flex; align-items: center; gap: 12px; color: var(--darker); font-weight: 700; }
+        .section-title i { color: var(--primary); width: 40px; height: 40px; background: rgba(67, 97, 238, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .personal-info { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .info-item { display: flex; align-items: center; gap: 15px; padding: 10px; border-radius: 8px; transition: var(--transition); }
+        .info-item:hover { background: rgba(67, 97, 238, 0.05); transform: translateX(5px); }
+        .info-item i { color: var(--primary); width: 40px; height: 40px; background: rgba(67, 97, 238, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+        .info-content { flex: 1; }
+        .info-label { font-size: 0.9rem; color: var(--gray); margin-bottom: 3px; }
+        .info-value { font-weight: 600; color: var(--dark); }
+        .empty-value { color: var(--gray); font-style: italic; opacity: 0.7; }
+        .skills-container { display: flex; flex-wrap: wrap; gap: 12px; }
+        .skill { background: rgba(248, 250, 252, 0.9); padding: 10px 18px; border-radius: 50px; display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--dark); transition: var(--transition); }
+        .skill:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .skill i { color: var(--primary); cursor: pointer; font-size: 0.9rem; transition: var(--transition); }
+        .skill i:hover { color: var(--danger); transform: scale(1.2); }
+        .add-skill { display: flex; margin-top: 20px; max-width: 400px; }
+        .add-skill input { flex: 1; padding: 12px 20px; border: 2px solid var(--light-gray); border-radius: 0 50px 50px 0; outline: none; font-size: 1rem; transition: var(--transition); }
+        .add-skill input:focus { border-color: var(--primary); }
+        .add-skill button { background: var(--gradient); color: white; border: none; padding: 0 25px; border-radius: 50px 0 0 50px; cursor: pointer; font-size: 1.1rem; transition: var(--transition); }
+        .add-skill button:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); }
+        .courses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .course-card { border: 1px solid var(--light-gray); border-radius: 12px; overflow: hidden; transition: var(--transition); background: white; }
+        .course-card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); border-color: var(--primary-light); }
+        .course-info { padding: 20px; }
+        .course-title { font-weight: 800; margin-bottom: 8px; color: var(--darker); font-size: 1.1rem; }
+        .course-stats { display: flex; justify-content: space-between; color: var(--gray); font-size: 0.9rem; }
+        .course-actions { margin-top: 15px; display: flex; gap: 10px; }
+        .course-btn { flex: 1; padding: 8px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .continue-btn { background: var(--gradient); color: white; }
+        .continue-btn:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); }
+        .details-btn { background: white; color: var(--primary); border: 1px solid var(--primary); }
+        .details-btn:hover { background: rgba(67, 97, 238, 0.1); }
+        .points-history-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        .points-history-table th, .points-history-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--light-gray); }
+        .points-history-table th { background: var(--gradient); color: white; font-weight: 600; }
+        .points-history-table tr:hover { background: rgba(67, 97, 238, 0.05); }
+        .schedule-container { margin-top: 20px; }
+        .schedule-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        .schedule-table th, .schedule-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--light-gray); }
+        .schedule-table th { background: var(--gradient); color: white; font-weight: 600; }
+        .schedule-table tr:hover { background: rgba(67, 97, 238, 0.05); }
+        .add-schedule-form { margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .add-schedule-form input, .add-schedule-form select { padding: 10px; border: 1px solid var(--light-gray); border-radius: 5px; flex: 1; min-width: 150px; }
+        .add-schedule-btn { background: var(--gradient); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: var(--transition); }
+        .add-schedule-btn:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); }
+        .certificate-container { margin-top: 20px; text-align: center; }
+        .certificate { border: 2px solid var(--primary); padding: 30px; background: #fff; border-radius: 10px; box-shadow: var(--card-shadow); margin-bottom: 20px; position: relative; background: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%); max-width: 600px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; align-items: center; }
+        .certificate-image { max-width: 100%; height: auto; border-radius: 10px; }
+        .certificate-title { font-size: 2rem; color: var(--primary-dark); margin-bottom: 10px; font-weight: 700; }
+        .certificate-subtitle { font-size: 1rem; color: var(--gray); margin-bottom: 10px; }
+        .certificate-name { font-size: 1.8rem; color: var(--darker); margin-bottom: 10px; font-weight: 600; }
+        .certificate-text { font-size: 1rem; color: var(--gray); margin-bottom: 10px; }
+        .certificate-course { font-size: 1.5rem; color: var(--primary); margin-bottom: 10px; font-weight: 600; }
+        .certificate-date { font-size: 1rem; color: var(--gray); margin-bottom: 20px; }
+        .certificate-signatures { display: flex; justify-content: space-around; margin-top: 30px; }
+        .certificate-signatures .signature p:first-child { border-top: 1px solid var(--dark); padding-top: 10px; width: 150px; }
+        .certificate-signatures .signature p:last-child { font-size: 0.9rem; color: var(--gray); }
+        .download-certificate { margin-top: 10px; background: var(--gradient); color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: var(--transition); }
+        .download-certificate:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .chatbot { position: fixed; bottom: 30px; right: 30px; z-index: 1000; }
+        .chatbot-btn { width: 70px; height: 70px; background: var(--gradient); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: var(--transition); }
+        .chatbot-btn:hover { transform: scale(1.1) rotate(10deg); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .chatbot-window { position: absolute; bottom: 85px; right: 0; width: 350px; background: white; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: none; flex-direction: column; max-height: 500px; overflow: hidden; transition: var(--transition); opacity: 0; transform: translateY(20px); }
+        .chatbot-window.active { display: flex; opacity: 1; transform: translateY(0); }
+        .chatbot-header { background: var(--gradient); color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .chatbot-title { font-weight: 700; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+        .chatbot-close { cursor: pointer; font-size: 1.2rem; transition: var(--transition); padding: 5px; border-radius: 50%; }
+        .chatbot-close:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
+        .chatbot-messages { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+        .message { padding: 12px 15px; border-radius: 12px; max-width: 85%; font-size: 0.95rem; line-height: 1.5; position: relative; animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .bot-message { background: rgba(67, 97, 238, 0.1); border-radius: 12px 12px 0 12px; margin-right: auto; }
+        .user-message { background: var(--gradient); color: white; border-radius: 12px 0 12px 12px; margin-left: auto; }
+        .message-time { font-size: 0.7rem; opacity: 0.7; margin-top: 5px; text-align: right; }
+        .chatbot-input { display: flex; padding: 15px; border-top: 1px solid var(--light-gray); background: #fafafa; }
+        .chatbot-input input { flex: 1; padding: 12px 15px; border: 1px solid var(--light-gray); border-radius: 50px 0 0 50px; outline: none; font-size: 0.95rem; transition: var(--transition); }
+        .chatbot-input input:focus { border-color: var(--primary); }
+        .chatbot-input button { background: var(--gradient); color: white; border: none; padding: 0 20px; border-radius: 0 50px 50px 0; cursor: pointer; font-size: 1.2rem; transition: var(--transition); }
+        .chatbot-input button:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); z-index: 2000; display: none; justify-content: center; align-items: center; transition: var(--transition); }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .edit-modal { background: white; border-radius: 15px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2); transform: translateY(20px); transition: var(--transition); opacity: 0; }
+        .modal-overlay.active .edit-modal { transform: translateY(0); opacity: 1; }
+        .modal-header { padding: 20px; border-bottom: 1px solid var(--light-gray); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 1.5rem; font-weight: 800; color: var(--darker); }
+        .modal-close { font-size: 1.5rem; cursor: pointer; color: var(--gray); transition: var(--transition); }
+        .modal-close:hover { color: var(--danger); transform: rotate(90deg); }
+        .modal-body { padding: 20px; }
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--dark); }
+        .form-control { width: 100%; padding: 12px 15px; border: 1px solid var(--light-gray); border-radius: 8px; font-size: 1rem; transition: var(--transition); }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1); outline: none; }
+        textarea.form-control { min-height: 120px; resize: vertical; }
+        .form-row { display: flex; gap: 15px; }
+        .form-row .form-group { flex: 1; }
+        .modal-footer { padding: 20px; border-top: 1px solid var(--light-gray); display: flex; justify-content: flex-end; gap: 15px; }
+        .btn { padding: 12px 25px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: var(--transition); border: none; font-size: 1rem; }
+        .btn-primary { background: var(--gradient); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #03278a 0%, #a02f09 100%); transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
+        .btn-secondary { background: white; color: var(--dark); border: 1px solid var(--light-gray); }
+        .btn-secondary:hover { background: var(--light-gray); transform: translateY(-2px); }
+        .btn-danger { background: var(--danger); color: white; padding: 8px 15px; border-radius: 5px; }
+        .btn-danger:hover { background: #b91c1c; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3); }
+        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; font-weight: 500; transform: translateX(100%); transition: transform 0.3s ease; z-index: 3000; }
+        .notification.show { transform: translateX(0); }
+        .notification.success { background: var(--success); }
+        .notification.error { background: var(--danger); }
+        .notification.info { background: var(--primary); }
+        @media (max-width: 992px) { .profile-picture-container { left: 30px; bottom: -60px; } .profile-picture { width: 150px; height: 150px; } .cover-photo { height: 280px; } }
+        @media (max-width: 768px) { .profile-picture-container { left: 20px; bottom: -50px; } .profile-picture { width: 130px; height: 130px; } .cover-photo { height: 240px; } .profile-name { font-size: 1.8rem; } .profile-title { font-size: 1.1rem; } .personal-info { grid-template-columns: 1fr; } .courses-grid { grid-template-columns: 1fr; } .chatbot { bottom: 20px; right: 20px; } .chatbot-btn { width: 60px; height: 60px; font-size: 1.5rem; } .chatbot-window { width: 300px; max-height: 400px; } }
+        @media (max-width: 576px) { .profile-picture-container { left: 15px; bottom: -40px; } .profile-picture { width: 110px; height: 110px; border-width: 4px; } .upload-photo { width: 35px; height: 35px; bottom: 10px; right: 10px; } .cover-photo { height: 200px; } .profile-actions { flex-direction: column; } .edit-profile, .contact-btn { width: 100%; justify-content: center; } .chatbot-window { width: 280px; right: 10px; } }
+        .pulse-animation { animation: pulse 2s infinite; }
+        .floating-animation { animation: floating 3s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+        @keyframes floating { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        [data-aos] { opacity: 0; transition: all 0.8s ease-out; }
+        [data-aos="fade-up"] { transform: translateY(30px); }
+        [data-aos].aos-animate { opacity: 1; transform: translate(0); }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo"><i class="fas fa-cloud"></i> CloudMars</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Courses</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="index.html">About</a></li>
+                <li><a href="index.html">Contact</a></li>
+                <li>
+                    <a href="login.html" class="cta-button" id="logoutBtn" onclick="logout()">Logout</a>
+                    <a href="profile.html" class="profile-btn" id="profileBtn" style="display:none;">
+                        <img id="profileAvatar" src="avatar.jpeg" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%;">
+                        <span id="profileNameShort"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-header">
+            <div class="cover-photo"><img src="https://via.placeholder.com/1200x350" alt="Cover Photo"><div class="cover-overlay"></div></div>
+            <div class="profile-picture-container">
+                <div class="profile-picture floating-animation">
+                    <img src="https://via.placeholder.com/180" alt="Profile Picture" id="profileImage" crossOrigin="anonymous" loading="lazy">
+                    <label class="upload-photo">
+                        <i class="fas fa-camera"></i>
+                        <input type="file" accept="image/*" id="profileUpload" onchange="uploadProfilePicture(event)">
+                    </label>
+                </div>
+                <div class="profile-level"><i class="fas fa-medal"></i> <span id="userLevel">Silver Level</span></div>
+            </div>
+        </div>
+
+        <div class="profile-info" data-aos="fade-up">
+            <h1 class="profile-name" id="profileName"></h1>
+            <p class="profile-title" id="profileTitle"></p>
+            <p class="profile-bio" id="profileBio"></p>
+            <div class="profile-actions">
+                <button class="edit-profile" onclick="openEditModal()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+                <button class="contact-btn">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </button>
+            </div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
+            <div class="personal-info">
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="info-content">
+                        <div class="info-label">Email</div>
+                        <div class="info-value" id="email"></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone"></i>
+                    <div class="info-content">
+                        <div class="info-label">Phone</div>
+                        <div class="info-value" id="phone"></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="info-content">
+                        <div class="info-label">Address</div>
+                        <div class="info-value" id="address"></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div class="info-content">
+                        <div class="info-label">Birthdate</div>
+                        <div class="info-value" id="birthdate"></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="info-content">
+                        <div class="info-label">Education</div>
+                        <div class="info-value" id="education"></div>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-briefcase"></i>
+                    <div class="info-content">
+                        <div class="info-label">Current Job</div>
+                        <div class="info-value" id="job"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-code"></i> Skills</h2>
+            <div class="skills-container" id="skillsContainer"></div>
+            <div class="add-skill">
+                <input type="text" placeholder="Add a new skill" id="newSkillInput">
+                <button onclick="addSkill()"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-book"></i> Enrolled Courses</h2>
+            <div class="courses-grid" id="coursesContainer"></div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-coins"></i> Points</h2>
+            <div class="points-card">
+                <div class="points-title">
+                    <i class="fas fa-coins"></i> Total Points
+                </div>
+                <div class="points-count" id="pointsCount">0</div>
+            </div>
+            <div class="points-history" id="pointsHistory">
+                <h3 class="section-title" style="font-size: 1.4rem; margin-top: 20px;">
+                    <i class="fas fa-history"></i> Points History
+                </h3>
+            </div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up">
+            <h2 class="section-title"><i class="fas fa-calendar"></i> Course Schedule</h2>
+            <div class="schedule-container">
+                <table class="schedule-table" id="scheduleTable">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scheduleBody"></tbody>
+                </table>
+                <div class="add-schedule-form">
+                    <select id="scheduleCourse">
+                        <option value="">Select Course</option>
+                    </select>
+                    <select id="scheduleDay">
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                    </select>
+                    <input type="time" id="scheduleTime">
+                    <input type="text" id="scheduleLocation" placeholder="Location">
+                    <button class="add-schedule-btn" onclick="addSchedule()">Add to Schedule</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-section" data-aos="fade-up" id="certificateSection">
+            <h2 class="section-title"><i class="fas fa-certificate"></i> Course Completion Certificates</h2>
+            <div class="certificate-container" id="certificateContainer">
+            </div>
+        </div>
+
+        <div class="chatbot">
+            <div class="chatbot-btn pulse-animation" onclick="toggleChatbot()">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="chatbot-window" id="chatbotWindow">
+                <div class="chatbot-header">
+                    <div class="chatbot-title">
+                        <i class="fas fa-robot"></i> CloudMars Assistant
+                    </div>
+                    <span class="chatbot-close" onclick="toggleChatbot()">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </div>
+                <div class="chatbot-messages" id="chatbotMessages">
+                    <div class="message bot-message">
+                        Hello! I'm the CloudMars Assistant. How can I help you today? Try asking about your courses or schedule!
+                        <div class="message-time">Just now</div>
+                    </div>
+                </div>
+                <div class="chatbot-input">
+                    <input type="text" placeholder="Type your message..." id="chatbotInput" onkeypress="handleChatInput(event)">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="editModal">
+            <div class="edit-modal">
+                <div class="modal-header">
+                    <h3 class="modal-title"><i class="fas fa-user-edit"></i> Edit Profile</h3>
+                    <span class="modal-close" onclick="closeEditModal()">×</span>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="editFirstName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="editLastName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="editJobTitle">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">About You</label>
+                        <textarea class="form-control" id="editBio"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="editPhone">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Birthdate</label>
+                            <input type="text" class="form-control" id="editBirthdate">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" id="editAddress">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Education</label>
+                            <input type="text" class="form-control" id="editEducation">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Current Job</label>
+                            <input type="text" class="form-control" id="editJob">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeEditModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="notificationContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="module">
+import { 
+    auth, 
+    db, 
+    storage,
+    onAuthStateChanged, 
+    signOut,
+    doc, 
+    getDoc, 
+    updateDoc,
+    collection,
+    getDocs,
+    addDoc,
+    deleteDoc,
+    ref, 
+    uploadBytes, 
+    getDownloadURL,
+    onSnapshot
+} from './firebaseauth.js';
+
+let currentUserData = null;
+
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        try {
+            const userDocRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userDocRef);
+            
+            if (userDoc.exists()) {
+                currentUserData = userDoc.data();
+                displayUserData(currentUserData);
+                
+                const profileImage = document.getElementById('profileImage');
+                if (currentUserData.profilePicture) {
+                    loadImageWithRetry(profileImage, currentUserData.profilePicture);
+                } else {
+                    profileImage.src = 'https://via.placeholder.com/180';
+                }
+                
+                await loadCourses(user.uid);
+                await loadSchedule(user.uid);
+                await loadCertificates(user.uid);
+                updateUserLevel();
+                displayPointsHistory();
+
+                onSnapshot(userDocRef, (doc) => {
+                    if (doc.exists()) {
+                        currentUserData = doc.data();
+                        displayUserData(currentUserData);
+                        displayPointsHistory();
+                        updateUserLevel();
+                        loadCertificates(user.uid);
+                        const profileImage = document.getElementById('profileImage');
+                        if (currentUserData.profilePicture) {
+                            loadImageWithRetry(profileImage, currentUserData.profilePicture);
+                        } else {
+                            profileImage.src = 'https://via.placeholder.com/180';
+                        }
+                    }
+                }, (error) => {
+                    console.error("Error in onSnapshot:", error);
+                    showNotification('Error syncing profile data', 'error');
+                });
+            } else {
+                console.error("No user document found");
+                showNotification('User data not found', 'error');
+            }
+        } catch (error) {
+            console.error("Error loading user data:", error);
+            showNotification('Error loading profile data', 'error');
+        }
+    } else {
+        window.location.href = "login.html";
+    }
+});
+
+async function loadImageWithRetry(imgElement, url, retries = 3, delay = 2000) {
+    const fetchImage = async (url) => {
+        try {
+            const response = await fetch(url, { method: 'GET', mode: 'cors' });
+            if (!response.ok) throw new Error('Network response was not ok');
+            const blob = await response.blob();
+            const objectURL = URL.createObjectURL(blob);
+            imgElement.src = objectURL;
+            console.log("Image loaded successfully as Blob:", url);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+    const tryLoadImage = async (attempts) => {
+        try {
+            await fetchImage(url);
+        } catch (error) {
+            if (attempts > 0) {
+                console.warn(`Failed to load image, retrying (${attempts} attempts left)...`);
+                setTimeout(() => tryLoadImage(attempts - 1), delay);
+            } else {
+                console.error("Failed to load image after all retries:", url);
+                imgElement.src = 'https://via.placeholder.com/180';
+                showNotification('Failed to load profile picture, using default', 'error');
+            }
+        }
+    };
+
+    await tryLoadImage(retries);
+}
+
+function displayUserData(userData) {
+    document.getElementById('profileName').textContent = `${userData.firstName || ''} ${userData.lastName || ''}`;
+    document.getElementById('profileTitle').textContent = userData.major || 'No major provided';
+    document.getElementById('profileBio').textContent = userData.bio || 'No bio provided';
+    document.getElementById('email').textContent = userData.email || 'Not provided';
+    document.getElementById('phone').textContent = userData.phone || 'Not provided';
+    document.getElementById('address').textContent = userData.address || 'Not provided';
+    document.getElementById('birthdate').textContent = userData.age || 'Not provided';
+    document.getElementById('education').textContent = userData.university || 'Not provided';
+    document.getElementById('job').textContent = userData.major || 'Not provided';
+    document.getElementById('pointsCount').textContent = userData.points || 0;
+    
+    document.getElementById('editFirstName').value = userData.firstName || '';
+    document.getElementById('editLastName').value = userData.lastName || '';
+    document.getElementById('editJobTitle').value = userData.major || '';
+    document.getElementById('editBio').value = userData.bio || '';
+    document.getElementById('editEmail').value = userData.email || '';
+    document.getElementById('editPhone').value = userData.phone || '';
+    document.getElementById('editBirthdate').value = userData.age || '';
+    document.getElementById('editAddress').value = userData.address || '';
+    document.getElementById('editEducation').value = userData.university || '';
+    document.getElementById('editJob').value = userData.major || '';
+    
+    const skillsContainer = document.getElementById('skillsContainer');
+    skillsContainer.innerHTML = '';
+    (userData.skills || []).forEach(skill => {
+        const skillElement = document.createElement('div');
+        skillElement.className = 'skill';
+        skillElement.innerHTML = `<span>${skill}</span><i class="fas fa-times" onclick="removeSkill('${skill}')"></i>`;
+        skillsContainer.appendChild(skillElement);
+    });
+}
+
+function displayPointsHistory() {
+    const pointsHistoryContainer = document.getElementById('pointsHistory');
+    pointsHistoryContainer.innerHTML = '';
+    
+    const pointsHistory = currentUserData.pointsHistory || [];
+    
+    if (pointsHistory.length === 0) {
+        pointsHistoryContainer.innerHTML = '<p>No points history available.</p>';
+        return;
+    }
+
+    const pointsByCourse = {};
+    pointsHistory.forEach(entry => {
+        const courseId = entry.courseId || 'General';
+        if (!pointsByCourse[courseId]) {
+            pointsByCourse[courseId] = {
+                courseName: currentUserData.enrolledCourses?.find(c => c.courseId === courseId)?.courseName || courseId,
+                points: 0,
+                entries: []
+            };
+        }
+        pointsByCourse[courseId].points += entry.points;
+        pointsByCourse[courseId].entries.push(entry);
+    });
+
+    Object.entries(pointsByCourse).forEach(([courseId, data]) => {
+        const courseSection = document.createElement('div');
+        courseSection.className = 'course-points-section';
+        courseSection.innerHTML = `
+            <h3 class="course-points-title">${data.courseName}</h3>
+            <p>Total Points: ${data.points}</p>
+            <table class="points-history-table">
+                <thead>
+                    <tr>
+                        <th>Points</th>
+                        <th>Source</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.entries.map(entry => `
+                        <tr>
+                            <td>${entry.points}</td>
+                            <td>${entry.source}</td>
+                            <td>${new Date(entry.timestamp).toLocaleString()}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        pointsHistoryContainer.appendChild(courseSection);
+    });
+}
+
+async function loadCourses(userId) {
+    try {
+        const userDocRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userDocRef);
+        
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist");
+        }
+        
+        const userData = userDoc.data();
+        const enrolledCourses = userData.enrolledCourses || [];
+        const coursesContainer = document.getElementById('coursesContainer');
+        const scheduleCourseSelect = document.getElementById('scheduleCourse');
+        coursesContainer.innerHTML = '';
+        scheduleCourseSelect.innerHTML = '<option value="">Select Course</option>';
+        
+        if (enrolledCourses.length === 0) {
+            coursesContainer.innerHTML = '<p>No enrolled courses yet.</p>';
+            return;
+        }
+        
+        const uniqueCourses = Array.from(
+            new Map(enrolledCourses.map((course) => [course.courseId, course])).values()
+        );
+        
+        uniqueCourses.forEach(course => {
+            const courseElement = document.createElement('div');
+            courseElement.className = 'course-card';
+            courseElement.innerHTML = `
+                <div class="course-info">
+                    <h3 class="course-title">${course.courseName}</h3>
+                    <div class="course-stats">
+                        <span>Enrolled on: ${new Date(course.enrollmentDate).toLocaleDateString()}</span>
+                        <span>Status: ${course.status || 'Active'}</span>
+                    </div>
+                    <div class="course-actions">
+                        <button class="course-btn continue-btn" onclick="window.location.href='${course.courseUrl}'">
+                            <i class="fas fa-play"></i> Continue
+                        </button>
+                        <button class="course-btn details-btn">
+                            <i class="fas fa-info-circle"></i> Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            coursesContainer.appendChild(courseElement);
+            
+            const option = document.createElement('option');
+            option.value = course.courseName;
+            option.textContent = course.courseName;
+            scheduleCourseSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error loading courses:", error);
+        showNotification('Error loading courses', 'error');
+    }
+}
+
+async function loadSchedule(userId) {
+    const scheduleBody = document.getElementById('scheduleBody');
+    scheduleBody.innerHTML = '<tr><td colspan="5">Loading...</td></tr>';
+
+    try {
+        const scheduleSnapshot = await getDocs(collection(db, "users", userId, "schedule"));
+        scheduleBody.innerHTML = '';
+
+        if (scheduleSnapshot.empty) {
+            scheduleBody.innerHTML = '<tr><td colspan="5">No schedules added yet.</td></tr>';
+            return;
+        }
+
+        scheduleSnapshot.forEach(doc => {
+            const schedule = { id: doc.id, ...doc.data() };
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${schedule.course}</td>
+                <td>${schedule.day}</td>
+                <td>${schedule.time}</td>
+                <td>${schedule.location}</td>
+                <td><button class="btn btn-danger" onclick="removeSchedule('${schedule.id}')">Remove</button></td>
+            `;
+            scheduleBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error loading schedule:", error);
+        showNotification('Error loading schedule', 'error');
+        scheduleBody.innerHTML = '<tr><td colspan="5">Failed to load schedule</td></tr>';
+    }
+}
+
+window.addSchedule = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const course = document.getElementById('scheduleCourse').value;
+    const day = document.getElementById('scheduleDay').value;
+    const time = document.getElementById('scheduleTime').value;
+    const location = document.getElementById('scheduleLocation').value.trim();
+
+    if (!course || !day || !time || !location || location.length > 100) {
+        showNotification('Please fill all fields correctly (location max 100 characters)', 'error');
+        return;
+    }
+
+    try {
+        const scheduleSnapshot = await getDocs(collection(db, "users", user.uid, "schedule"));
+        const exists = scheduleSnapshot.docs.some(doc => {
+            const data = doc.data();
+            return data.course === course && data.day === day && data.time === time;
+        });
+        if (exists) {
+            showNotification('This schedule already exists', 'error');
+            return;
+        }
+
+        const scheduleRef = collection(db, "users", user.uid, "schedule");
+        await addDoc(scheduleRef, { 
+            course, 
+            day, 
+            time, 
+            location, 
+            createdAt: new Date() 
+        });
+        
+        showNotification('Schedule added successfully', 'success');
+        await loadSchedule(user.uid);
+        
+        document.getElementById('scheduleCourse').value = '';
+        document.getElementById('scheduleDay').value = 'Monday';
+        document.getElementById('scheduleTime').value = '';
+        document.getElementById('scheduleLocation').value = '';
+    } catch (error) {
+        console.error("Error adding schedule:", error);
+        showNotification('Error adding schedule', 'error');
+    }
+};
+
+window.removeSchedule = async function(scheduleId) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        await deleteDoc(doc(db, "users", user.uid, "schedule", scheduleId));
+        showNotification('Schedule removed', 'info');
+        await loadSchedule(user.uid);
+    } catch (error) {
+        console.error("Error removing schedule:", error);
+        showNotification('Error removing schedule', 'error');
+    }
+};
+
+function updateUserLevel() {
+    const points = currentUserData.points || 0;
+    let level = 'Bronze';
+    if (points >= 1000) level = 'Silver';
+    if (points >= 2000) level = 'Gold';
+    document.getElementById('userLevel').textContent = `${level} Level`;
+}
+
+window.uploadProfilePicture = function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+window.saveProfile = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const updatedData = {
+            firstName: document.getElementById('editFirstName').value,
+            lastName: document.getElementById('editLastName').value,
+            major: document.getElementById('editJobTitle').value,
+            bio: document.getElementById('editBio').value,
+            email: document.getElementById('editEmail').value,
+            phone: document.getElementById('editPhone').value,
+            age: document.getElementById('editBirthdate').value,
+            address: document.getElementById('editAddress').value,
+            university: document.getElementById('editEducation').value,
+            major: document.getElementById('editJob').value,
+            updatedAt: new Date()
+        };
+
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, updatedData);
+        
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            currentUserData = userDoc.data();
+            displayUserData(currentUserData);
+            displayPointsHistory();
+        }
+        
+        showNotification('Profile updated successfully', 'success');
+        closeEditModal();
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        showNotification('Error updating profile', 'error');
+    }
+};
+
+window.addSkill = async function() {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const input = document.getElementById('newSkillInput');
+    const skillName = input.value.trim();
+
+    if (skillName) {
+        try {
+            const currentSkills = currentUserData.skills || [];
+            currentSkills.push(skillName);
+            
+            const userDocRef = doc(db, "users", user.uid);
+            await updateDoc(userDocRef, { skills: currentSkills });
+            
+            currentUserData.skills = currentSkills;
+            
+            const skillsContainer = document.getElementById('skillsContainer');
+            const newSkill = document.createElement('div');
+            newSkill.className = 'skill';
+            newSkill.innerHTML = `<span>${skillName}</span><i class="fas fa-times" onclick="removeSkill('${skillName}')"></i>`;
+            skillsContainer.appendChild(newSkill);
+            
+            input.value = '';
+            showNotification('Skill added successfully', 'success');
+        } catch (error) {
+            console.error("Error adding skill:", error);
+            showNotification('Error adding skill', 'error');
+        }
+    }
+};
+
+window.removeSkill = async function(skillName) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    try {
+        const currentSkills = currentUserData.skills || [];
+        const updatedSkills = currentSkills.filter(skill => skill !== skillName);
+        
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, { skills: updatedSkills });
+        
+        currentUserData.skills = updatedSkills;
+        
+        const skillsContainer = document.getElementById('skillsContainer');
+        skillsContainer.innerHTML = '';
+        updatedSkills.forEach(skill => {
+            const skillElement = document.createElement('div');
+            skillElement.className = 'skill';
+            skillElement.innerHTML = `<span>${skill}</span><i class="fas fa-times" onclick="removeSkill('${skill}')"></i>`;
+            skillsContainer.appendChild(skillElement);
+        });
+        
+        showNotification('Skill removed', 'info');
+    } catch (error) {
+        console.error("Error removing skill:", error);
+        showNotification('Error removing skill', 'error');
+    }
+};
+
+async function loadCertificates(userId) {
+    try {
+        const userDocRef = doc(db, "users", userId);
+        const userDoc = await getDoc(userDocRef);
+        
+        if (!userDoc.exists()) {
+            throw new Error("User document does not exist");
+        }
+        
+        const userData = userDoc.data();
+        const enrolledCourses = userData.enrolledCourses || [];
+        const certificateContainer = document.getElementById('certificateContainer');
+        certificateContainer.innerHTML = '';
+
+        if (enrolledCourses.length === 0) {
+            certificateContainer.innerHTML = '<p>No completed courses yet.</p>';
+            return;
+        }
+
+        enrolledCourses.forEach(course => {
+            const completionDate = course.completionDate ? new Date(course.completionDate).toLocaleDateString() : 'Not completed';
+            const isCompleted = !!course.completionDate;
+
+            const certificateDiv = document.createElement('div');
+            certificateDiv.className = 'certificate';
+            certificateDiv.innerHTML = `
+                <img src="https://via.placeholder.com/500x300" alt="Certificate Placeholder" class="certificate-image">
+                <h1 class="certificate-title">Certificate of Completion</h1>
+                <p class="certificate-subtitle">Awarded to</p>
+                <h2 class="certificate-name">${userData.firstName || 'User'} ${userData.lastName || ''}</h2>
+                <p class="certificate-text">In recognition of outstanding achievement in</p>
+                <h3 class="certificate-course">${course.courseName || 'Course Name'}</h3>
+                <p class="certificate-date">Date: ${completionDate}</p>
+                <div class="certificate-signatures">
+                    <div class="signature"><p>____________________</p><p>Manager</p></div>
+                    <div class="signature"><p>____________________</p><p>Instructor</p></div>
+                </div>
+            `;
+
+            const downloadButton = document.createElement('button');
+            downloadButton.className = 'download-certificate';
+            downloadButton.innerHTML = `<i class="fas fa-download"></i> Download Certificate`;
+            downloadButton.onclick = () => downloadCertificate(course, userData);
+
+            const containerDiv = document.createElement('div');
+            containerDiv.className = 'certificate-container';
+            containerDiv.appendChild(certificateDiv);
+            containerDiv.appendChild(downloadButton);
+
+            certificateContainer.appendChild(containerDiv);
+        });
+    } catch (error) {
+        console.error("Error loading certificates:", error);
+        showNotification('Error loading certificates', 'error');
+    }
+}
+
+window.downloadCertificate = function(course, userData) {
+    if (!course.completionDate) {
+        showNotification('You must complete the course to download the certificate', 'error');
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const completionDate = new Date(course.completionDate).toLocaleDateString();
+
+    doc.setFontSize(22);
+    doc.text('Certificate of Completion', 105, 30, null, null, 'center');
+    doc.setFontSize(12);
+    doc.text('Awarded to', 105, 50, null, null, 'center');
+    doc.setFontSize(18);
+    doc.text(`${userData.firstName || ''} ${userData.lastName || ''}`, 105, 70, null, null, 'center');
+    doc.setFontSize(12);
+    doc.text('In recognition of outstanding achievement in', 105, 90, null, null, 'center');
+    doc.setFontSize(16);
+    doc.text(course.courseName || 'Course Name', 105, 110, null, null, 'center');
+    doc.setFontSize(12);
+    doc.text(`Date: ${completionDate}`, 105, 130, null, null, 'center');
+
+    doc.setFontSize(10);
+    doc.text('____________________', 70, 150);
+    doc.text('Manager', 70, 160);
+    doc.text('____________________', 140, 150);
+    doc.text('Instructor', 140, 160);
+
+    doc.save(`certificate_${course.courseId || 'course'}.pdf`);
+};
+
+window.toggleChatbot = function() {
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    chatbotWindow.classList.toggle('active');
+};
+
+window.handleChatInput = function(event) {
+    if (event.key === 'Enter') {
+        sendMessage();
+    }
+};
+
+window.sendMessage = async function() {
+    const input = document.getElementById('chatbotInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    const messagesContainer = document.getElementById('chatbotMessages');
+    const userMessage = document.createElement('div');
+    userMessage.className = 'message user-message';
+    userMessage.innerHTML = `${message}<div class="message-time">${new Date().toLocaleTimeString()}</div>`;
+    messagesContainer.appendChild(userMessage);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    input.value = '';
+
+    let botResponse = "I'm not sure how to respond to that. Can you provide more details?";
+    if (message.toLowerCase().includes('course') || message.toLowerCase().includes('courses')) {
+        botResponse = `You're enrolled in ${currentUserData.enrolledCourses?.length || 0} courses. Want to see your progress or schedule details?`;
+    } else if (message.toLowerCase().includes('schedule')) {
+        botResponse = `I can help with your course schedule! Would you like to add a new schedule entry or view your current schedule?`;
+    } else if (message.toLowerCase().includes('points')) {
+        botResponse = `You currently have ${currentUserData.points || 0} points. Keep up the great work! Want tips on earning more points?`;
+    } else if (message.toLowerCase().includes('help')) {
+        botResponse = `I'm here to assist! You can ask about your courses, schedule, points, or anything else related to your CloudMars profile.`;
+    }
+
+    const botMessage = document.createElement('div');
+    botMessage.className = 'message bot-message';
+    botMessage.innerHTML = `${botResponse}<div class="message-time">${new Date().toLocaleTimeString()}</div>`;
+    setTimeout(() => {
+        messagesContainer.appendChild(botMessage);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 1000);
+};
+
+window.openEditModal = function() {
+    document.getElementById('editModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeEditModal = function() {
+    document.getElementById('editModal').classList.remove('active');
+    document.body.style.overflow = 'auto';
+};
+
+window.logout = async function() {
+    try {
+        await signOut(auth);
+        window.location.href = 'login.html';
+    } catch (error) {
+        console.error("Logout error:", error);
+        showNotification('Failed to logout', 'error');
+    }
+};
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.classList.add('show'), 10);
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+function initAnimations() {
+    const elements = document.querySelectorAll('[data-aos]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('aos-animate');
+            }
+        });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initAnimations();
+    
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', window.logout);
+    }
+    
+    const skillInput = document.getElementById('newSkillInput');
+    if (skillInput) {
+        skillInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                addSkill();
+            }
+        });
+    }
+
+    const profileImage = document.getElementById('profileImage');
+    if (profileImage) {
+        profileImage.onerror = function() {
+            this.src = 'https://via.placeholder.com/180';
+        };
+    }
+});
+    </script>
+</body>
+</html>
